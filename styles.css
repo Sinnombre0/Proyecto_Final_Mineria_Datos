@@ -1,0 +1,231 @@
+/* =========================================================
+   ESTILOS PERSONALIZADOS — Proyecto Minería de Datos UNAM
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --unam-azul:   #003f8a;
+  --unam-dorado: #c8a951;
+  --accent:      #1a6fd4;
+  --bg-light:    #f7f9fc;
+  --text-main:   #1c2235;
+  --text-muted:  #5a6475;
+  --card-bg:     #ffffff;
+  --border:      #dde3ef;
+  --code-bg:     #f0f4fa;
+}
+
+/* ── Base ─────────────────────────────────────────── */
+body {
+  font-family: 'Sora', sans-serif;
+  color: var(--text-main);
+  background: var(--bg-light);
+  line-height: 1.75;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  color: var(--unam-azul);
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Navbar ───────────────────────────────────────── */
+.navbar {
+  background: var(--unam-azul) !important;
+  border-bottom: 3px solid var(--unam-dorado);
+  padding: 0.6rem 1.5rem;
+}
+
+.navbar-brand, .nav-link {
+  color: #ffffff !important;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.nav-link:hover {
+  color: var(--unam-dorado) !important;
+  transition: color 0.2s;
+}
+
+/* ── Hero banner (index) ─────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, var(--unam-azul) 0%, #00285c 100%);
+  color: #fff;
+  padding: 4rem 2rem 3rem;
+  border-radius: 12px;
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.hero h1 {
+  color: #fff;
+  font-size: 2.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero .subtitle {
+  color: var(--unam-dorado);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  color: rgba(255,255,255,0.85);
+  max-width: 680px;
+}
+
+/* ── Tarjetas de equipo / info ────────────────────── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+
+.info-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--unam-dorado);
+  border-radius: 8px;
+  padding: 1.2rem 1.4rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.info-card:hover {
+  box-shadow: 0 6px 20px rgba(0,63,138,0.1);
+  transform: translateY(-2px);
+}
+
+.info-card h4 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+
+.info-card p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--unam-azul);
+  margin: 0;
+}
+
+/* ── Callouts personalizados ─────────────────────── */
+.callout {
+  border-radius: 8px;
+  border-left-width: 5px;
+}
+
+/* ── Tablas ──────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  margin: 1.5rem 0;
+}
+
+thead tr {
+  background: var(--unam-azul);
+  color: #fff;
+}
+
+thead th {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) { background: #eef2fa; }
+tbody tr:hover           { background: #dde6f5; transition: background 0.15s; }
+
+tbody td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Badges de estado ────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.7em;
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.badge-blue   { background: #dbeafe; color: var(--unam-azul); }
+.badge-gold   { background: #fef3c7; color: #92400e; }
+.badge-green  { background: #d1fae5; color: #065f46; }
+
+/* ── Código ──────────────────────────────────────── */
+pre {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+/* ── Footer ──────────────────────────────────────── */
+.quarto-footer {
+  border-top: 2px solid var(--unam-dorado);
+  padding: 1.2rem 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ── TOC sidebar ─────────────────────────────────── */
+#quarto-sidebar {
+  border-right: 1px solid var(--border);
+}
+
+.sidebar-title {
+  color: var(--unam-azul) !important;
+  font-weight: 700;
+}
+
+/* ── Progress steps ──────────────────────────────── */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 1.5rem 0;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+}
+
+.step-num {
+  min-width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--unam-azul);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.step-body h5 { margin: 0 0 0.2rem; color: var(--unam-azul); }
+.step-body p  { margin: 0; font-size: 0.9rem; color: var(--text-muted); }

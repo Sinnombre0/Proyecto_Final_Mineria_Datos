@@ -1,0 +1,112 @@
+---
+title: "Proyecto Final — Almacenes y Minería de Datos"
+format:
+  html:
+    toc: false
+---
+
+::: {.hero}
+# 📊 Nombre del Proyecto
+::: {.subtitle}
+Almacenes y Minería de Datos · Facultad de Ciencias · UNAM · 2025-2
+:::
+Descripción breve del problema que aborda el proyecto: qué se analiza, con qué datos y qué se busca lograr.
+:::
+
+---
+
+## 👥 Equipo
+
+::: {.card-grid}
+::: {.info-card}
+#### Integrante 1
+Nombre Completo  
+`No. cuenta: XXXXXXXXX`
+:::
+::: {.info-card}
+#### Integrante 2
+Nombre Completo  
+`No. cuenta: XXXXXXXXX`
+:::
+::: {.info-card}
+#### Integrante 3
+Nombre Completo  
+`No. cuenta: XXXXXXXXX`
+:::
+::: {.info-card}
+#### Integrante 4
+Nombre Completo  
+`No. cuenta: XXXXXXXXX`
+:::
+:::
+
+::: {.info-card}
+#### 🎓 Docentes
+**Profesora:** Jessica Santizo Galicia  
+**Ayudante de Teoría:** Diego Antonio Villalba González  
+**Ayudante de Laboratorio:** Ares Gael Castro Romero
+:::
+
+---
+
+## 📋 Descripción del Problema
+
+> **Área temática:** <!-- ej. Seguridad pública / Salud / Educación / etc. -->
+
+### ¿Cuál es el problema?
+
+Descripción concreta y acotada del fenómeno que se analiza.
+
+### ¿Por qué es relevante?
+
+Impacto social, económico o ambiental. Evidencia de que el problema existe y es significativo.
+
+### ¿Qué se busca lograr?
+
+Objetivo claro y medible del análisis (predecir / segmentar / identificar patrones).
+
+### ¿Por qué este dataset?
+
+Pertinencia de los datos elegidos para responder el objetivo planteado.
+
+---
+
+## 🗂️ Dataset
+
+| Atributo          | Valor |
+|-------------------|-------|
+| **Nombre**        | Nombre del dataset |
+| **Fuente**        | [Nombre de la fuente](URL) |
+| **Registros**     | ≥ 100 000 filas |
+| **Variables**     | ≥ 8 columnas |
+| **Tipos**         | Numéricas y categóricas |
+| **Última actualización** | AAAA-MM-DD |
+| **Licencia**      | Datos abiertos |
+
+---
+
+## 🗺️ Estructura del Proyecto
+
+```
+Proyecto_Mineria_Datos/
+├── data/           # Datos crudos y procesados
+├── notebooks/      # EDA, modelado y clustering
+├── src/            # Código fuente Python (clases, módulos)
+├── models/         # Modelos serializados (.pkl / .joblib)
+├── reports/        # Reporte PDF y slides
+├── diagrams/       # Diagrama UML
+├── docs/           # Sitio Quarto (GitHub Pages)
+├── _quarto.yml
+├── README.md
+├── requirements.txt
+└── .gitignore
+```
+
+---
+
+## 🔗 Recursos
+
+- 📁 [Repositorio GitHub](https://github.com/TU_USUARIO/TU_REPO)
+- 📄 [Reporte Final PDF](reports/reporte_final.pdf)
+- 🎬 [Video de Exposición](URL_VIDEO)
+- 📦 [Dataset original](URL_DATASET)

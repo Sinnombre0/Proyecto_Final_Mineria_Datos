@@ -1,0 +1,243 @@
+---
+title: "Modelo Supervisado"
+---
+
+::: {.callout-note}
+**Tarea:** <!-- Clasificación / Regresión -->  
+**Variable objetivo:** `nombre_columna` — justificación de por qué esta variable es la más adecuada para el objetivo del proyecto.
+:::
+
+---
+
+## 1. Definición de la Variable Objetivo
+
+Describe qué se predice y por qué esa variable es la más adecuada. Incluye:
+
+- Dominio de valores (clases o rango continuo)
+- Distribución / balance de clases (enlazar al EDA)
+- Justificación en términos del problema real
+
+---
+
+## 2. Preprocesamiento
+
+```{python}
+#| label: preprocesamiento
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+
+# ── Cargar datos procesados ────────────────────────────────────────────────
+# from src.data_repository import DataRepository
+# df = DataRepository().load_processed()
+
+# Separar features y objetivo
+# X = df.drop(columns=["variable_objetivo"])
+# y = df["variable_objetivo"]
+
+# ── Identificar tipos de columnas ─────────────────────────────────────────
+# num_features  = X.select_dtypes(include="number").columns.tolist()
+# cat_features  = X.select_dtypes(include="object").columns.tolist()
+
+# ── Preprocesador ─────────────────────────────────────────────────────────
+# preprocessor = ColumnTransformer([
+#     ("num", StandardScaler(), num_features),
+#     ("cat", OneHotEncoder(handle_unknown="ignore", sparse_output=False), cat_features),
+# ])
+
+print("Preprocesador definido ✅")
+```
+
+---
+
+## 3. Selección de Variables de Entrada
+
+::: {.callout-tip}
+**Variables incluidas y excluidas:**
+
+| Variable | Incluida | Justificación |
+|----------|----------|---------------|
+| `var_1` | ✅ | Alta correlación con el objetivo (r = 0.XX) |
+| `var_2` | ✅ | Relevancia de dominio |
+| `id_registro` | ❌ | Identificador, no predictivo |
+| `fecha_raw` | ❌ | Sustituida por variables derivadas |
+:::
+
+---
+
+## 4. División Entrenamiento / Prueba
+
+```{python}
+#| label: split
+
+SEED = 42
+
+# X_train, X_test, y_train, y_test = train_test_split(
+#     X, y, test_size=0.2, random_state=SEED, stratify=y  # stratify si es clasificación
+# )
+
+# print(f"Entrenamiento : {X_train.shape[0]:,} registros")
+# print(f"Prueba        : {X_test.shape[0]:,} registros")
+```
+
+---
+
+## 5. Entrenamiento y Ajuste de Hiperparámetros
+
+```{python}
+#| label: entrenamiento
+from sklearn.ensemble import RandomForestClassifier   # cambia según tu modelo
+from sklearn.model_selection import GridSearchCV, StratifiedKFold
+
+# ── Pipeline completo ─────────────────────────────────────────────────────
+# model_pipeline = Pipeline([
+#     ("preprocessor", preprocessor),
+#     ("classifier",   RandomForestClassifier(random_state=SEED)),
+# ])
+
+# ── Búsqueda de hiperparámetros ───────────────────────────────────────────
+# param_grid = {
+#     "classifier__n_estimators": [100, 200],
+#     "classifier__max_depth":    [None, 10, 20],
+#     "classifier__min_samples_split": [2, 5],
+# }
+
+# cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=SEED)
+# grid_search = GridSearchCV(model_pipeline, param_grid,
+#                             cv=cv, scoring="f1_weighted",
+#                             n_jobs=-1, verbose=1)
+# grid_search.fit(X_train, y_train)
+
+# best_model = grid_search.best_estimator_
+# print("Mejores hiperparámetros:", grid_search.best_params_)
+```
+
+---
+
+## 6. Evaluación
+
+### 6.1 Métricas
+
+```{python}
+#| label: metricas
+from sklearn.metrics import (
+    classification_report, confusion_matrix,
+    roc_auc_score, ConfusionMatrixDisplay,
+    # mean_absolute_error, mean_squared_error, r2_score  # regresión
+)
+import matplotlib.pyplot as plt
+
+# y_pred = best_model.predict(X_test)
+
+# ── Clasificación ─────────────────────────────────────────────────────────
+# print(classification_report(y_test, y_pred, digits=4))
+
+# ── Regresión ─────────────────────────────────────────────────────────────
+# mae  = mean_absolute_error(y_test, y_pred)
+# rmse = mean_squared_error(y_test, y_pred, squared=False)
+# r2   = r2_score(y_test, y_pred)
+# print(f"MAE: {mae:.4f}  |  RMSE: {rmse:.4f}  |  R²: {r2:.4f}")
+```
+
+### 6.2 Matriz de Confusión
+
+```{python}
+#| label: confusion-matrix
+# fig, ax = plt.subplots(figsize=(6, 5))
+# ConfusionMatrixDisplay.from_predictions(
+#     y_test, y_pred, ax=ax, cmap="Blues",
+#     colorbar=False, values_format="d"
+# )
+# ax.set_title("Matriz de Confusión", fontsize=13, fontweight='bold')
+# plt.tight_layout()
+# plt.show()
+```
+
+### 6.3 Curva ROC / AUC *(clasificación)*
+
+```{python}
+#| label: roc-curve
+from sklearn.metrics import RocCurveDisplay
+
+# RocCurveDisplay.from_estimator(best_model, X_test, y_test)
+# plt.title("Curva ROC", fontsize=13, fontweight='bold')
+# plt.tight_layout()
+# plt.show()
+```
+
+### 6.4 Gráfica de Residuales *(regresión)*
+
+```{python}
+#| label: residuales
+# residuals = y_test - y_pred
+# fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+# axes[0].scatter(y_pred, residuals, alpha=0.4, color="#003f8a")
+# axes[0].axhline(0, color="red", linewidth=1.5, linestyle="--")
+# axes[0].set_xlabel("Predicho"); axes[0].set_ylabel("Residual")
+# axes[0].set_title("Residuales vs. Predicho")
+# axes[1].hist(residuals, bins=40, color="#003f8a", edgecolor="white")
+# axes[1].set_title("Distribución de Residuales")
+# plt.suptitle("Análisis de Residuales", fontsize=13, fontweight='bold', y=1.02)
+# plt.tight_layout()
+# plt.show()
+```
+
+---
+
+## 7. Comparación con Línea Base
+
+```{python}
+#| label: baseline
+from sklearn.dummy import DummyClassifier  # o DummyRegressor
+
+# dummy = DummyClassifier(strategy="most_frequent", random_state=SEED)
+# dummy.fit(X_train, y_train)
+# dummy_pred = dummy.predict(X_test)
+# print("=== Clasificador Trivial (mayoritario) ===")
+# print(classification_report(y_test, dummy_pred, digits=4))
+# print("=== Modelo Final ===")
+# print(classification_report(y_test, y_pred, digits=4))
+```
+
+---
+
+## 8. Persistencia del Modelo
+
+```{python}
+#| label: persistencia
+import joblib
+from pathlib import Path
+
+MODELS_DIR = Path("../models")
+MODELS_DIR.mkdir(exist_ok=True)
+
+# ── Guardar ────────────────────────────────────────────────────────────────
+# joblib.dump(best_model, MODELS_DIR / "modelo_final.joblib")
+# print("Modelo guardado ✅")
+
+# ── Cargar y verificar ─────────────────────────────────────────────────────
+# loaded_model = joblib.load(MODELS_DIR / "modelo_final.joblib")
+# assert (loaded_model.predict(X_test) == y_pred).all(), "¡Error: predicciones distintas!"
+# print("Modelo cargado y verificado ✅")
+```
+
+::: {.callout-important}
+La persistencia es un **requisito técnico evaluado**. El modelo debe poder cargarse y usarse para predicciones nuevas **sin re-entrenar** (demostración en vivo el 10 de junio).
+:::
+
+---
+
+## Resumen de Resultados
+
+::: {.callout-note appearance="simple"}
+| Métrica | Línea Base | Modelo Final |
+|---------|-----------|--------------|
+| Accuracy | XX % | XX % |
+| F1 (ponderado) | XX % | XX % |
+| AUC-ROC | — | X.XX |
+
+**Conclusión:** El modelo supera la línea base en X puntos porcentuales de F1, lo que indica...
+:::

@@ -1,0 +1,205 @@
+---
+title: "Agrupamiento (Clustering)"
+---
+
+::: {.callout-note}
+**Propósito:** Identificar segmentos, perfiles o patrones ocultos en los datos que complementen o enriquezcan los hallazgos del modelo supervisado.  
+**Algoritmo elegido:** <!-- K-Means / DBSCAN / Jerárquico / GMM -->
+:::
+
+---
+
+## 1. Selección y Justificación de Variables
+
+::: {.callout-tip}
+| Variable | ¿Se usa? | Justificación |
+|----------|----------|---------------|
+| `var_A` | ✅ | Captura el comportamiento X |
+| `var_B` | ✅ | Distingue perfiles por Y |
+| `id`    | ❌ | No aporta estructura |
+
+Las variables para clustering **pueden diferir** de las usadas en el modelo supervisado.
+:::
+
+---
+
+## 2. Preprocesamiento
+
+```{python}
+#| label: prepro-clustering
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+
+# ── Cargar datos ────────────────────────────────────────────────────────────
+# from src.data_repository import DataRepository
+# df_cluster = DataRepository().load_processed()
+
+# Seleccionar variables de clustering
+# cluster_vars = ["var_A", "var_B", "var_C"]
+# X_clust = df_cluster[cluster_vars].dropna()
+
+# Normalización obligatoria (K-Means y KDE son sensibles a escala)
+# scaler = StandardScaler()
+# X_scaled = scaler.fit_transform(X_clust)
+
+# Reducción de dimensionalidad si hay > 3 variables
+# pca = PCA(n_components=2, random_state=42)
+# X_pca = pca.fit_transform(X_scaled)
+# print(f"Varianza explicada (2 PCs): {pca.explained_variance_ratio_.sum():.2%}")
+
+print("Preprocesamiento de clustering definido ✅")
+```
+
+---
+
+## 3. Algoritmo Elegido y Justificación
+
+**Algoritmo:** <!-- K-Means / DBSCAN / Agrupamiento jerárquico / GMM -->
+
+**Justificación:**
+- *Forma de los grupos:* <!-- esférica → K-Means; arbitraria → DBSCAN -->
+- *Manejo de ruido:* <!-- DBSCAN si hay outliers importantes -->
+- *Interpretabilidad:* <!-- K-Means produce centroides interpretables -->
+
+---
+
+## 4. Selección del Número de Grupos
+
+### Método del Codo (Inercia)
+
+```{python}
+#| label: codo
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+
+# ks = range(2, 11)
+# inertias = []
+# for k in ks:
+#     km = KMeans(n_clusters=k, random_state=42, n_init="auto")
+#     km.fit(X_scaled)
+#     inertias.append(km.inertia_)
+
+# fig, ax = plt.subplots(figsize=(7, 4))
+# ax.plot(ks, inertias, "o-", color="#003f8a", linewidth=2, markersize=7)
+# ax.axvline(x=OPTIMAL_K, color="#c8a951", linestyle="--", label=f"k = {OPTIMAL_K}")
+# ax.set_xlabel("Número de Clusters (k)")
+# ax.set_ylabel("Inercia")
+# ax.set_title("Método del Codo", fontsize=12, fontweight='bold')
+# ax.legend()
+# plt.tight_layout()
+# plt.show()
+```
+
+### Coeficiente de Silueta
+
+```{python}
+#| label: silueta
+from sklearn.metrics import silhouette_score
+
+# sil_scores = []
+# for k in ks:
+#     km = KMeans(n_clusters=k, random_state=42, n_init="auto")
+#     labels = km.fit_predict(X_scaled)
+#     sil_scores.append(silhouette_score(X_scaled, labels))
+
+# fig, ax = plt.subplots(figsize=(7, 4))
+# ax.plot(ks, sil_scores, "s-", color="#1a6fd4", linewidth=2, markersize=7)
+# ax.set_xlabel("Número de Clusters (k)")
+# ax.set_ylabel("Coeficiente de Silueta")
+# ax.set_title("Selección por Silueta (mayor = mejor)", fontsize=12, fontweight='bold')
+# plt.tight_layout()
+# plt.show()
+
+# print(f"k óptimo: {ks[sil_scores.index(max(sil_scores))]}")
+```
+
+---
+
+## 5. Entrenamiento del Modelo Final
+
+```{python}
+#| label: clustering-final
+
+OPTIMAL_K = 3   # ajusta tras análisis del codo/silueta
+
+# km_final = KMeans(n_clusters=OPTIMAL_K, random_state=42, n_init="auto")
+# labels = km_final.fit_predict(X_scaled)
+# df_cluster["cluster"] = labels
+```
+
+---
+
+## 6. Visualización de Grupos
+
+```{python}
+#| label: scatter-clusters
+import seaborn as sns
+
+PALETTE = ["#003f8a", "#c8a951", "#1a6fd4", "#e85d4a", "#2ecc71"]
+
+# fig, ax = plt.subplots(figsize=(9, 6))
+# for i in range(OPTIMAL_K):
+#     mask = labels == i
+#     ax.scatter(X_pca[mask, 0], X_pca[mask, 1],
+#                c=PALETTE[i], label=f"Cluster {i}",
+#                alpha=0.6, s=30, edgecolors="none")
+# centroids_pca = pca.transform(scaler.transform(km_final.cluster_centers_))
+# ax.scatter(centroids_pca[:, 0], centroids_pca[:, 1],
+#            c="red", marker="X", s=200, zorder=5, label="Centroides")
+# ax.set_xlabel(f"PC1 ({pca.explained_variance_ratio_[0]:.1%})")
+# ax.set_ylabel(f"PC2 ({pca.explained_variance_ratio_[1]:.1%})")
+# ax.set_title("Clusters en espacio PCA", fontsize=13, fontweight='bold')
+# ax.legend()
+# plt.tight_layout()
+# plt.show()
+```
+
+---
+
+## 7. Interpretación de Perfiles
+
+```{python}
+#| label: perfiles
+# cluster_profile = (
+#     df_cluster.groupby("cluster")[cluster_vars]
+#     .agg(["mean", "median", "std"])
+#     .round(3)
+# )
+# cluster_profile
+```
+
+::: {.callout-tip}
+**Etiquetas interpretativas de los grupos:**
+
+| Cluster | Etiqueta | Descripción |
+|---------|----------|-------------|
+| 0 | 🔵 **Nombre descriptivo** | Caracterización basada en estadísticas del perfil |
+| 1 | 🟡 **Nombre descriptivo** | Caracterización basada en estadísticas del perfil |
+| 2 | 🔷 **Nombre descriptivo** | Caracterización basada en estadísticas del perfil |
+:::
+
+---
+
+## 8. Conexión con el Modelo Supervisado
+
+Describe cómo los clusters obtenidos complementan o enriquecen los hallazgos del modelo supervisado. Por ejemplo:
+
+- ¿Algún cluster tiene tasas de la variable objetivo significativamente diferentes?
+- ¿Los perfiles identificados sugieren subgrupos que merecen análisis independiente?
+- ¿Se pueden usar los clusters como feature adicional en el modelo supervisado?
+
+---
+
+## Resumen de Clustering
+
+::: {.callout-note appearance="simple"}
+| Parámetro | Valor |
+|-----------|-------|
+| Algoritmo | K-Means |
+| Número de grupos | k = X |
+| Coeficiente de silueta | X.XX |
+| Varianza explicada (PCA 2D) | XX % |
+| Grupo más grande | Cluster Y (N registros, XX %) |
+:::
