@@ -17,55 +17,39 @@ title: "Análisis Exploratorio de Datos (EDA)"
 import pandas as pd
 import numpy as np
 
-# ── Carga del dataset ──────────────────────────────────────────────────────
-# df = pd.read_csv("../data/datos.csv")          # ajusta la ruta/formato
-# df = pd.read_parquet("../data/datos.parquet")
+# ── Carga del dataset ──
+df = pd.read_csv('incidencia_delictiva.csv', encoding='latin-1')          
+df.info()
 
-# Ejemplo con datos simulados — REEMPLAZA con tu dataset real
-np.random.seed(42)
-df = pd.DataFrame()   # TODO: cargar datos reales
-
-# Dimensiones
-print(f"Dimensiones : {df.shape[0]:,} filas × {df.shape[1]} columnas")
-print(f"Memoria     : {df.memory_usage(deep=True).sum() / 1e6:.1f} MB")
-print(f"\nTipos de datos:\n{df.dtypes.value_counts()}")
-```
-
-```{python}
-#| label: vista-previa
 # Vista previa de las primeras filas
-# df.head()
-```
+df.head()
 
----
+```
 
 ## 2. Calidad de Datos
 
 ```{python}
 #| label: valores-faltantes
+#| code-fold: false
 
 # Valores faltantes
 missing = df.isnull().sum()
 missing_pct = (missing / len(df) * 100).round(2)
 missing_df = pd.DataFrame({
-    "Columna": missing.index,
-    "Faltantes": missing.values,
+    "Nombre columna": missing.index,
+    "Cantidad_de_valores_faltantes": missing.values,
     "Porcentaje (%)": missing_pct.values
-}).query("Faltantes > 0").sort_values("Porcentaje (%)", ascending=False)
+}).query("Cantidad_de_valores_faltantes > 0").sort_values("Porcentaje (%)", ascending=False)
 
 print("=== Valores Faltantes ===")
 print(missing_df.to_string(index=False) if not missing_df.empty
       else "✅ No se encontraron valores faltantes.")
 
 # Duplicados
-dupes = df.duplicated().sum()
-print(f"\n=== Registros Duplicados: {dupes:,} ({dupes/len(df)*100:.2f}%) ===")
-```
+columna_cotejo = ['anio', 'entidad','bien_juridico_afectado','tipo_delito','subtipo_delito','modalidad','mes','fecha','incidencia_delictiva','entidad_federativa']
+print(f"\n Cantidad de duplicados: {df.duplicated(subset=columna_cotejo).sum()}")
 
-::: {.callout-tip}
-**Estrategia de manejo elegida:**  
-Describe aquí las decisiones tomadas: imputación (media/mediana/moda/KNN), eliminación de registros, etc. Justifica cada elección con base en el porcentaje de faltantes y la naturaleza de la variable.
-:::
+```
 
 ---
 
@@ -74,18 +58,38 @@ Describe aquí las decisiones tomadas: imputación (media/mediana/moda/KNN), eli
 ### Variables numéricas
 
 ```{python}
-#| label: stats-numericas
-# df.describe().T.style.format("{:.2f}")
+# Para año: conteo de registros por año
+print(df['anio'].value_counts().sort_index())
+
+# Para mes: conteo ordenado cronológicamente
+orden_meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+               'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+
+print(df['mes'].value_counts().reindex(orden_meses))
 ```
 
 ### Variables categóricas
 
 ```{python}
-#| label: stats-categoricas
-cat_cols = df.select_dtypes(include="object").columns.tolist()
+#| label: estadisticas-categoricas
+
+cat_cols = ['entidad', 'bien_juridico_afectado', 'tipo_delito', 'subtipo_delito', 'modalidad']
+
 for col in cat_cols:
-    print(f"\n── {col} ─────────────────────")
-    print(df[col].value_counts().head(10))
+    
+    # Frecuencia absoluta y relativa
+    freq = df[col].value_counts().head(10)
+    freq_rel = df[col].value_counts(normalize=True).mul(100).round(2).head(10)
+    
+    tabla = pd.DataFrame({
+        'frecuencia': freq,
+        'porcentaje (%)': freq_rel
+    })
+    print(tabla)
+    
+    # Moda
+    moda = df[col].mode()[0]
+    print(f"  Moda: {moda}\n")
 ```
 
 ---
@@ -94,56 +98,97 @@ for col in cat_cols:
 
 ```{python}
 #| label: outliers
-import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
 import seaborn as sns
+import matplotlib.pyplot as plt
 
-num_cols = df.select_dtypes(include="number").columns.tolist()
+# Configurar estilo de las gráficas
+sns.set_style("whitegrid")
+plt.rcParams['figure.figsize'] = (12, 6)
 
-# Boxplots
-if num_cols:
-    n = len(num_cols)
-    fig, axes = plt.subplots(1, n, figsize=(4 * n, 4))
-    if n == 1:
-        axes = [axes]
-    for ax, col in zip(axes, num_cols):
-        sns.boxplot(y=df[col], ax=ax, color="#1a6fd4",
-                    flierprops=dict(marker='o', markerfacecolor='#c8a951',
-                                   markersize=4, alpha=0.6))
-        ax.set_title(col, fontsize=10)
-        ax.set_xlabel("")
-    plt.suptitle("Detección de Outliers — Boxplots", y=1.02, fontsize=13, fontweight='bold')
-    plt.tight_layout()
-    plt.show()
+# Boxplot de incidencia delictiva por estado
+plt.figure(figsize=(14, 8))
+sns.boxplot(data=df, x='entidad_federativa', y='incidencia_delictiva')
+plt.xticks(rotation=90)
+plt.title('Distribución de la Incidencia Delictiva por Entidad Federativa', fontsize=14)
+plt.xlabel('Entidad Federativa')
+plt.ylabel('Incidencia Delictiva')
+plt.tight_layout()
+plt.show()
+
+# Seleccionar los delitos con mayor incidencia para no saturar el gráfico
+delitos_top = df.groupby('tipo_delito')['incidencia_delictiva'].sum().sort_values(ascending=False).head(10).index
+df_top_delitos = df[df['tipo_delito'].isin(delitos_top)]
+
+plt.figure(figsize=(14, 8))
+sns.boxplot(data=df_top_delitos, x='tipo_delito', y='incidencia_delictiva')
+plt.xticks(rotation=45, ha='right')
+#plt.yscale('log')
+plt.title('Distribución de Incidencia de los 10 Delitos más Frecuentes', fontsize=14)
+plt.xlabel('Tipo de Delito')
+plt.ylabel('Incidencia Delictiva')
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(10, 6))
+sns.boxplot(data=df, x='bien_juridico_afectado', y='incidencia_delictiva')
+plt.xticks(rotation=45, ha='right')
+# plt.yscale('log')
+plt.title('Distribución de Incidencia por Bien Jurídico Afectado', fontsize=14)
+plt.xlabel('Bien Jurídico Afectado')
+plt.ylabel('Incidencia Delictiva ')
+plt.tight_layout()
+plt.show()
+
+# Crear un orden correcto de los meses
+orden_meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+               'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+
+plt.figure(figsize=(12, 6))
+sns.boxplot(data=df, x='mes', y='incidencia_delictiva', order=orden_meses)
+plt.xticks(rotation=45)
+# plt.yscale('log')
+plt.title('Distribución de Incidencia Delictiva por Mes', fontsize=14)
+plt.xlabel('Mes')
+plt.ylabel('Incidencia Delictiva (escala log)')
+plt.tight_layout()
+plt.show()
+
+# Seleccionar algunas entidades y delitos específicos para comparar
+entidades_top = df.groupby('entidad_federativa')['incidencia_delictiva'].sum().sort_values(ascending=False).head(5).index
+delitos_especificos = ['Robo']
+
+df_comparacion = df[(df['entidad_federativa'].isin(entidades_top)) & 
+                     (df['tipo_delito'].isin(delitos_especificos))]
+
+plt.figure(figsize=(14, 8))
+sns.boxplot(data=df_comparacion, x='entidad_federativa', y='incidencia_delictiva', hue='tipo_delito')
+plt.xticks(rotation=45)
+# plt.yscale('log')
+plt.title('Distribución de Incidencia por Entidad y Tipo de Delito', fontsize=14)
+plt.xlabel('Entidad Federativa')
+plt.ylabel('Incidencia Delictiva')
+plt.legend(title='Tipo de Delito', bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(10, 6))
+sns.boxplot(data=df, x='anio', y='incidencia_delictiva')
+# plt.yscale('log')
+plt.title('Distribución de Incidencia Delictiva por Año', fontsize=14)
+plt.xlabel('Año')
+plt.ylabel('Incidencia Delictiva ')
+plt.tight_layout()
+plt.show()
 ```
-
-::: {.callout-warning}
-**Decisión sobre outliers:**  
-Indica si aplicarás la regla IQR, z-score, o un criterio de dominio; y si los outliers serán eliminados, transformados (log) o conservados con justificación.
-:::
-
 ---
 
 ## 5. Distribuciones
 
 ```{python}
 #| label: histogramas
-if num_cols:
-    ncols = 3
-    nrows = -(-len(num_cols) // ncols)  # ceil division
-    fig, axes = plt.subplots(nrows, ncols,
-                              figsize=(5 * ncols, 3.5 * nrows))
-    axes = axes.flatten()
-    for i, col in enumerate(num_cols):
-        axes[i].hist(df[col].dropna(), bins=40,
-                     color="#003f8a", edgecolor="white", alpha=0.85)
-        axes[i].set_title(col, fontsize=10, fontweight='bold')
-        axes[i].set_ylabel("Frecuencia")
-    for j in range(i + 1, len(axes)):
-        axes[j].set_visible(False)
-    plt.suptitle("Distribuciones — Variables Numéricas",
-                 y=1.01, fontsize=13, fontweight='bold')
-    plt.tight_layout()
-    plt.show()
+
 ```
 
 > **Interpretación:** Describe la forma de cada distribución (simétrica, sesgada, bimodal) y su implicación para el modelado.
@@ -154,19 +199,69 @@ if num_cols:
 
 ```{python}
 #| label: correlaciones
-if len(num_cols) > 1:
-    corr = df[num_cols].corr(method="pearson")
+# Crear variables numéricas derivadas para correlacionar
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-    fig, ax = plt.subplots(figsize=(10, 8))
-    mask = np.triu(np.ones_like(corr, dtype=bool))
-    sns.heatmap(corr, mask=mask, annot=True, fmt=".2f",
-                cmap="RdBu_r", center=0, vmin=-1, vmax=1,
-                linewidths=0.5, ax=ax,
-                annot_kws={"size": 8})
-    ax.set_title("Matriz de Correlaciones (Pearson)",
-                 fontsize=13, fontweight='bold', pad=12)
-    plt.tight_layout()
-    plt.show()
+# --- delitos relevantes para la matriz ---
+#  Seleccionamos los delitos con mayor incidencia
+
+delitos_interes = [
+    'Robo de maquinaria', 
+    'Robo a negocio', 
+    'Robo de vehículo automotor',
+    'Homicidio culposo',
+    'Secuestro', 
+    'Feminicidio',
+    'Lesiones culposas', 
+    'Violencia familiar',
+    'Homicidio doloso',
+    'Abuso sexual',
+    'Extorsión',
+    'Daño a la propiedad'
+]
+
+# Filtrar el dataframe solo para esos delitos
+df_filtrado = df[df['subtipo_delito'].isin(delitos_interes)].copy()
+
+# --- Agrupar y pivotear ---
+# Agrupamos por entidad y tipo de delito, sumando la incidencia
+# (podrías agrupar también por año/mes si quisieras series de tiempo)
+
+tabla_incidencia = df_filtrado.groupby(
+    ['entidad_federativa', 'tipo_delito']
+)['incidencia_delictiva'].sum().reset_index()
+
+# Pivotear: cada delito será una columna, cada fila es un estado
+tabla_pivot = tabla_incidencia.pivot(
+    index='entidad_federativa', 
+    columns='tipo_delito', 
+    values='incidencia_delictiva'
+).fillna(0)  # Los estados sin algún delito tienen 0
+
+# --- PASO 3: Calcular la matriz de correlación ---
+# Usamos correlación de Pearson (puedes probar Spearman si los datos no son lineales)
+matriz_correlacion = tabla_pivot.corr(method='spearman')
+
+# --- PASO 4: Visualizar con un heatmap ---
+plt.figure(figsize=(10, 8))
+sns.heatmap(
+    matriz_correlacion, 
+    annot=True,           # Muestra el número dentro de cada celda
+    cmap='coolwarm',      # Mapa de colores: rojo=correlación positiva, azul=negativa
+    center=0,             # Centro del mapa de colores en 0
+    vmin=-1, vmax=1,      # Límites de la correlación
+    square=True,          # Celdas cuadradas
+    linewidths=0.5,       # Líneas entre celdas
+    cbar_kws={"shrink": 0.8}
+)
+plt.title('Matriz de Correlación entre Diferentes Tipos de Delito por Estado', fontsize=14)
+plt.xticks(rotation=45, ha='right')
+plt.yticks(rotation=0)
+plt.tight_layout()
+plt.show()
 ```
 
 ```{python}
@@ -180,47 +275,96 @@ if len(num_cols) > 1:
 
 ---
 
-## 7. Variables Categóricas — Balance de Clases
+## 7. Analisis de Variables Categóricas 
 
 ```{python}
-#| label: categoricas-barras
-for col in cat_cols[:5]:   # limitar a las 5 primeras
-    counts = df[col].value_counts()
-    fig, ax = plt.subplots(figsize=(8, 3.5))
-    counts.plot(kind="barh", ax=ax, color="#003f8a", edgecolor="white")
-    ax.set_title(f"Frecuencias — {col}", fontsize=11, fontweight='bold')
-    ax.set_xlabel("Conteo")
-    plt.tight_layout()
-    plt.show()
-```
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-::: {.callout-tip}
-**Balance de clases (variable objetivo):**  
-Si hay desbalance significativo (p. ej., ≥ 80 % de una clase), documenta aquí la estrategia elegida: sobre-muestreo (SMOTE), sub-muestreo, o ajuste de `class_weight`.
-:::
+orden_meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+               'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+
+fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+
+# 1. Por año
+por_anio = df.groupby('anio')['incidencia_delictiva'].sum().reset_index()
+sns.barplot(x='anio', y='incidencia_delictiva', data=por_anio,
+            ax=axes[0,0], color="#1a6fd4")
+axes[0,0].set_title("Incidencia por Año", fontsize=12, fontweight='bold')
+axes[0,0].set_xlabel("Año")
+axes[0,0].set_ylabel("Total de casos")
+axes[0,0].tick_params(axis='x', rotation=45)
+
+# 2. Por mes
+por_mes = df.groupby('mes')['incidencia_delictiva'].sum().reindex(orden_meses).reset_index()
+sns.barplot(x='mes', y='incidencia_delictiva', data=por_mes,
+            ax=axes[0,1], color="#c8a951")
+axes[0,1].set_title("Incidencia por Mes", fontsize=12, fontweight='bold')
+axes[0,1].set_xlabel("Mes")
+axes[0,1].set_ylabel("Total de casos")
+axes[0,1].tick_params(axis='x', rotation=45)
+
+# 3. Por estado (top 15)
+por_estado = (df.groupby('entidad_federativa')['incidencia_delictiva']
+                .sum().sort_values(ascending=False).head(15).reset_index())
+sns.barplot(x='incidencia_delictiva', y='entidad_federativa', data=por_estado,
+            ax=axes[1,0], color="#2ecc71")
+axes[1,0].set_title("Top 15 Estados con Mayor Incidencia", fontsize=12, fontweight='bold')
+axes[1,0].set_xlabel("Total de casos")
+axes[1,0].set_ylabel("Estado")
+
+# 4. Por tipo de delito (top 15)
+por_delito = (df.groupby('subtipo_delito')['incidencia_delictiva']
+                .sum().sort_values(ascending=False).head(15).reset_index())
+sns.barplot(x='incidencia_delictiva', y='subtipo_delito', data=por_delito,
+            ax=axes[1,1], color="#e74c3c")
+axes[1,1].set_title("Top 15 Tipos de Delito", fontsize=12, fontweight='bold')
+axes[1,1].set_xlabel("Total de casos")
+axes[1,1].set_ylabel("Tipo de delito")
+
+plt.suptitle("Análisis de Incidencia Delictiva", y=1.02, fontsize=14, fontweight='bold')
+plt.tight_layout()
+plt.show()
+```
 
 ---
 
 ## 8. Visualizaciones Adicionales
 
 ```{python}
-#| label: mapa-geo
-# Ejemplo de mapa geográfico con plotly (si el dataset tiene lat/lon o entidades)
-# import plotly.express as px
-# fig = px.choropleth(df_estados, locations="estado", geojson=mx_geojson,
-#                     color="valor", scope="north america",
-#                     title="Distribución por Estado")
-# fig.show()
-```
+#| label: Linea de tiempo
 
-```{python}
-#| label: serie-tiempo
-# Ejemplo de serie de tiempo (si el dataset tiene fechas)
-# ts = df.set_index("fecha")["variable"].resample("M").mean()
-# ts.plot(figsize=(10, 4), color="#003f8a", linewidth=2,
-#         title="Evolución temporal de la variable")
-# plt.tight_layout()
-# plt.show()
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+import plotly.graph_objects as go
+from datetime import datetime
+
+# Convertir fecha a datetime si existe la columna
+if 'fecha' in df.columns:
+    df['fecha'] = pd.to_datetime(df['fecha'])
+    
+# Crear columna de año-mes para series de tiempo
+df['anio_mes'] = pd.to_datetime(df['temporal_fecha'])  # usando la columna temporal_fecha
+
+# Agregar por fecha (usando temporal_fecha)
+df['temporal_fecha'] = pd.to_datetime(df['temporal_fecha'])
+df_ts = df.groupby('temporal_fecha')['incidencia_delictiva'].sum().reset_index()
+df_ts = df_ts.sort_values('temporal_fecha')
+
+# Gráfico de serie de tiempo básico
+plt.figure(figsize=(14, 6))
+plt.plot(df_ts['temporal_fecha'], df_ts['incidencia_delictiva'], 
+         color='#003f8a', linewidth=2, marker='.', markersize=4)
+plt.title('Evolución Temporal de la Incidencia Delictiva Total (2015-2025)', fontsize=14)
+plt.xlabel('Fecha')
+plt.ylabel('Incidencia Delictiva Total')
+plt.grid(True, alpha=0.3)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
 ```
 
 ---

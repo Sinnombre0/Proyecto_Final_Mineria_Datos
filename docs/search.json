@@ -1,0 +1,310 @@
+[
+  {
+    "objectID": "eda.html",
+    "href": "eda.html",
+    "title": "Análisis Exploratorio de Datos (EDA)",
+    "section": "",
+    "text": "Note\n\n\n\nPropósito del EDA: Comprender la estructura, calidad y distribución de los datos antes de cualquier modelado, e informar las decisiones de preprocesamiento posteriores."
+  },
+  {
+    "objectID": "eda.html#descripción-general-del-dataset",
+    "href": "eda.html#descripción-general-del-dataset",
+    "title": "Análisis Exploratorio de Datos (EDA)",
+    "section": "1. Descripción General del Dataset",
+    "text": "1. Descripción General del Dataset\n\nimport pandas as pd\nimport numpy as np\n\n# ── Carga del dataset ──\ndf = pd.read_csv('incidencia_delictiva.csv', encoding='latin-1')          \ndf.info()\n\n# Vista previa de las primeras filas\ndf.head()\n\n&lt;class 'pandas.DataFrame'&gt;\nRangeIndex: 413952 entries, 0 to 413951\nData columns (total 13 columns):\n #   Column                  Non-Null Count   Dtype\n---  ------                  --------------   -----\n 0   anio                    413952 non-null  int64\n 1   clave_ent               413952 non-null  int64\n 2   entidad                 413952 non-null  str  \n 3   bien_juridico_afectado  413952 non-null  str  \n 4   tipo_delito             413952 non-null  str  \n 5   subtipo_delito          413952 non-null  str  \n 6   modalidad               413952 non-null  str  \n 7   mes                     413952 non-null  str  \n 8   fecha                   413952 non-null  str  \n 9   incidencia_delictiva    413952 non-null  int64\n 10  entidad_federativa      413952 non-null  str  \n 11  temporal_fecha          413952 non-null  str  \n 12  ..anio_fecha            413952 non-null  int64\ndtypes: int64(4), str(9)\nmemory usage: 41.1 MB\n\n\n\n\n\n\n\n\n\nanio\nclave_ent\nentidad\nbien_juridico_afectado\ntipo_delito\nsubtipo_delito\nmodalidad\nmes\nfecha\nincidencia_delictiva\nentidad_federativa\ntemporal_fecha\n..anio_fecha\n\n\n\n\n0\n2015\n1\nAguascalientes\nEl patrimonio\nAbuso de confianza\nAbuso de confianza\nAbuso de confianza\nAbril\n2015-04-01\n22\nAguascalientes\n2015-04\n2015\n\n\n1\n2015\n1\nAguascalientes\nEl patrimonio\nAbuso de confianza\nAbuso de confianza\nAbuso de confianza\nAgosto\n2015-08-01\n40\nAguascalientes\n2015-08\n2015\n\n\n2\n2015\n1\nAguascalientes\nEl patrimonio\nAbuso de confianza\nAbuso de confianza\nAbuso de confianza\nDiciembre\n2015-12-01\n26\nAguascalientes\n2015-12\n2015\n\n\n3\n2015\n1\nAguascalientes\nEl patrimonio\nAbuso de confianza\nAbuso de confianza\nAbuso de confianza\nEnero\n2015-01-01\n41\nAguascalientes\n2015-01\n2015\n\n\n4\n2015\n1\nAguascalientes\nEl patrimonio\nAbuso de confianza\nAbuso de confianza\nAbuso de confianza\nFebrero\n2015-02-01\n33\nAguascalientes\n2015-02\n2015"
+  },
+  {
+    "objectID": "eda.html#calidad-de-datos",
+    "href": "eda.html#calidad-de-datos",
+    "title": "Análisis Exploratorio de Datos (EDA)",
+    "section": "2. Calidad de Datos",
+    "text": "2. Calidad de Datos\n\n# Valores faltantes\nmissing = df.isnull().sum()\nmissing_pct = (missing / len(df) * 100).round(2)\nmissing_df = pd.DataFrame({\n    \"Nombre columna\": missing.index,\n    \"Cantidad_de_valores_faltantes\": missing.values,\n    \"Porcentaje (%)\": missing_pct.values\n}).query(\"Cantidad_de_valores_faltantes &gt; 0\").sort_values(\"Porcentaje (%)\", ascending=False)\n\nprint(\"=== Valores Faltantes ===\")\nprint(missing_df.to_string(index=False) if not missing_df.empty\n      else \"✅ No se encontraron valores faltantes.\")\n\n# Duplicados\ncolumna_cotejo = ['anio', 'entidad','bien_juridico_afectado','tipo_delito','subtipo_delito','modalidad','mes','fecha','incidencia_delictiva','entidad_federativa']\nprint(f\"\\n Cantidad de duplicados: {df.duplicated(subset=columna_cotejo).sum()}\")\n\n=== Valores Faltantes ===\n✅ No se encontraron valores faltantes.\n\n Cantidad de duplicados: 0"
+  },
+  {
+    "objectID": "eda.html#estadísticas-descriptivas",
+    "href": "eda.html#estadísticas-descriptivas",
+    "title": "Análisis Exploratorio de Datos (EDA)",
+    "section": "3. Estadísticas Descriptivas",
+    "text": "3. Estadísticas Descriptivas\n\nVariables numéricas\n\n\nCode\n# Para año: conteo de registros por año\nprint(df['anio'].value_counts().sort_index())\n\n# Para mes: conteo ordenado cronológicamente\norden_meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',\n               'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']\n\nprint(df['mes'].value_counts().reindex(orden_meses))\n\n\nanio\n2015    37632\n2016    37632\n2017    37632\n2018    37632\n2019    37632\n2020    37632\n2021    37632\n2022    37632\n2023    37632\n2024    37632\n2025    37632\nName: count, dtype: int64\nmes\nEnero         34496\nFebrero       34496\nMarzo         34496\nAbril         34496\nMayo          34496\nJunio         34496\nJulio         34496\nAgosto        34496\nSeptiembre    34496\nOctubre       34496\nNoviembre     34496\nDiciembre     34496\nName: count, dtype: int64\n\n\n\n\nVariables categóricas\n\n\nCode\ncat_cols = ['entidad', 'bien_juridico_afectado', 'tipo_delito', 'subtipo_delito', 'modalidad']\n\nfor col in cat_cols:\n    \n    # Frecuencia absoluta y relativa\n    freq = df[col].value_counts().head(10)\n    freq_rel = df[col].value_counts(normalize=True).mul(100).round(2).head(10)\n    \n    tabla = pd.DataFrame({\n        'frecuencia': freq,\n        'porcentaje (%)': freq_rel\n    })\n    print(tabla)\n    \n    # Moda\n    moda = df[col].mode()[0]\n    print(f\"  Moda: {moda}\\n\")\n\n\n                      frecuencia  porcentaje (%)\nentidad                                         \nAguascalientes             12936            3.12\nBaja California            12936            3.12\nBaja California Sur        12936            3.12\nCampeche                   12936            3.12\nCoahuila de Zaragoza       12936            3.12\nColima                     12936            3.12\nChiapas                    12936            3.12\nChihuahua                  12936            3.12\nCiudad de MÃ©xico          12936            3.12\nDurango                    12936            3.12\n  Moda: Aguascalientes\n\n                                                    frecuencia  porcentaje (%)\nbien_juridico_afectado                                                        \nEl patrimonio                                           177408           42.86\nLa vida y la Integridad corporal                        101376           24.49\nOtros bienes jurÃ­dicos afectados (del fuero co...       42240           10.20\nLibertad personal                                        33792            8.16\nLa libertad y la seguridad sexual                        29568            7.14\nLa familia                                               16896            4.08\nLa sociedad                                              12672            3.06\n  Moda: El patrimonio\n\n                      frecuencia  porcentaje (%)\ntipo_delito                                     \nRobo                      152064           36.73\nHomicidio                  38016            9.18\nLesiones                   38016            9.18\nSecuestro                  21120            5.10\nFeminicidio                16896            4.08\nAbuso de confianza          4224            1.02\nDaÃ±o a la propiedad        4224            1.02\nDespojo                     4224            1.02\nExtorsiÃ³n                  4224            1.02\nFraude                      4224            1.02\n  Moda: Robo\n\n                             frecuencia  porcentaje (%)\nsubtipo_delito                                         \nRobo de maquinaria                25344            6.12\nRobo de vehÃ­culo automotor       25344            6.12\nHomicidio culposo                 21120            5.10\nLesiones culposas                 21120            5.10\nSecuestro                         21120            5.10\nFeminicidio                       16896            4.08\nHomicidio doloso                  16896            4.08\nLesiones dolosas                  16896            4.08\nOtros robos                        8448            2.04\nRobo a casa habitaciÃ³n            8448            2.04\n  Moda: Robo de maquinaria\n\n                           frecuencia  porcentaje (%)\nmodalidad                                            \nCon violencia                   50688           12.24\nSin violencia                   50688           12.24\nCon arma blanca                 21120            5.10\nCon arma de fuego               21120            5.10\nCon otro elemento               21120            5.10\nNo especificado                 21120            5.10\nEn accidente de trÃ¡nsito        8448            2.04\nAbuso de confianza               4224            1.02\nDaÃ±o a la propiedad             4224            1.02\nDespojo                          4224            1.02\n  Moda: Con violencia"
+  },
+  {
+    "objectID": "eda.html#detección-de-valores-atípicos",
+    "href": "eda.html#detección-de-valores-atípicos",
+    "title": "Análisis Exploratorio de Datos (EDA)",
+    "section": "4. Detección de Valores Atípicos",
+    "text": "4. Detección de Valores Atípicos\n\n\nCode\nimport pandas as pd\nimport numpy as np\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\n# Configurar estilo de las gráficas\nsns.set_style(\"whitegrid\")\nplt.rcParams['figure.figsize'] = (12, 6)\n\n# Boxplot de incidencia delictiva por estado\nplt.figure(figsize=(14, 8))\nsns.boxplot(data=df, x='entidad_federativa', y='incidencia_delictiva')\nplt.xticks(rotation=90)\nplt.title('Distribución de la Incidencia Delictiva por Entidad Federativa', fontsize=14)\nplt.xlabel('Entidad Federativa')\nplt.ylabel('Incidencia Delictiva')\nplt.tight_layout()\nplt.show()\n\n# Seleccionar los delitos con mayor incidencia para no saturar el gráfico\ndelitos_top = df.groupby('tipo_delito')['incidencia_delictiva'].sum().sort_values(ascending=False).head(10).index\ndf_top_delitos = df[df['tipo_delito'].isin(delitos_top)]\n\nplt.figure(figsize=(14, 8))\nsns.boxplot(data=df_top_delitos, x='tipo_delito', y='incidencia_delictiva')\nplt.xticks(rotation=45, ha='right')\n#plt.yscale('log')\nplt.title('Distribución de Incidencia de los 10 Delitos más Frecuentes', fontsize=14)\nplt.xlabel('Tipo de Delito')\nplt.ylabel('Incidencia Delictiva')\nplt.tight_layout()\nplt.show()\n\nplt.figure(figsize=(10, 6))\nsns.boxplot(data=df, x='bien_juridico_afectado', y='incidencia_delictiva')\nplt.xticks(rotation=45, ha='right')\n# plt.yscale('log')\nplt.title('Distribución de Incidencia por Bien Jurídico Afectado', fontsize=14)\nplt.xlabel('Bien Jurídico Afectado')\nplt.ylabel('Incidencia Delictiva ')\nplt.tight_layout()\nplt.show()\n\n# Crear un orden correcto de los meses\norden_meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', \n               'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']\n\nplt.figure(figsize=(12, 6))\nsns.boxplot(data=df, x='mes', y='incidencia_delictiva', order=orden_meses)\nplt.xticks(rotation=45)\n# plt.yscale('log')\nplt.title('Distribución de Incidencia Delictiva por Mes', fontsize=14)\nplt.xlabel('Mes')\nplt.ylabel('Incidencia Delictiva (escala log)')\nplt.tight_layout()\nplt.show()\n\n# Seleccionar algunas entidades y delitos específicos para comparar\nentidades_top = df.groupby('entidad_federativa')['incidencia_delictiva'].sum().sort_values(ascending=False).head(5).index\ndelitos_especificos = ['Robo']\n\ndf_comparacion = df[(df['entidad_federativa'].isin(entidades_top)) & \n                     (df['tipo_delito'].isin(delitos_especificos))]\n\nplt.figure(figsize=(14, 8))\nsns.boxplot(data=df_comparacion, x='entidad_federativa', y='incidencia_delictiva', hue='tipo_delito')\nplt.xticks(rotation=45)\n# plt.yscale('log')\nplt.title('Distribución de Incidencia por Entidad y Tipo de Delito', fontsize=14)\nplt.xlabel('Entidad Federativa')\nplt.ylabel('Incidencia Delictiva')\nplt.legend(title='Tipo de Delito', bbox_to_anchor=(1.05, 1), loc='upper left')\nplt.tight_layout()\nplt.show()\n\nplt.figure(figsize=(10, 6))\nsns.boxplot(data=df, x='anio', y='incidencia_delictiva')\n# plt.yscale('log')\nplt.title('Distribución de Incidencia Delictiva por Año', fontsize=14)\nplt.xlabel('Año')\nplt.ylabel('Incidencia Delictiva ')\nplt.tight_layout()\nplt.show()"
+  },
+  {
+    "objectID": "eda.html#distribuciones",
+    "href": "eda.html#distribuciones",
+    "title": "Análisis Exploratorio de Datos (EDA)",
+    "section": "5. Distribuciones",
+    "text": "5. Distribuciones\n\nInterpretación: Describe la forma de cada distribución (simétrica, sesgada, bimodal) y su implicación para el modelado."
+  },
+  {
+    "objectID": "eda.html#relaciones-entre-variables",
+    "href": "eda.html#relaciones-entre-variables",
+    "title": "Análisis Exploratorio de Datos (EDA)",
+    "section": "6. Relaciones entre Variables",
+    "text": "6. Relaciones entre Variables\n\n\nCode\n# Crear variables numéricas derivadas para correlacionar\nimport pandas as pd\nimport numpy as np\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\n# --- delitos relevantes para la matriz ---\n#  Seleccionamos los delitos con mayor incidencia\n\ndelitos_interes = [\n    'Robo de maquinaria', \n    'Robo a negocio', \n    'Robo de vehículo automotor',\n    'Homicidio culposo',\n    'Secuestro', \n    'Feminicidio',\n    'Lesiones culposas', \n    'Violencia familiar',\n    'Homicidio doloso',\n    'Abuso sexual',\n    'Extorsión',\n    'Daño a la propiedad'\n]\n\n# Filtrar el dataframe solo para esos delitos\ndf_filtrado = df[df['subtipo_delito'].isin(delitos_interes)].copy()\n\n# --- Agrupar y pivotear ---\n# Agrupamos por entidad y tipo de delito, sumando la incidencia\n# (podrías agrupar también por año/mes si quisieras series de tiempo)\n\ntabla_incidencia = df_filtrado.groupby(\n    ['entidad_federativa', 'tipo_delito']\n)['incidencia_delictiva'].sum().reset_index()\n\n# Pivotear: cada delito será una columna, cada fila es un estado\ntabla_pivot = tabla_incidencia.pivot(\n    index='entidad_federativa', \n    columns='tipo_delito', \n    values='incidencia_delictiva'\n).fillna(0)  # Los estados sin algún delito tienen 0\n\n# --- PASO 3: Calcular la matriz de correlación ---\n# Usamos correlación de Pearson (puedes probar Spearman si los datos no son lineales)\nmatriz_correlacion = tabla_pivot.corr(method='spearman')\n\n# --- PASO 4: Visualizar con un heatmap ---\nplt.figure(figsize=(10, 8))\nsns.heatmap(\n    matriz_correlacion, \n    annot=True,           # Muestra el número dentro de cada celda\n    cmap='coolwarm',      # Mapa de colores: rojo=correlación positiva, azul=negativa\n    center=0,             # Centro del mapa de colores en 0\n    vmin=-1, vmax=1,      # Límites de la correlación\n    square=True,          # Celdas cuadradas\n    linewidths=0.5,       # Líneas entre celdas\n    cbar_kws={\"shrink\": 0.8}\n)\nplt.title('Matriz de Correlación entre Diferentes Tipos de Delito por Estado', fontsize=14)\nplt.xticks(rotation=45, ha='right')\nplt.yticks(rotation=0)\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\nCode\n# Scatter plots de pares con mayor correlación — ajusta las variables\n# sns.pairplot(df[[\"var1\", \"var2\", \"var3\"]], diag_kind=\"kde\",\n#              plot_kws={\"alpha\": 0.4, \"color\": \"#003f8a\"})\n# plt.suptitle(\"Pairplot — Variables Clave\", y=1.02)\n# plt.show()"
+  },
+  {
+    "objectID": "eda.html#variables-categóricas-balance-de-clases",
+    "href": "eda.html#variables-categóricas-balance-de-clases",
+    "title": "Análisis Exploratorio de Datos (EDA)",
+    "section": "7. Variables Categóricas — Balance de Clases",
+    "text": "7. Variables Categóricas — Balance de Clases\n\n\n\n\n\n\nTip\n\n\n\nBalance de clases (variable objetivo):\nSi hay desbalance significativo (p. ej., ≥ 80 % de una clase), documenta aquí la estrategia elegida: sobre-muestreo (SMOTE), sub-muestreo, o ajuste de class_weight."
+  },
+  {
+    "objectID": "eda.html#visualizaciones-adicionales",
+    "href": "eda.html#visualizaciones-adicionales",
+    "title": "Análisis Exploratorio de Datos (EDA)",
+    "section": "8. Visualizaciones Adicionales",
+    "text": "8. Visualizaciones Adicionales\n::: {#cell-Linea de tiempo .cell execution_count=10}\n\nCode\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nimport plotly.express as px\nimport plotly.graph_objects as go\nfrom datetime import datetime\n\n# Convertir fecha a datetime si existe la columna\nif 'fecha' in df.columns:\n    df['fecha'] = pd.to_datetime(df['fecha'])\n    \n# Crear columna de año-mes para series de tiempo\ndf['anio_mes'] = pd.to_datetime(df['temporal_fecha'])  # usando la columna temporal_fecha\n\n# Agregar por fecha (usando temporal_fecha)\ndf['temporal_fecha'] = pd.to_datetime(df['temporal_fecha'])\ndf_ts = df.groupby('temporal_fecha')['incidencia_delictiva'].sum().reset_index()\ndf_ts = df_ts.sort_values('temporal_fecha')\n\n# Gráfico de serie de tiempo básico\nplt.figure(figsize=(14, 6))\nplt.plot(df_ts['temporal_fecha'], df_ts['incidencia_delictiva'], \n         color='#003f8a', linewidth=2, marker='.', markersize=4)\nplt.title('Evolución Temporal de la Incidencia Delictiva Total (2015-2025)', fontsize=14)\nplt.xlabel('Fecha')\nplt.ylabel('Incidencia Delictiva Total')\nplt.grid(True, alpha=0.3)\nplt.xticks(rotation=45)\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\n:::"
+  },
+  {
+    "objectID": "eda.html#resumen-del-eda",
+    "href": "eda.html#resumen-del-eda",
+    "title": "Análisis Exploratorio de Datos (EDA)",
+    "section": "Resumen del EDA",
+    "text": "Resumen del EDA\n\n\n\n\n\n\n\n\n\nHallazgo\nDetalle\n\n\n\n\nDimensiones\nX,XXX filas × Y columnas\n\n\nVariables numéricas\nN\n\n\nVariables categóricas\nM\n\n\n% de valores faltantes\n&lt; X %\n\n\nDuplicados eliminados\nK\n\n\nOutliers detectados\ndescripción breve\n\n\nVariable objetivo (tentativa)\nnombre_columna"
+  },
+  {
+    "objectID": "instalacion.html",
+    "href": "instalacion.html",
+    "title": "Instalación y Ejecución",
+    "section": "",
+    "text": "Python ≥ 3.10\nGit\n(Opcional) Quarto CLI para regenerar el sitio"
+  },
+  {
+    "objectID": "instalacion.html#requisitos-previos",
+    "href": "instalacion.html#requisitos-previos",
+    "title": "Instalación y Ejecución",
+    "section": "",
+    "text": "Python ≥ 3.10\nGit\n(Opcional) Quarto CLI para regenerar el sitio"
+  },
+  {
+    "objectID": "instalacion.html#clonar-el-repositorio",
+    "href": "instalacion.html#clonar-el-repositorio",
+    "title": "Instalación y Ejecución",
+    "section": "1. Clonar el Repositorio",
+    "text": "1. Clonar el Repositorio\ngit clone https://github.com/TU_USUARIO/TU_REPO.git\ncd TU_REPO"
+  },
+  {
+    "objectID": "instalacion.html#crear-entorno-virtual",
+    "href": "instalacion.html#crear-entorno-virtual",
+    "title": "Instalación y Ejecución",
+    "section": "2. Crear Entorno Virtual",
+    "text": "2. Crear Entorno Virtual\n\nLinux / macOSWindows (PowerShell)\n\n\npython -m venv .venv\nsource .venv/bin/activate\n\n\npython -m venv .venv\n.\\.venv\\Scripts\\Activate.ps1"
+  },
+  {
+    "objectID": "instalacion.html#instalar-dependencias",
+    "href": "instalacion.html#instalar-dependencias",
+    "title": "Instalación y Ejecución",
+    "section": "3. Instalar Dependencias",
+    "text": "3. Instalar Dependencias\npip install -r requirements.txt\n\n\n\n\n\n\nNote\n\n\n\nrequirements.txt fue generado con pip freeze y contiene versiones exactas para reproducibilidad total."
+  },
+  {
+    "objectID": "instalacion.html#obtener-el-dataset",
+    "href": "instalacion.html#obtener-el-dataset",
+    "title": "Instalación y Ejecución",
+    "section": "4. Obtener el Dataset",
+    "text": "4. Obtener el Dataset\n\nEl dataset no se incluye en el repositorio por su tamaño. Descárgalo desde la fuente oficial y colócalo en data/raw/.\n\n# Opción A — descarga manual\n# 1. Ve a: URL_DE_LA_FUENTE\n# 2. Descarga el archivo y guárdalo como:\n#    data/raw/nombre_archivo.csv\n\n# Opción B — script de descarga automática (si está disponible)\npython src/download_data.py"
+  },
+  {
+    "objectID": "instalacion.html#ejecutar-los-notebooks",
+    "href": "instalacion.html#ejecutar-los-notebooks",
+    "title": "Instalación y Ejecución",
+    "section": "5. Ejecutar los Notebooks",
+    "text": "5. Ejecutar los Notebooks\n# En la raíz del repositorio\njupyter lab\nOrden recomendado:\n\n\n::: {.step-num}1::: ::: {.step-body} ##### notebooks/01_eda.ipynb Limpieza, exploración y visualización inicial de los datos.\n\n\n\n::: {.step-num}2::: ::: {.step-body} ##### notebooks/02_modelo_supervisado.ipynb Preprocesamiento, entrenamiento, evaluación y guardado del modelo.\n\n:::\n\n::: {.step-num}3::: ::: {.step-body} ##### notebooks/03_clustering.ipynb Agrupamiento, selección de k, visualización e interpretación.\n\n:::\n\n::: {.step-num}4::: ::: {.step-body} ##### notebooks/04_demo_reutilizacion.ipynb Carga del modelo guardado y predicción nueva sin re-entrenar.\n\n::: :::"
+  },
+  {
+    "objectID": "instalacion.html#reutilizar-el-modelo-guardado",
+    "href": "instalacion.html#reutilizar-el-modelo-guardado",
+    "title": "Instalación y Ejecución",
+    "section": "6. Reutilizar el Modelo Guardado",
+    "text": "6. Reutilizar el Modelo Guardado\nimport joblib\nimport pandas as pd\n\n# Cargar modelo entrenado\nmodel = joblib.load(\"models/modelo_final.joblib\")\n\n# Crear un registro de ejemplo (ajusta las columnas a tu dataset)\nnuevo_registro = pd.DataFrame([{\n    \"variable_1\": valor_1,\n    \"variable_2\": valor_2,\n    # ...\n}])\n\n# Predicción\nprediccion = model.predict(nuevo_registro)\nprint(f\"Predicción: {prediccion[0]}\")"
+  },
+  {
+    "objectID": "instalacion.html#regenerar-el-sitio-quarto-opcional",
+    "href": "instalacion.html#regenerar-el-sitio-quarto-opcional",
+    "title": "Instalación y Ejecución",
+    "section": "7. Regenerar el Sitio Quarto (opcional)",
+    "text": "7. Regenerar el Sitio Quarto (opcional)\n# Instalar Quarto CLI desde https://quarto.org/docs/get-started/\nquarto render\nEl sitio se regenera en docs/ y puede visualizarse localmente con:\nquarto preview"
+  },
+  {
+    "objectID": "instalacion.html#estructura-del-repositorio",
+    "href": "instalacion.html#estructura-del-repositorio",
+    "title": "Instalación y Ejecución",
+    "section": "Estructura del Repositorio",
+    "text": "Estructura del Repositorio\nProyecto_Mineria_Datos/\n├── data/\n│   ├── raw/            # Datos originales (no versionados)\n│   └── processed/      # Datos limpios\n├── notebooks/\n│   ├── 01_eda.ipynb\n│   ├── 02_modelo_supervisado.ipynb\n│   ├── 03_clustering.ipynb\n│   └── 04_demo_reutilizacion.ipynb\n├── src/\n│   ├── __init__.py\n│   ├── data_repository.py   # Patrón Repository\n│   ├── pipeline.py          # Patrón Pipeline / Strategy\n│   ├── model_factory.py     # Patrón Factory Method\n│   └── evaluator.py\n├── models/\n│   └── modelo_final.joblib\n├── reports/\n│   ├── reporte_final.pdf\n│   └── slides.pdf\n├── diagrams/\n│   └── arquitectura_uml.png\n├── docs/               # Sitio Quarto generado\n├── _quarto.yml\n├── styles.css\n├── index.qmd\n├── eda.qmd\n├── modelo.qmd\n├── clustering.qmd\n├── instalacion.qmd\n├── README.md\n├── requirements.txt\n└── .gitignore"
+  },
+  {
+    "objectID": "instalacion.html#solución-de-problemas",
+    "href": "instalacion.html#solución-de-problemas",
+    "title": "Instalación y Ejecución",
+    "section": "Solución de Problemas",
+    "text": "Solución de Problemas\n\n\n\n\n\n\n\n\nError\nCausa probable\nSolución\n\n\n\n\nModuleNotFoundError\nDependencia no instalada\npip install -r requirements.txt\n\n\nFileNotFoundError: datos.csv\nDataset no descargado\nVer paso 4\n\n\njoblib.load falla\nVersión de sklearn distinta\nUsar la versión en requirements.txt\n\n\nQuarto: execute error\nKernel sin dataset\nEjecutar notebooks antes de quarto render"
+  },
+  {
+    "objectID": "clustering.html",
+    "href": "clustering.html",
+    "title": "Agrupamiento (Clustering)",
+    "section": "",
+    "text": "Note\n\n\n\nPropósito: Identificar segmentos, perfiles o patrones ocultos en los datos que complementen o enriquezcan los hallazgos del modelo supervisado.\nAlgoritmo elegido:"
+  },
+  {
+    "objectID": "clustering.html#selección-y-justificación-de-variables",
+    "href": "clustering.html#selección-y-justificación-de-variables",
+    "title": "Agrupamiento (Clustering)",
+    "section": "1. Selección y Justificación de Variables",
+    "text": "1. Selección y Justificación de Variables\n\n\n\n\n\n\nTip\n\n\n\n\n\n\nVariable\n¿Se usa?\nJustificación\n\n\n\n\nvar_A\n✅\nCaptura el comportamiento X\n\n\nvar_B\n✅\nDistingue perfiles por Y\n\n\nid\n❌\nNo aporta estructura\n\n\n\nLas variables para clustering pueden diferir de las usadas en el modelo supervisado."
+  },
+  {
+    "objectID": "clustering.html#preprocesamiento",
+    "href": "clustering.html#preprocesamiento",
+    "title": "Agrupamiento (Clustering)",
+    "section": "2. Preprocesamiento",
+    "text": "2. Preprocesamiento\n\n\nCode\nimport pandas as pd\nimport numpy as np\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.decomposition import PCA\n\n# ── Cargar datos ────────────────────────────────────────────────────────────\n# from src.data_repository import DataRepository\n# df_cluster = DataRepository().load_processed()\n\n# Seleccionar variables de clustering\n# cluster_vars = [\"var_A\", \"var_B\", \"var_C\"]\n# X_clust = df_cluster[cluster_vars].dropna()\n\n# Normalización obligatoria (K-Means y KDE son sensibles a escala)\n# scaler = StandardScaler()\n# X_scaled = scaler.fit_transform(X_clust)\n\n# Reducción de dimensionalidad si hay &gt; 3 variables\n# pca = PCA(n_components=2, random_state=42)\n# X_pca = pca.fit_transform(X_scaled)\n# print(f\"Varianza explicada (2 PCs): {pca.explained_variance_ratio_.sum():.2%}\")\n\nprint(\"Preprocesamiento de clustering definido ✅\")\n\n\nPreprocesamiento de clustering definido ✅"
+  },
+  {
+    "objectID": "clustering.html#algoritmo-elegido-y-justificación",
+    "href": "clustering.html#algoritmo-elegido-y-justificación",
+    "title": "Agrupamiento (Clustering)",
+    "section": "3. Algoritmo Elegido y Justificación",
+    "text": "3. Algoritmo Elegido y Justificación\nAlgoritmo: \nJustificación: - Forma de los grupos:  - Manejo de ruido:  - Interpretabilidad:"
+  },
+  {
+    "objectID": "clustering.html#selección-del-número-de-grupos",
+    "href": "clustering.html#selección-del-número-de-grupos",
+    "title": "Agrupamiento (Clustering)",
+    "section": "4. Selección del Número de Grupos",
+    "text": "4. Selección del Número de Grupos\n\nMétodo del Codo (Inercia)\n\n\nCode\nimport matplotlib.pyplot as plt\nfrom sklearn.cluster import KMeans\n\n# ks = range(2, 11)\n# inertias = []\n# for k in ks:\n#     km = KMeans(n_clusters=k, random_state=42, n_init=\"auto\")\n#     km.fit(X_scaled)\n#     inertias.append(km.inertia_)\n\n# fig, ax = plt.subplots(figsize=(7, 4))\n# ax.plot(ks, inertias, \"o-\", color=\"#003f8a\", linewidth=2, markersize=7)\n# ax.axvline(x=OPTIMAL_K, color=\"#c8a951\", linestyle=\"--\", label=f\"k = {OPTIMAL_K}\")\n# ax.set_xlabel(\"Número de Clusters (k)\")\n# ax.set_ylabel(\"Inercia\")\n# ax.set_title(\"Método del Codo\", fontsize=12, fontweight='bold')\n# ax.legend()\n# plt.tight_layout()\n# plt.show()\n\n\n\n\nCoeficiente de Silueta\n\n\nCode\nfrom sklearn.metrics import silhouette_score\n\n# sil_scores = []\n# for k in ks:\n#     km = KMeans(n_clusters=k, random_state=42, n_init=\"auto\")\n#     labels = km.fit_predict(X_scaled)\n#     sil_scores.append(silhouette_score(X_scaled, labels))\n\n# fig, ax = plt.subplots(figsize=(7, 4))\n# ax.plot(ks, sil_scores, \"s-\", color=\"#1a6fd4\", linewidth=2, markersize=7)\n# ax.set_xlabel(\"Número de Clusters (k)\")\n# ax.set_ylabel(\"Coeficiente de Silueta\")\n# ax.set_title(\"Selección por Silueta (mayor = mejor)\", fontsize=12, fontweight='bold')\n# plt.tight_layout()\n# plt.show()\n\n# print(f\"k óptimo: {ks[sil_scores.index(max(sil_scores))]}\")"
+  },
+  {
+    "objectID": "clustering.html#entrenamiento-del-modelo-final",
+    "href": "clustering.html#entrenamiento-del-modelo-final",
+    "title": "Agrupamiento (Clustering)",
+    "section": "5. Entrenamiento del Modelo Final",
+    "text": "5. Entrenamiento del Modelo Final\n\n\nCode\nOPTIMAL_K = 3   # ajusta tras análisis del codo/silueta\n\n# km_final = KMeans(n_clusters=OPTIMAL_K, random_state=42, n_init=\"auto\")\n# labels = km_final.fit_predict(X_scaled)\n# df_cluster[\"cluster\"] = labels"
+  },
+  {
+    "objectID": "clustering.html#visualización-de-grupos",
+    "href": "clustering.html#visualización-de-grupos",
+    "title": "Agrupamiento (Clustering)",
+    "section": "6. Visualización de Grupos",
+    "text": "6. Visualización de Grupos\n\n\nCode\nimport seaborn as sns\n\nPALETTE = [\"#003f8a\", \"#c8a951\", \"#1a6fd4\", \"#e85d4a\", \"#2ecc71\"]\n\n# fig, ax = plt.subplots(figsize=(9, 6))\n# for i in range(OPTIMAL_K):\n#     mask = labels == i\n#     ax.scatter(X_pca[mask, 0], X_pca[mask, 1],\n#                c=PALETTE[i], label=f\"Cluster {i}\",\n#                alpha=0.6, s=30, edgecolors=\"none\")\n# centroids_pca = pca.transform(scaler.transform(km_final.cluster_centers_))\n# ax.scatter(centroids_pca[:, 0], centroids_pca[:, 1],\n#            c=\"red\", marker=\"X\", s=200, zorder=5, label=\"Centroides\")\n# ax.set_xlabel(f\"PC1 ({pca.explained_variance_ratio_[0]:.1%})\")\n# ax.set_ylabel(f\"PC2 ({pca.explained_variance_ratio_[1]:.1%})\")\n# ax.set_title(\"Clusters en espacio PCA\", fontsize=13, fontweight='bold')\n# ax.legend()\n# plt.tight_layout()\n# plt.show()"
+  },
+  {
+    "objectID": "clustering.html#interpretación-de-perfiles",
+    "href": "clustering.html#interpretación-de-perfiles",
+    "title": "Agrupamiento (Clustering)",
+    "section": "7. Interpretación de Perfiles",
+    "text": "7. Interpretación de Perfiles\n\n\nCode\n# cluster_profile = (\n#     df_cluster.groupby(\"cluster\")[cluster_vars]\n#     .agg([\"mean\", \"median\", \"std\"])\n#     .round(3)\n# )\n# cluster_profile\n\n\n\n\n\n\n\n\nTip\n\n\n\nEtiquetas interpretativas de los grupos:\n\n\n\n\n\n\n\n\nCluster\nEtiqueta\nDescripción\n\n\n\n\n0\n🔵 Nombre descriptivo\nCaracterización basada en estadísticas del perfil\n\n\n1\n🟡 Nombre descriptivo\nCaracterización basada en estadísticas del perfil\n\n\n2\n🔷 Nombre descriptivo\nCaracterización basada en estadísticas del perfil"
+  },
+  {
+    "objectID": "clustering.html#conexión-con-el-modelo-supervisado",
+    "href": "clustering.html#conexión-con-el-modelo-supervisado",
+    "title": "Agrupamiento (Clustering)",
+    "section": "8. Conexión con el Modelo Supervisado",
+    "text": "8. Conexión con el Modelo Supervisado\nDescribe cómo los clusters obtenidos complementan o enriquecen los hallazgos del modelo supervisado. Por ejemplo:\n\n¿Algún cluster tiene tasas de la variable objetivo significativamente diferentes?\n¿Los perfiles identificados sugieren subgrupos que merecen análisis independiente?\n¿Se pueden usar los clusters como feature adicional en el modelo supervisado?"
+  },
+  {
+    "objectID": "clustering.html#resumen-de-clustering",
+    "href": "clustering.html#resumen-de-clustering",
+    "title": "Agrupamiento (Clustering)",
+    "section": "Resumen de Clustering",
+    "text": "Resumen de Clustering\n\n\n\n\n\n\n\n\n\nParámetro\nValor\n\n\n\n\nAlgoritmo\nK-Means\n\n\nNúmero de grupos\nk = X\n\n\nCoeficiente de silueta\nX.XX\n\n\nVarianza explicada (PCA 2D)\nXX %\n\n\nGrupo más grande\nCluster Y (N registros, XX %)"
+  },
+  {
+    "objectID": "modelo.html",
+    "href": "modelo.html",
+    "title": "Modelo Supervisado",
+    "section": "",
+    "text": "Note\n\n\n\nTarea: \nVariable objetivo: nombre_columna — justificación de por qué esta variable es la más adecuada para el objetivo del proyecto."
+  },
+  {
+    "objectID": "modelo.html#definición-de-la-variable-objetivo",
+    "href": "modelo.html#definición-de-la-variable-objetivo",
+    "title": "Modelo Supervisado",
+    "section": "1. Definición de la Variable Objetivo",
+    "text": "1. Definición de la Variable Objetivo\nDescribe qué se predice y por qué esa variable es la más adecuada. Incluye:\n\nDominio de valores (clases o rango continuo)\nDistribución / balance de clases (enlazar al EDA)\nJustificación en términos del problema real"
+  },
+  {
+    "objectID": "modelo.html#preprocesamiento",
+    "href": "modelo.html#preprocesamiento",
+    "title": "Modelo Supervisado",
+    "section": "2. Preprocesamiento",
+    "text": "2. Preprocesamiento\n\n\nCode\nimport pandas as pd\nimport numpy as np\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.compose import ColumnTransformer\n\n# ── Cargar datos procesados ────────────────────────────────────────────────\n# from src.data_repository import DataRepository\n# df = DataRepository().load_processed()\n\n# Separar features y objetivo\n# X = df.drop(columns=[\"variable_objetivo\"])\n# y = df[\"variable_objetivo\"]\n\n# ── Identificar tipos de columnas ─────────────────────────────────────────\n# num_features  = X.select_dtypes(include=\"number\").columns.tolist()\n# cat_features  = X.select_dtypes(include=\"object\").columns.tolist()\n\n# ── Preprocesador ─────────────────────────────────────────────────────────\n# preprocessor = ColumnTransformer([\n#     (\"num\", StandardScaler(), num_features),\n#     (\"cat\", OneHotEncoder(handle_unknown=\"ignore\", sparse_output=False), cat_features),\n# ])\n\nprint(\"Preprocesador definido ✅\")\n\n\nPreprocesador definido ✅"
+  },
+  {
+    "objectID": "modelo.html#selección-de-variables-de-entrada",
+    "href": "modelo.html#selección-de-variables-de-entrada",
+    "title": "Modelo Supervisado",
+    "section": "3. Selección de Variables de Entrada",
+    "text": "3. Selección de Variables de Entrada\n\n\n\n\n\n\nTip\n\n\n\nVariables incluidas y excluidas:\n\n\n\nVariable\nIncluida\nJustificación\n\n\n\n\nvar_1\n✅\nAlta correlación con el objetivo (r = 0.XX)\n\n\nvar_2\n✅\nRelevancia de dominio\n\n\nid_registro\n❌\nIdentificador, no predictivo\n\n\nfecha_raw\n❌\nSustituida por variables derivadas"
+  },
+  {
+    "objectID": "modelo.html#división-entrenamiento-prueba",
+    "href": "modelo.html#división-entrenamiento-prueba",
+    "title": "Modelo Supervisado",
+    "section": "4. División Entrenamiento / Prueba",
+    "text": "4. División Entrenamiento / Prueba\n\n\nCode\nSEED = 42\n\n# X_train, X_test, y_train, y_test = train_test_split(\n#     X, y, test_size=0.2, random_state=SEED, stratify=y  # stratify si es clasificación\n# )\n\n# print(f\"Entrenamiento : {X_train.shape[0]:,} registros\")\n# print(f\"Prueba        : {X_test.shape[0]:,} registros\")"
+  },
+  {
+    "objectID": "modelo.html#entrenamiento-y-ajuste-de-hiperparámetros",
+    "href": "modelo.html#entrenamiento-y-ajuste-de-hiperparámetros",
+    "title": "Modelo Supervisado",
+    "section": "5. Entrenamiento y Ajuste de Hiperparámetros",
+    "text": "5. Entrenamiento y Ajuste de Hiperparámetros\n\n\nCode\nfrom sklearn.ensemble import RandomForestClassifier   # cambia según tu modelo\nfrom sklearn.model_selection import GridSearchCV, StratifiedKFold\n\n# ── Pipeline completo ─────────────────────────────────────────────────────\n# model_pipeline = Pipeline([\n#     (\"preprocessor\", preprocessor),\n#     (\"classifier\",   RandomForestClassifier(random_state=SEED)),\n# ])\n\n# ── Búsqueda de hiperparámetros ───────────────────────────────────────────\n# param_grid = {\n#     \"classifier__n_estimators\": [100, 200],\n#     \"classifier__max_depth\":    [None, 10, 20],\n#     \"classifier__min_samples_split\": [2, 5],\n# }\n\n# cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=SEED)\n# grid_search = GridSearchCV(model_pipeline, param_grid,\n#                             cv=cv, scoring=\"f1_weighted\",\n#                             n_jobs=-1, verbose=1)\n# grid_search.fit(X_train, y_train)\n\n# best_model = grid_search.best_estimator_\n# print(\"Mejores hiperparámetros:\", grid_search.best_params_)"
+  },
+  {
+    "objectID": "modelo.html#evaluación",
+    "href": "modelo.html#evaluación",
+    "title": "Modelo Supervisado",
+    "section": "6. Evaluación",
+    "text": "6. Evaluación\n\n6.1 Métricas\n\n\nCode\nfrom sklearn.metrics import (\n    classification_report, confusion_matrix,\n    roc_auc_score, ConfusionMatrixDisplay,\n    # mean_absolute_error, mean_squared_error, r2_score  # regresión\n)\nimport matplotlib.pyplot as plt\n\n# y_pred = best_model.predict(X_test)\n\n# ── Clasificación ─────────────────────────────────────────────────────────\n# print(classification_report(y_test, y_pred, digits=4))\n\n# ── Regresión ─────────────────────────────────────────────────────────────\n# mae  = mean_absolute_error(y_test, y_pred)\n# rmse = mean_squared_error(y_test, y_pred, squared=False)\n# r2   = r2_score(y_test, y_pred)\n# print(f\"MAE: {mae:.4f}  |  RMSE: {rmse:.4f}  |  R²: {r2:.4f}\")\n\n\n\n\n6.2 Matriz de Confusión\n\n\nCode\n# fig, ax = plt.subplots(figsize=(6, 5))\n# ConfusionMatrixDisplay.from_predictions(\n#     y_test, y_pred, ax=ax, cmap=\"Blues\",\n#     colorbar=False, values_format=\"d\"\n# )\n# ax.set_title(\"Matriz de Confusión\", fontsize=13, fontweight='bold')\n# plt.tight_layout()\n# plt.show()\n\n\n\n\n6.3 Curva ROC / AUC (clasificación)\n\n\nCode\nfrom sklearn.metrics import RocCurveDisplay\n\n# RocCurveDisplay.from_estimator(best_model, X_test, y_test)\n# plt.title(\"Curva ROC\", fontsize=13, fontweight='bold')\n# plt.tight_layout()\n# plt.show()\n\n\n\n\n6.4 Gráfica de Residuales (regresión)\n\n\nCode\n# residuals = y_test - y_pred\n# fig, axes = plt.subplots(1, 2, figsize=(12, 4))\n# axes[0].scatter(y_pred, residuals, alpha=0.4, color=\"#003f8a\")\n# axes[0].axhline(0, color=\"red\", linewidth=1.5, linestyle=\"--\")\n# axes[0].set_xlabel(\"Predicho\"); axes[0].set_ylabel(\"Residual\")\n# axes[0].set_title(\"Residuales vs. Predicho\")\n# axes[1].hist(residuals, bins=40, color=\"#003f8a\", edgecolor=\"white\")\n# axes[1].set_title(\"Distribución de Residuales\")\n# plt.suptitle(\"Análisis de Residuales\", fontsize=13, fontweight='bold', y=1.02)\n# plt.tight_layout()\n# plt.show()"
+  },
+  {
+    "objectID": "modelo.html#comparación-con-línea-base",
+    "href": "modelo.html#comparación-con-línea-base",
+    "title": "Modelo Supervisado",
+    "section": "7. Comparación con Línea Base",
+    "text": "7. Comparación con Línea Base\n\n\nCode\nfrom sklearn.dummy import DummyClassifier  # o DummyRegressor\n\n# dummy = DummyClassifier(strategy=\"most_frequent\", random_state=SEED)\n# dummy.fit(X_train, y_train)\n# dummy_pred = dummy.predict(X_test)\n# print(\"=== Clasificador Trivial (mayoritario) ===\")\n# print(classification_report(y_test, dummy_pred, digits=4))\n# print(\"=== Modelo Final ===\")\n# print(classification_report(y_test, y_pred, digits=4))"
+  },
+  {
+    "objectID": "modelo.html#persistencia-del-modelo",
+    "href": "modelo.html#persistencia-del-modelo",
+    "title": "Modelo Supervisado",
+    "section": "8. Persistencia del Modelo",
+    "text": "8. Persistencia del Modelo\n\n\nCode\nimport joblib\nfrom pathlib import Path\n\nMODELS_DIR = Path(\"../models\")\nMODELS_DIR.mkdir(exist_ok=True)\n\n# ── Guardar ────────────────────────────────────────────────────────────────\n# joblib.dump(best_model, MODELS_DIR / \"modelo_final.joblib\")\n# print(\"Modelo guardado ✅\")\n\n# ── Cargar y verificar ─────────────────────────────────────────────────────\n# loaded_model = joblib.load(MODELS_DIR / \"modelo_final.joblib\")\n# assert (loaded_model.predict(X_test) == y_pred).all(), \"¡Error: predicciones distintas!\"\n# print(\"Modelo cargado y verificado ✅\")\n\n\n\n\n\n\n\n\nImportant\n\n\n\nLa persistencia es un requisito técnico evaluado. El modelo debe poder cargarse y usarse para predicciones nuevas sin re-entrenar (demostración en vivo el 10 de junio)."
+  },
+  {
+    "objectID": "modelo.html#resumen-de-resultados",
+    "href": "modelo.html#resumen-de-resultados",
+    "title": "Modelo Supervisado",
+    "section": "Resumen de Resultados",
+    "text": "Resumen de Resultados\n\n\n\n\n\n\n\n\n\nMétrica\nLínea Base\nModelo Final\n\n\n\n\nAccuracy\nXX %\nXX %\n\n\nF1 (ponderado)\nXX %\nXX %\n\n\nAUC-ROC\n—\nX.XX\n\n\n\nConclusión: El modelo supera la línea base en X puntos porcentuales de F1, lo que indica…"
+  },
+  {
+    "objectID": "eda.html#limpieza-de-los-dataset",
+    "href": "eda.html#limpieza-de-los-dataset",
+    "title": "Análisis Exploratorio de Datos (EDA)",
+    "section": "2. Limpieza de los dataset",
+    "text": "2. Limpieza de los dataset\n\n# Haciendo un analisis de los datos consideramos que las columnas nombre y apellidos no son relevantes para este analisis\ndf = df.drop(columns = ['nombre','apellido_1', 'apellido_2'])"
+  },
+  {
+    "objectID": "eda.html#limpieza-del-dataset",
+    "href": "eda.html#limpieza-del-dataset",
+    "title": "Análisis Exploratorio de Datos (EDA)",
+    "section": "3. Limpieza del dataset",
+    "text": "3. Limpieza del dataset\n\n# Eliminamos los valores duplicados\n# df = df.drop_duplicates(subset=columna_cotejo,keep='first')\n\n# Haciendo un analisis de los datos consideramos que las columnas nombre y apellidos no son relevantes para este analisis\n# df = df.drop(columns = ['nombre','apellido_1', 'apellido_2'])\n\n# Coversion de tipos\n# df['edad'] = df['edad'].astype('Int64')"
+  },
+  {
+    "objectID": "eda.html#analisis-de-variables-categóricas",
+    "href": "eda.html#analisis-de-variables-categóricas",
+    "title": "Análisis Exploratorio de Datos (EDA)",
+    "section": "7. Analisis de Variables Categóricas",
+    "text": "7. Analisis de Variables Categóricas\n\n\nCode\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\norden_meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',\n               'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']\n\nfig, axes = plt.subplots(2, 2, figsize=(16, 12))\n\n# 1. Por año\npor_anio = df.groupby('anio')['incidencia_delictiva'].sum().reset_index()\nsns.barplot(x='anio', y='incidencia_delictiva', data=por_anio,\n            ax=axes[0,0], color=\"#1a6fd4\")\naxes[0,0].set_title(\"Incidencia por Año\", fontsize=12, fontweight='bold')\naxes[0,0].set_xlabel(\"Año\")\naxes[0,0].set_ylabel(\"Total de casos\")\naxes[0,0].tick_params(axis='x', rotation=45)\n\n# 2. Por mes\npor_mes = df.groupby('mes')['incidencia_delictiva'].sum().reindex(orden_meses).reset_index()\nsns.barplot(x='mes', y='incidencia_delictiva', data=por_mes,\n            ax=axes[0,1], color=\"#c8a951\")\naxes[0,1].set_title(\"Incidencia por Mes\", fontsize=12, fontweight='bold')\naxes[0,1].set_xlabel(\"Mes\")\naxes[0,1].set_ylabel(\"Total de casos\")\naxes[0,1].tick_params(axis='x', rotation=45)\n\n# 3. Por estado (top 15)\npor_estado = (df.groupby('entidad_federativa')['incidencia_delictiva']\n                .sum().sort_values(ascending=False).head(15).reset_index())\nsns.barplot(x='incidencia_delictiva', y='entidad_federativa', data=por_estado,\n            ax=axes[1,0], color=\"#2ecc71\")\naxes[1,0].set_title(\"Top 15 Estados con Mayor Incidencia\", fontsize=12, fontweight='bold')\naxes[1,0].set_xlabel(\"Total de casos\")\naxes[1,0].set_ylabel(\"Estado\")\n\n# 4. Por tipo de delito (top 15)\npor_delito = (df.groupby('subtipo_delito')['incidencia_delictiva']\n                .sum().sort_values(ascending=False).head(15).reset_index())\nsns.barplot(x='incidencia_delictiva', y='subtipo_delito', data=por_delito,\n            ax=axes[1,1], color=\"#e74c3c\")\naxes[1,1].set_title(\"Top 15 Tipos de Delito\", fontsize=12, fontweight='bold')\naxes[1,1].set_xlabel(\"Total de casos\")\naxes[1,1].set_ylabel(\"Tipo de delito\")\n\nplt.suptitle(\"Análisis de Incidencia Delictiva\", y=1.02, fontsize=14, fontweight='bold')\nplt.tight_layout()\nplt.show()"
+  }
+]

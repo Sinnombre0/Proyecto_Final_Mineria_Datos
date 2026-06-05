@@ -37,3 +37,5 @@ data/processed/*.parquet
 # OS
 .DS_Store
 Thumbs.db
+
+**/*.quarto_ipynb
