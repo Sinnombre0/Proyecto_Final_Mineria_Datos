@@ -327,8 +327,6 @@ plt.tight_layout()
 plt.show()
 ```
 
----
-
 ## 8. Visualizaciones Adicionales
 
 ```{python}
@@ -366,19 +364,3 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
 ```
-
----
-
-## Resumen del EDA
-
-::: {.callout-note appearance="simple"}
-| Hallazgo | Detalle |
-|----------|---------|
-| Dimensiones | `X,XXX filas × Y columnas` |
-| Variables numéricas | N |
-| Variables categóricas | M |
-| % de valores faltantes | < X % |
-| Duplicados eliminados | K |
-| Outliers detectados | descripción breve |
-| Variable objetivo (tentativa) | `nombre_columna` |
-:::
