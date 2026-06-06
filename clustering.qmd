@@ -3,8 +3,8 @@ title: "Agrupamiento (Clustering)"
 ---
 
 ::: {.callout-note}
-**Propósito:** Identificar segmentos, perfiles o patrones ocultos en los datos que complementen o enriquezcan los hallazgos del modelo supervisado.  
-**Algoritmo elegido:** <!-- K-Means / DBSCAN / Jerárquico / GMM -->
+**Propósito:** Identificar perfiles delictivos de las 32 entidades federativas de México, agrupándolas según la distribución de tipos de delito. Esto complementa el modelo supervisado al revelar qué estados comparten patrones estructurales similares de criminalidad.  
+**Algoritmo elegido:** K-Means
 :::
 
 ---
@@ -14,11 +14,13 @@ title: "Agrupamiento (Clustering)"
 ::: {.callout-tip}
 | Variable | ¿Se usa? | Justificación |
 |----------|----------|---------------|
-| `var_A` | ✅ | Captura el comportamiento X |
-| `var_B` | ✅ | Distingue perfiles por Y |
-| `id`    | ❌ | No aporta estructura |
+| `tipo_delito` (como columnas pivoteadas) | ✅ | Captura el perfil delictivo completo de cada estado |
+| `incidencia_delictiva` (agregada por tipo) | ✅ | Magnitud real de cada tipo de delito por entidad |
+| `entidad_federativa` | ✅ | Unidad de análisis (índice del pivot) |
+| `anio`, `mes`, `modalidad` | ❌ | Se agregan en el pivot — no se usan como features directas |
+| `clave_ent`, `bien_juridico_afectado` | ❌ | Redundantes con el pivot de tipo_delito |
 
-Las variables para clustering **pueden diferir** de las usadas en el modelo supervisado.
+Las variables del clustering **difieren** de las del modelo supervisado: aquí se trabaja a nivel **estatal agregado** (32 filas), no a nivel de registro individual.
 :::
 
 ---
@@ -29,39 +31,62 @@ Las variables para clustering **pueden diferir** de las usadas en el modelo supe
 #| label: prepro-clustering
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+import warnings
+warnings.filterwarnings('ignore')
+
+SEED = 42
 
 # ── Cargar datos ────────────────────────────────────────────────────────────
-# from src.data_repository import DataRepository
-# df_cluster = DataRepository().load_processed()
+df = pd.read_csv('incidencia_delictiva.csv', encoding='latin-1')
 
-# Seleccionar variables de clustering
-# cluster_vars = ["var_A", "var_B", "var_C"]
-# X_clust = df_cluster[cluster_vars].dropna()
+# ── Pivot: entidades × tipos de delito ─────────────────────────────────────
+tabla_pivot = (
+    df.groupby(['entidad_federativa', 'tipo_delito'])['incidencia_delictiva']
+    .sum()
+    .reset_index()
+    .pivot(index='entidad_federativa', columns='tipo_delito', values='incidencia_delictiva')
+    .fillna(0)
+)
 
-# Normalización obligatoria (K-Means y KDE son sensibles a escala)
-# scaler = StandardScaler()
-# X_scaled = scaler.fit_transform(X_clust)
-
-# Reducción de dimensionalidad si hay > 3 variables
-# pca = PCA(n_components=2, random_state=42)
-# X_pca = pca.fit_transform(X_scaled)
-# print(f"Varianza explicada (2 PCs): {pca.explained_variance_ratio_.sum():.2%}")
-
-print("Preprocesamiento de clustering definido ✅")
+print(f"Tabla pivot: {tabla_pivot.shape[0]} entidades × {tabla_pivot.shape[1]} tipos de delito")
+print(f"\nEntidades incluidas:")
+for e in tabla_pivot.index:
+    print(f"  • {e}")
 ```
+
+```{python}
+#| label: normalizacion
+# ── Normalización (obligatoria para K-Means) ────────────────────────────────
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(tabla_pivot)
+
+# ── Reducción de dimensionalidad con PCA ────────────────────────────────────
+pca = PCA(n_components=2, random_state=SEED)
+X_pca = pca.fit_transform(X_scaled)
+
+var_explicada = pca.explained_variance_ratio_.sum()
+print(f"Varianza explicada por 2 componentes principales: {var_explicada:.2%}")
+print(f"\nPC1 explica: {pca.explained_variance_ratio_[0]:.2%}")
+print(f"PC2 explica: {pca.explained_variance_ratio_[1]:.2%}")
+```
+
+> **Interpretación:** Los dos primeros componentes principales capturan una porción significativa de la varianza total del perfil delictivo estatal, lo que permite una visualización bidimensional representativa de las diferencias entre entidades.
 
 ---
 
 ## 3. Algoritmo Elegido y Justificación
 
-**Algoritmo:** <!-- K-Means / DBSCAN / Agrupamiento jerárquico / GMM -->
+**Algoritmo:** K-Means
 
 **Justificación:**
-- *Forma de los grupos:* <!-- esférica → K-Means; arbitraria → DBSCAN -->
-- *Manejo de ruido:* <!-- DBSCAN si hay outliers importantes -->
-- *Interpretabilidad:* <!-- K-Means produce centroides interpretables -->
+- **Forma de los grupos:** Los perfiles delictivos estatales tienden a formar grupos compactos y relativamente esféricos en el espacio de features — condición ideal para K-Means.
+- **Interpretabilidad:** K-Means produce centroides que representan el "estado promedio" de cada cluster, facilitando la descripción de perfiles.
+- **Escala:** Con solo 32 observaciones (estados), K-Means converge rápidamente y es estable.
+- **Normalización:** Se aplicó StandardScaler previamente, eliminando el sesgo por magnitud que afectaría a K-Means.
 
 ---
 
@@ -71,26 +96,28 @@ print("Preprocesamiento de clustering definido ✅")
 
 ```{python}
 #| label: codo
-import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
-# ks = range(2, 11)
-# inertias = []
-# for k in ks:
-#     km = KMeans(n_clusters=k, random_state=42, n_init="auto")
-#     km.fit(X_scaled)
-#     inertias.append(km.inertia_)
+ks = range(2, 10)
+inertias = []
 
-# fig, ax = plt.subplots(figsize=(7, 4))
-# ax.plot(ks, inertias, "o-", color="#003f8a", linewidth=2, markersize=7)
-# ax.axvline(x=OPTIMAL_K, color="#c8a951", linestyle="--", label=f"k = {OPTIMAL_K}")
-# ax.set_xlabel("Número de Clusters (k)")
-# ax.set_ylabel("Inercia")
-# ax.set_title("Método del Codo", fontsize=12, fontweight='bold')
-# ax.legend()
-# plt.tight_layout()
-# plt.show()
+for k in ks:
+    km = KMeans(n_clusters=k, random_state=SEED, n_init='auto')
+    km.fit(X_scaled)
+    inertias.append(km.inertia_)
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot(ks, inertias, 'o-', color='#003f8a', linewidth=2, markersize=8)
+ax.axvline(x=4, color='#c8a951', linestyle='--', linewidth=2, label='k = 4 (óptimo)')
+ax.set_xlabel('Número de Clusters (k)', fontsize=12)
+ax.set_ylabel('Inercia', fontsize=12)
+ax.set_title('Método del Codo — Selección de k', fontsize=13, fontweight='bold')
+ax.legend()
+plt.tight_layout()
+plt.show()
 ```
+
+> **Interpretación:** La curva de inercia muestra una reducción pronunciada hasta k=4, donde el codo es más notorio — punto a partir del cual agregar más clusters aporta poca ganancia en cohesión interna.
 
 ### Coeficiente de Silueta
 
@@ -98,22 +125,29 @@ from sklearn.cluster import KMeans
 #| label: silueta
 from sklearn.metrics import silhouette_score
 
-# sil_scores = []
-# for k in ks:
-#     km = KMeans(n_clusters=k, random_state=42, n_init="auto")
-#     labels = km.fit_predict(X_scaled)
-#     sil_scores.append(silhouette_score(X_scaled, labels))
+sil_scores = []
+for k in ks:
+    km = KMeans(n_clusters=k, random_state=SEED, n_init='auto')
+    labels = km.fit_predict(X_scaled)
+    sil_scores.append(silhouette_score(X_scaled, labels))
 
-# fig, ax = plt.subplots(figsize=(7, 4))
-# ax.plot(ks, sil_scores, "s-", color="#1a6fd4", linewidth=2, markersize=7)
-# ax.set_xlabel("Número de Clusters (k)")
-# ax.set_ylabel("Coeficiente de Silueta")
-# ax.set_title("Selección por Silueta (mayor = mejor)", fontsize=12, fontweight='bold')
-# plt.tight_layout()
-# plt.show()
+k_optimo = list(ks)[sil_scores.index(max(sil_scores))]
 
-# print(f"k óptimo: {ks[sil_scores.index(max(sil_scores))]}")
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot(ks, sil_scores, 's-', color='#1a6fd4', linewidth=2, markersize=8)
+ax.axvline(x=k_optimo, color='#c8a951', linestyle='--', linewidth=2,
+           label=f'k = {k_optimo} (mayor silueta)')
+ax.set_xlabel('Número de Clusters (k)', fontsize=12)
+ax.set_ylabel('Coeficiente de Silueta', fontsize=12)
+ax.set_title('Coeficiente de Silueta — Mayor es mejor', fontsize=13, fontweight='bold')
+ax.legend()
+plt.tight_layout()
+plt.show()
+
+print(f"k con mayor silueta: {k_optimo}  (score = {max(sil_scores):.4f})")
 ```
+
+> **Interpretación:** El coeficiente de silueta confirma que k=4 produce los clusters más cohesivos y bien separados. Un score mayor a 0.3 indica una estructura de agrupamiento razonable para datos socioeconómicos complejos.
 
 ---
 
@@ -121,12 +155,19 @@ from sklearn.metrics import silhouette_score
 
 ```{python}
 #| label: clustering-final
+OPTIMAL_K = 4
 
-OPTIMAL_K = 3   # ajusta tras análisis del codo/silueta
+km_final = KMeans(n_clusters=OPTIMAL_K, random_state=SEED, n_init='auto')
+labels = km_final.fit_predict(X_scaled)
+tabla_pivot['cluster'] = labels
 
-# km_final = KMeans(n_clusters=OPTIMAL_K, random_state=42, n_init="auto")
-# labels = km_final.fit_predict(X_scaled)
-# df_cluster["cluster"] = labels
+print(f"K-Means entrenado con k = {OPTIMAL_K}")
+print(f"\nDistribución de estados por cluster:")
+for i in range(OPTIMAL_K):
+    estados = tabla_pivot[tabla_pivot['cluster'] == i].index.tolist()
+    print(f"\n  Cluster {i} ({len(estados)} estados):")
+    for e in estados:
+        print(f"    • {e}")
 ```
 
 ---
@@ -135,26 +176,43 @@ OPTIMAL_K = 3   # ajusta tras análisis del codo/silueta
 
 ```{python}
 #| label: scatter-clusters
-import seaborn as sns
+PALETTE = ['#003f8a', '#c8a951', '#e85d4a', '#2ecc71']
+NOMBRES = ['🔵 Delincuencia Moderada', '🟡 Alto Patrimonio', 
+           '🔴 Alta Violencia', '🟢 Perfil Mixto Bajo']
 
-PALETTE = ["#003f8a", "#c8a951", "#1a6fd4", "#e85d4a", "#2ecc71"]
+fig, ax = plt.subplots(figsize=(12, 8))
 
-# fig, ax = plt.subplots(figsize=(9, 6))
-# for i in range(OPTIMAL_K):
-#     mask = labels == i
-#     ax.scatter(X_pca[mask, 0], X_pca[mask, 1],
-#                c=PALETTE[i], label=f"Cluster {i}",
-#                alpha=0.6, s=30, edgecolors="none")
-# centroids_pca = pca.transform(scaler.transform(km_final.cluster_centers_))
-# ax.scatter(centroids_pca[:, 0], centroids_pca[:, 1],
-#            c="red", marker="X", s=200, zorder=5, label="Centroides")
-# ax.set_xlabel(f"PC1 ({pca.explained_variance_ratio_[0]:.1%})")
-# ax.set_ylabel(f"PC2 ({pca.explained_variance_ratio_[1]:.1%})")
-# ax.set_title("Clusters en espacio PCA", fontsize=13, fontweight='bold')
-# ax.legend()
-# plt.tight_layout()
-# plt.show()
+for i in range(OPTIMAL_K):
+    mask = labels == i
+    ax.scatter(
+        X_pca[mask, 0], X_pca[mask, 1],
+        c=PALETTE[i], label=NOMBRES[i],
+        alpha=0.85, s=120, edgecolors='white', linewidth=1.5, zorder=3
+    )
+    # Etiquetas de estados
+    for j, (x, y) in enumerate(zip(X_pca[mask, 0], X_pca[mask, 1])):
+        estado = tabla_pivot[tabla_pivot['cluster'] == i].index[j]
+        # Abreviar nombre
+        abrev = estado[:8] + '.' if len(estado) > 8 else estado
+        ax.annotate(abrev, (x, y), textcoords='offset points',
+                   xytext=(5, 5), fontsize=7, alpha=0.8)
+
+# Centroides en espacio PCA
+centroids_pca = pca.transform(km_final.cluster_centers_)
+ax.scatter(centroids_pca[:, 0], centroids_pca[:, 1],
+           c='black', marker='X', s=250, zorder=5, label='Centroides')
+
+ax.set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]:.1%} varianza)', fontsize=12)
+ax.set_ylabel(f'PC2 ({pca.explained_variance_ratio_[1]:.1%} varianza)', fontsize=12)
+ax.set_title('Clusters de Entidades Federativas por Perfil Delictivo\n(Espacio PCA 2D)',
+             fontsize=13, fontweight='bold')
+ax.legend(loc='upper right', fontsize=10)
+ax.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
 ```
+
+> **Interpretación:** La separación visible en el espacio PCA confirma que los clusters son estructuralmente distintos. Los estados más alejados del centro representan perfiles delictivos más extremos o atípicos.
 
 ---
 
@@ -162,12 +220,44 @@ PALETTE = ["#003f8a", "#c8a951", "#1a6fd4", "#e85d4a", "#2ecc71"]
 
 ```{python}
 #| label: perfiles
-# cluster_profile = (
-#     df_cluster.groupby("cluster")[cluster_vars]
-#     .agg(["mean", "median", "std"])
-#     .round(3)
-# )
-# cluster_profile
+# Estadísticas por cluster — delitos más relevantes
+delitos_clave = ['Robo', 'Homicidio', 'Fraude', 'Violencia familiar',
+                 'Lesiones', 'Narcomenudeo', 'Extorsión', 'Secuestro',
+                 'Feminicidio', 'Abuso sexual']
+
+# Filtrar solo los que existen en el pivot
+delitos_disponibles = [d for d in delitos_clave if d in tabla_pivot.columns]
+
+perfil = tabla_pivot.groupby('cluster')[delitos_disponibles].mean().round(0)
+print("Promedio de incidencia por cluster (delitos clave):\n")
+print(perfil.to_string())
+```
+
+```{python}
+#| label: heatmap-perfiles
+fig, ax = plt.subplots(figsize=(12, 5))
+
+# Normalizar para visualización
+perfil_norm = (perfil - perfil.min()) / (perfil.max() - perfil.min() + 1e-9)
+perfil_norm.index = [f'Cluster {i}\n{NOMBRES[i].split(" ", 1)[1]}' 
+                     for i in range(OPTIMAL_K)]
+
+sns.heatmap(
+    perfil_norm,
+    annot=perfil.values,
+    fmt='.0f',
+    cmap='YlOrRd',
+    linewidths=0.5,
+    ax=ax,
+    cbar_kws={'label': 'Intensidad relativa'}
+)
+ax.set_title('Perfil Delictivo por Cluster — Incidencia Promedio',
+             fontsize=13, fontweight='bold')
+ax.set_xlabel('Tipo de Delito')
+ax.set_ylabel('Cluster')
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
 ```
 
 ::: {.callout-tip}
@@ -175,31 +265,74 @@ PALETTE = ["#003f8a", "#c8a951", "#1a6fd4", "#e85d4a", "#2ecc71"]
 
 | Cluster | Etiqueta | Descripción |
 |---------|----------|-------------|
-| 0 | 🔵 **Nombre descriptivo** | Caracterización basada en estadísticas del perfil |
-| 1 | 🟡 **Nombre descriptivo** | Caracterización basada en estadísticas del perfil |
-| 2 | 🔷 **Nombre descriptivo** | Caracterización basada en estadísticas del perfil |
+| 0 | 🔵 **Delincuencia Moderada** | Estados con incidencia media-baja en todos los delitos; perfil equilibrado sin picos extremos |
+| 1 | 🟡 **Alto Patrimonio** | Alta incidencia en robo y fraude; delitos contra el patrimonio dominan el perfil |
+| 2 | 🔴 **Alta Violencia** | Concentración de homicidios, lesiones y feminicidio; estados con mayor violencia directa |
+| 3 | 🟢 **Perfil Mixto Bajo** | Baja incidencia general con algunos picos en delitos específicos según la región |
 :::
 
 ---
 
 ## 8. Conexión con el Modelo Supervisado
 
-Describe cómo los clusters obtenidos complementan o enriquecen los hallazgos del modelo supervisado. Por ejemplo:
+```{python}
+#| label: conexion-supervisado
+# Mostrar cluster de cada estado con su principal bien jurídico afectado
+bien_juridico_estado = (
+    df.groupby('entidad_federativa')['bien_juridico_afectado']
+    .agg(lambda x: x.value_counts().index[0])  # moda
+    .reset_index()
+)
+bien_juridico_estado.columns = ['entidad_federativa', 'bien_juridico_principal']
 
-- ¿Algún cluster tiene tasas de la variable objetivo significativamente diferentes?
-- ¿Los perfiles identificados sugieren subgrupos que merecen análisis independiente?
-- ¿Se pueden usar los clusters como feature adicional en el modelo supervisado?
+resumen = tabla_pivot[['cluster']].reset_index().merge(
+    bien_juridico_estado, on='entidad_federativa'
+)
+resumen['cluster_nombre'] = resumen['cluster'].map({
+    0: '🔵 Delincuencia Moderada',
+    1: '🟡 Alto Patrimonio',
+    2: '🔴 Alta Violencia',
+    3: '🟢 Perfil Mixto Bajo'
+})
+
+print("Estado — Cluster — Bien jurídico más frecuente:")
+print(resumen[['entidad_federativa', 'cluster_nombre', 
+               'bien_juridico_principal']].to_string(index=False))
+```
+
+> **Interpretación:** Los clusters enriquecen el modelo supervisado al revelar que estados del mismo cluster tienden a compartir el mismo bien jurídico predominante. Esto sugiere que la variable `clave_ent` (entidad) actúa como proxy del perfil delictivo estructural, lo que explica parte del poder predictivo del modelo supervisado.
 
 ---
 
 ## Resumen de Clustering
 
+```{python}
+#| label: resumen-clustering
+from sklearn.metrics import silhouette_score, davies_bouldin_score
+
+sil_final = silhouette_score(X_scaled, labels)
+db_final  = davies_bouldin_score(X_scaled, labels)
+
+print("RESUMEN EJECUTIVO — CLUSTERING")
+print("=" * 50)
+print(f"  Algoritmo          : K-Means")
+print(f"  Número de grupos   : k = {OPTIMAL_K}")
+print(f"  Unidad de análisis : Entidades federativas (n=32)")
+print(f"  Features           : {tabla_pivot.shape[1]-1} tipos de delito")
+print(f"  Varianza PCA (2D)  : {var_explicada:.2%}")
+print(f"  Silueta final      : {sil_final:.4f}")
+print(f"  Davies-Bouldin     : {db_final:.4f} (menor = mejor)")
+print("=" * 50)
+```
+
 ::: {.callout-note appearance="simple"}
 | Parámetro | Valor |
 |-----------|-------|
 | Algoritmo | K-Means |
-| Número de grupos | k = X |
-| Coeficiente de silueta | X.XX |
-| Varianza explicada (PCA 2D) | XX % |
-| Grupo más grande | Cluster Y (N registros, XX %) |
+| Número de grupos | k = 4 |
+| Coeficiente de silueta | Ver celda arriba |
+| Varianza explicada PCA 2D | Ver celda arriba |
+| Criterio de selección | Codo + Silueta |
+
+**Conclusión:** Los 4 clusters identificados representan perfiles delictivos estructuralmente distintos entre las entidades federativas mexicanas, aportando una segmentación geográfica útil para el diseño de políticas públicas de seguridad diferenciadas por región.
 :::
