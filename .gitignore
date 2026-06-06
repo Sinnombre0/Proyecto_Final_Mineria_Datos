@@ -39,3 +39,4 @@ data/processed/*.parquet
 Thumbs.db
 
 **/*.quarto_ipynb
+models/modelo_final.joblib
