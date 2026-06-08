@@ -45,7 +45,7 @@ SEED = 42
 np.random.seed(SEED)
 
 # ── Carga del dataset ──────────────────────────────────────────────────────
-df = pd.read_csv('incidencia_delictiva.csv', encoding='latin-1')
+df = pd.read_csv('data/raw/incidencia_delictiva.csv', encoding='latin-1')
 
 print(f"Dataset cargado: {df.shape[0]:,} filas × {df.shape[1]} columnas")
 print(f"\nDistribución de la variable objetivo:")

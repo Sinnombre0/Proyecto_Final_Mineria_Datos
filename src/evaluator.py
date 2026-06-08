@@ -1,8 +1,5 @@
 """
-src/evaluator.py
-================
-Clase Evaluator: encapsula el cálculo y visualización de métricas
-para clasificación y regresión.
+Encapsula el cálculo y visualización de métricas para clasificación y regresión.
 """
 
 from __future__ import annotations

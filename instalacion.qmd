@@ -52,16 +52,8 @@ pip install -r requirements.txt
 ## 4. Obtener el Dataset
 
 > El dataset no se incluye en el repositorio por su tamaño. Descárgalo desde la fuente oficial y colócalo en `data/raw/`.
-
-```bash
-# Opción A — descarga manual
-# 1. Ve a: URL_DE_LA_FUENTE
-# 2. Descarga el archivo y guárdalo como:
-#    data/raw/nombre_archivo.csv
-
-# Opción B — script de descarga automática (si está disponible)
-python src/download_data.py
-```
+1. Visita el sitio oficial del dataset: [Incidencia Delictiva en México](https://www.inegi.org.mx/programas/incidencia-delictiva/)
+2. Descarga el archivo CSV sobre incidencia delictiva estatal.
 
 ---
 

@@ -1,16 +1,13 @@
 """
-src/data_repository.py
-======================
 Patrón de diseño: Repository
--------------------------------
-Abstrae el acceso a datos (CSV, Parquet, API) detrás de una interfaz uniforme.
-El código cliente no necesita saber de dónde vienen los datos.
+Abstrae el acceso a datos (CSV).
 """
 
 from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
+import os
 from pathlib import Path
 
 import pandas as pd
@@ -108,3 +105,11 @@ class DataRepository:
         if ext not in cls._registry:
             raise ValueError(f"Formato '{ext}' no soportado. Usa: {list(cls._registry)}")
         return cls._registry[ext](raw_path, processed_path, **kwargs)
+
+    def __init__(self, raw_path: str):
+        self.raw_path = raw_path
+
+    def load_data(self) -> pd.DataFrame:
+        if not os.path.exists(self.raw_path):
+            raise FileNotFoundError(f"El dataset no fue encontrado en: {self.raw_path}. Revisa el paso 4 de la instalación.")
+        return pd.read_csv(self.raw_path)

@@ -1,21 +1,15 @@
 """
-src/pipeline.py
-===============
-Patrón de diseño: Pipeline + Strategy
---------------------------------------
 Pipeline: el procesamiento de datos ocurre en etapas secuenciales bien definidas
           (limpieza → encoding → escalado → modelo).
 Strategy: permite intercambiar el algoritmo de limpieza/encoding en tiempo de ejecución.
 """
 
-from __future__ import annotations
-
 import logging
-from abc import ABC, abstractmethod
-
 import pandas as pd
+
+from __future__ import annotations
+from abc import ABC, abstractmethod
 from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline as SKPipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 logger = logging.getLogger(__name__)
@@ -72,12 +66,18 @@ class DataPipeline:
     """
 
     def __init__(
-        self,
-        cleaning_strategy: CleaningStrategy | None = None,
-        target_col: str = "target",
+        self, 
+        cleaning_strategy: CleaningStrategy | None = None, 
+        target_col: str = "bien_juridico_afectado"
     ) -> None:
+        # Si no se proporciona estrategia, se usa ImputeMedianStrategy por defecto
         self.cleaning_strategy = cleaning_strategy or ImputeMedianStrategy()
         self.target_col = target_col
+        self.orden_meses = {
+            'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4, 'Mayo': 5, 'Junio': 6,
+            'Julio': 7, 'Agosto': 8, 'Septiembre': 9, 'Octubre': 10, 'Noviembre': 11, 'Diciembre': 12
+        }
+        self.features = ['anio', 'mes_num', 'clave_ent', 'incidencia_delictiva']
 
     def run(self, df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
         """
@@ -91,13 +91,17 @@ class DataPipeline:
         logger.info("=== Iniciando DataPipeline ===")
 
         # Etapa 1: Limpieza
-        df = self.cleaning_strategy.clean(df)
+        df_cleaned = self.cleaning_strategy.clean(df)
 
-        # Etapa 2: Separar X e y
-        if self.target_col not in df.columns:
-            raise ValueError(f"Columna objetivo '{self.target_col}' no encontrada.")
-        X = df.drop(columns=[self.target_col])
-        y = df[self.target_col]
+        df_transformed = df_cleaned.copy()
+        df_transformed['mes_num'] = df_transformed['mes'].map(self.orden_meses)
+        
+        # Etapa 3: Separación de X e Y
+        if self.target_col not in df_transformed.columns:
+            raise ValueError(f"La columna objetivo '{self.target_col}' no existe en el dataset.")
+            
+        X = df_transformed[self.features]
+        y = df_transformed[self.target_col]
 
         logger.info("DataPipeline completado: %d filas × %d features", *X.shape)
         return X, y

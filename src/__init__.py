@@ -1,7 +1,5 @@
 """
-src — Módulos del Proyecto de Minería de Datos
-================================================
-Importaciones principales para facilitar el uso desde notebooks.
+src — Módulos del Proyecto de Minería de Dato
 """
 
 from src.data_repository import DataRepository, CSVRepository, ParquetRepository
