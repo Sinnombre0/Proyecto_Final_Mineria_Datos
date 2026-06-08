@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Agrupamiento (Clustering) – Minería de Datos — FC UNAM</title>
+<title>clustering – Minería de Datos — FC UNAM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -61,23 +61,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-9cdbd49fb92a4d7f9d8c4f710986121f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-9cdbd49fb92a4d7f9d8c4f710986121f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -136,7 +136,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -146,7 +146,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Minería de Datos — FC UNAM</span>
     </a>
   </div>
@@ -157,23 +157,23 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Inicio</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./eda.html"> 
+    <a class="nav-link" href="../eda.html"> 
 <span class="menu-text">EDA</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./modelo.html"> 
+    <a class="nav-link" href="../modelo.html"> 
 <span class="menu-text">Modelo Supervisado</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./clustering.html" aria-current="page"> 
+    <a class="nav-link" href="../clustering.html"> 
 <span class="menu-text">Clustering</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./instalacion.html"> 
+    <a class="nav-link" href="../instalacion.html"> 
 <span class="menu-text">Instalación</span></a>
   </li>  
 </ul>
@@ -194,57 +194,15 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contenido</h2>
-   
-  <ul>
-  <li><a href="#desarrollo-del-agrupamiento-no-supervisado" id="toc-desarrollo-del-agrupamiento-no-supervisado" class="nav-link active" data-scroll-target="#desarrollo-del-agrupamiento-no-supervisado">Desarrollo del Agrupamiento No Supervisado</a></li>
-  <li><a href="#síntesis-interpretativa-de-la-segmentación-nacional" id="toc-síntesis-interpretativa-de-la-segmentación-nacional" class="nav-link" data-scroll-target="#síntesis-interpretativa-de-la-segmentación-nacional">📑 Síntesis Interpretativa de la Segmentación Nacional</a></li>
-  </ul>
-<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="notebooks\03_clustering-preview.html"><i class="bi bi-journal-code"></i>==============================================================================</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Agrupamiento (Clustering)</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"></h1></header><div class="quarto-title-block"><div class="quarto-title-tools-only"><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Propósito:</strong> Identificar perfiles delictivos de las 32 entidades federativas de México, agrupándolas según la distribución de tipos de delito. Esto complementa el modelo supervisado al revelar qué estados comparten patrones estructurales similares de criminalidad.<br>
-<strong>Algoritmo elegido:</strong> K-Means</p>
-</div>
-</div>
-<hr>
-<section id="desarrollo-del-agrupamiento-no-supervisado" class="level2">
-<h2 class="anchored" data-anchor-id="desarrollo-del-agrupamiento-no-supervisado">Desarrollo del Agrupamiento No Supervisado</h2>
-<p>A continuación se presenta el flujo experimental completo de segmentación geográfica. Este reporte se genera dinámicamente extrayendo las celdas de código, las ejecuciones algorítmicas, las visualizaciones interclúster y las métricas de validación interna directamente desde el cuaderno analítico de desarrollo.</p>
-<div class="quarto-embed-nb-cell">
 <div id="cce471a4" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
@@ -351,7 +309,7 @@ Tabla pivot construida: 32 entidades × 40 tipos de delito</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="clustering_files/figure-html/.-notebooks-03_clustering-cell-4-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="03_clustering_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -395,7 +353,7 @@ Tabla pivot construida: 32 entidades × 40 tipos de delito</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="clustering_files/figure-html/.-notebooks-03_clustering-cell-5-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="03_clustering_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -475,7 +433,7 @@ Tabla pivot construida: 32 entidades × 40 tipos de delito</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="clustering_files/figure-html/.-notebooks-03_clustering-cell-7-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="03_clustering_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -519,7 +477,7 @@ Tabla pivot construida: 32 entidades × 40 tipos de delito</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="clustering_files/figure-html/.-notebooks-03_clustering-cell-8-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="03_clustering_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -630,33 +588,8 @@ Baja California Sur       🟡 Alto Patrimonio           El patrimonio
 =======================================================</code></pre>
 </div>
 </div>
-<a class="quarto-notebook-link" id="nblink-1" href="notebooks\03_clustering-preview.html#cce471a4">Source: ==============================================================================</a></div>
-<hr>
-</section>
-<section id="síntesis-interpretativa-de-la-segmentación-nacional" class="level2">
-<h2 class="anchored" data-anchor-id="síntesis-interpretativa-de-la-segmentación-nacional">📑 Síntesis Interpretativa de la Segmentación Nacional</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Conclusiones de la Caracterización Geográfica:
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li><strong>Validación Geométrica Concluyente:</strong> El comportamiento coincidente entre el punto de inflexión del <em>Método del Codo</em> (Inercia) y el pico máximo absoluto del <em>Coeficiente de Silueta</em> (Score &gt; 0.30) fundamenta con rigor matemático que la estructura delictiva estatal se divide de forma óptima en <strong>4 clústeres</strong> diferenciados.</li>
-<li><strong>Disparidad Estructural de la Seguridad:</strong> Los perfiles descubiertos a través del mapa de calor demuestran que las entidades no sufren el mismo tipo de violencia. Mientras que estados del <em>Cluster 1</em> demandan políticas públicas orientadas a mitigar delitos de alto impacto patrimonial (robos/fraudes), las regiones del <em>Cluster 2</em> exhiben focos rojos de violencia directa (homicidios/lesiones), exigiendo despliegues tácticos de contención civil.</li>
-<li><strong>Consistencia de los Modelos (Multi-Paradigma):</strong> Al cruzar las etiquetas de los clústeres no supervisados con la moda del bien jurídico del modelo supervisado, se demostró una coherencia del 100%. Esto valida que la variable de geolocalización es un descriptor directo del perfil de criminalidad de una región, justificando el alto desempeño predictivo alcanzado por el clasificador del Rol 2.</li>
-</ol>
-</div>
-</div>
 
 
-<!-- -->
-
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1109,35 +1042,7 @@ Baja California Sur       🟡 Alto Patrimonio           El patrimonio
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Agrupamiento (Clustering)"</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>**Propósito:** Identificar perfiles delictivos de las 32 entidades federativas de México, agrupándolas según la distribución de tipos de delito. Esto complementa el modelo supervisado al revelar qué estados comparten patrones estructurales similares de criminalidad.  </span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>**Algoritmo elegido:** K-Means</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Desarrollo del Agrupamiento No Supervisado</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>A continuación se presenta el flujo experimental completo de segmentación geográfica. Este reporte se genera dinámicamente extrayendo las celdas de código, las ejecuciones algorítmicas, las visualizaciones interclúster y las métricas de validación interna directamente desde el cuaderno analítico de desarrollo.</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>{{&lt; embed ./notebooks/03_clustering.ipynb echo=true &gt;}}</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📑 Síntesis Interpretativa de la Segmentación Nacional</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="fu">### Conclusiones de la Caracterización Geográfica:</span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Validación Geométrica Concluyente:** El comportamiento coincidente entre el punto de inflexión del *Método del Codo* (Inercia) y el pico máximo absoluto del *Coeficiente de Silueta* (Score &gt; 0.30) fundamenta con rigor matemático que la estructura delictiva estatal se divide de forma óptima en **4 clústeres** diferenciados.</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Disparidad Estructural de la Seguridad:** Los perfiles descubiertos a través del mapa de calor demuestran que las entidades no sufren el mismo tipo de violencia. Mientras que estados del *Cluster 1* demandan políticas públicas orientadas a mitigar delitos de alto impacto patrimonial (robos/fraudes), las regiones del *Cluster 2* exhiben focos rojos de violencia directa (homicidios/lesiones), exigiendo despliegues tácticos de contención civil.</span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Consistencia de los Modelos (Multi-Paradigma):** Al cruzar las etiquetas de los clústeres no supervisados con la moda del bien jurídico del modelo supervisado, se demostró una coherencia del 100%. Esto valida que la variable de geolocalización es un descriptor directo del perfil de criminalidad de una región, justificando el alto desempeño predictivo alcanzado por el clasificador del Rol 2.</span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 

@@ -286,7 +286,7 @@ dtypes: int64(4), str(9)
 memory usage: 41.1 MB</code></pre>
 </div>
 </div>
-<div id="3bb0df70" class="cell">
+<div id="3bb0df70" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 2. CALIDAD DE DATOS ==="</span>)</span>
@@ -539,46 +539,53 @@ Despojo                                   4224            1.02</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="eda_files/figure-html/.-notebooks-01_eda-cell-5-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-3.png" class="img-fluid figure-img"></p>
+<p><img src="eda_files/figure-html/.-notebooks-01_eda-cell-5-output-3.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-4.png" class="img-fluid figure-img"></p>
+<p><img src="eda_files/figure-html/.-notebooks-01_eda-cell-5-output-4.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-5.png" class="img-fluid figure-img"></p>
+<p><img src="eda_files/figure-html/.-notebooks-01_eda-cell-5-output-5.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-6.png" class="img-fluid figure-img"></p>
+<p><img src="eda_files/figure-html/.-notebooks-01_eda-cell-5-output-6.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-7.png" class="img-fluid figure-img"></p>
+<p><img src="eda_files/figure-html/.-notebooks-01_eda-cell-5-output-7.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
+<blockquote class="blockquote">
+<h3 id="interpretación-analítica-de-los-diagramas-de-caja-outliers" class="anchored">📝 Interpretación Analítica de los Diagramas de Caja (Outliers)</h3>
+<ul>
+<li><strong>Qué se observa:</strong> Los diagramas de caja revelan una dispersión asimétrica extrema en la variable <code>incidencia_delictiva</code> al segmentarse por bien jurídico. La categoría <em>El patrimonio</em> presenta la mediana más elevada y un rango intercuartílico (IQR) notablemente ancho, acompañada de una densa concentración de valores atípicos en la parte superior. Al analizar el comportamiento macro a lo largo de los años (2015-2025), las cajas mantienen una posición y un IQR estables en el tiempo, confirmando que la estructura general de la denuncia no sufre mutaciones drásticas, aunque persisten sistemáticamente los puntos atípicos en todos los periodos.</li>
+<li><strong>Implicación para el modelado:</strong> La drástica diferencia en las escalas demuestra que una baja incidencia absoluta no significa la ausencia de patrones delictivos, sino que responde a la naturaleza intrínseca del delito (los robos ocurren con magnitudes numéricas masivas, mientras que los secuestros registran conteos bajos pero críticos). Debido a que estos outliers no corresponden a errores de captura, sino a picos reales de criminalidad concentrados en regiones de alta densidad poblacional, la estrategia de limpieza <strong>no debe eliminar estos registros</strong>. Su conservación es fundamental para que el modelo aprenda a identificar escenarios de riesgo extremo.</li>
+</ul>
+</blockquote>
 <div id="48795429" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
@@ -622,11 +629,18 @@ Despojo                                   4224            1.02</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-6-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="eda_files/figure-html/.-notebooks-01_eda-cell-6-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
+<blockquote class="blockquote">
+<h3 id="interpretación-de-la-relación-entre-variables-mapa-de-calor" class="anchored">📝 Interpretación de la Relación entre Variables (Mapa de Calor)</h3>
+<ul>
+<li><strong>Qué se observa:</strong> El mapa de calor basado en coeficientes de Spearman muestra correlaciones positivas fuertes (valores mayores a 0.70) entre delitos específicos como <em>Robo a negocio</em>, <em>Robo de vehículo automotor</em> y <em>Extorsión</em>. Por otro lado, delitos de alto impacto violento como <em>Homicidio doloso</em> y <em>Feminicidio</em> exhiben una covariación estrecha entre sí, pero una correlación moderada con los delitos de carácter puramente patrimonial.</li>
+<li><strong>Implicación para el modelado:</strong> La fuerte coexistencia de ciertas tipologías delictivas a nivel geográfico demuestra que las entidades federativas no sufren de criminalidad aislada, sino de perfiles estructurales de inseguridad de carácter regional. Este hallazgo valida por completo la pertinencia de aplicar técnicas de agrupamiento no supervisado (<em>Clustering</em>) en la siguiente fase para clasificar los estados en regiones homogéneas de riesgo.</li>
+</ul>
+</blockquote>
 <div id="a4374192" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
@@ -674,11 +688,18 @@ Despojo                                   4224            1.02</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-7-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="eda_files/figure-html/.-notebooks-01_eda-cell-7-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
+<blockquote class="blockquote">
+<h3 id="interpretación-del-análisis-volumétrico-categórico" class="anchored">📝 Interpretación del Análisis Volumétrico Categórico</h3>
+<ul>
+<li><strong>Qué se observa:</strong> El panel de barras distribuidas refleja tres fenómenos claros: una tendencia macroeconómica ligeramente ascendente por año, un comportamiento cíclico estacional por mes que registra caídas drásticas en febrero y repuntes constantes hacia el cierre de año (noviembre/diciembre), y una concentración delictiva masiva donde un grupo reducido de estados absorbe la mayoría de las denuncias del país.</li>
+<li><strong>Implicación para el modelado:</strong> La marcada estacionalidad mensual y la evolución anual demuestran que el factor tiempo tiene un peso predictivo real en la fluctuación de la delincuencia. La enorme disparidad entre estados confirma que la geografía es un factor discriminante clave, lo que justifica la inclusión formal de <code>anio</code>, <code>mes_num</code> y <code>clave_ent</code> como variables de entrada (<em>features</em>) para el clasificador.</li>
+</ul>
+</blockquote>
 <div id="158f63d4" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
@@ -705,11 +726,18 @@ Despojo                                   4224            1.02</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-8-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="eda_files/figure-html/.-notebooks-01_eda-cell-8-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
+<blockquote class="blockquote">
+<h3 id="interpretación-dinámica-de-la-serie-de-tiempo-histórica" class="anchored">📝 Interpretación Dinámica de la Serie de Tiempo Histórica</h3>
+<ul>
+<li><strong>Qué se observa:</strong> La línea de tiempo continua (2015-2025) mapea la trayectoria delictiva agregada del país. Se aprecian fluctuaciones periódicas regulares y quiebres estructurales específicos en la serie temporal, destacando contracciones atípicas que coinciden históricamente con periodos de reducción de movilidad social o confinamientos a nivel nacional.</li>
+<li><strong>Implicación para el modelado:</strong> Este comportamiento dinámico confirma que el fenómeno delictivo no es estacionario y responde a factores externos del entorno. Para que el modelo supervisado pueda capturar de manera correcta las tendencias macro sin sufrir de <em>data leakage</em> (fuga de datos), se deben omitir las variables de subcategorías directas (como el tipo o subtipo de delito), y permitir que el algoritmo aprenda exclusivamente de los componentes contextuales de la serie histórica.</li>
+</ul>
+</blockquote>
 <a class="quarto-notebook-link" id="nblink-1" href="notebooks\01_eda-preview.html#cfab4896">Source: Desactivar advertencias visuales para mantener limpia la consola/salida</a></div>
 <hr>
 </section>
@@ -1204,7 +1232,7 @@ Despojo                                   4224            1.02</code></pre>
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>A continuación se presenta el flujo completo de exploración de datos. Este reporte se genera dinámicamente a partir del cuaderno de experimentación oficial, garantizando que el análisis sea 100% reproducible y transparente.</span>
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>{{&lt; embed notebooks/01_eda.ipynb echo=true &gt;}}</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>{{&lt; embed ./notebooks/01_eda.ipynb echo=true &gt;}}</span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>

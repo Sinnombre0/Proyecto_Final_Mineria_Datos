@@ -13,7 +13,7 @@ title: "Agrupamiento (Clustering)"
 
 A continuación se presenta el flujo experimental completo de segmentación geográfica. Este reporte se genera dinámicamente extrayendo las celdas de código, las ejecuciones algorítmicas, las visualizaciones interclúster y las métricas de validación interna directamente desde el cuaderno analítico de desarrollo.
 
-{{< embed notebooks/03_clustering.ipynb echo=true >}}
+{{< embed ./notebooks/03_clustering.ipynb echo=true >}}
 
 ---
 

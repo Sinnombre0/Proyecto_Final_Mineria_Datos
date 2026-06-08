@@ -1,154 +1,66 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-    <meta charset="utf-8">
-    <meta name="generator" content="quarto-1.9.36">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-    <title>eda – Minería de Datos — FC UNAM</title>
-    <style>
-      /* Default styles provided by pandoc.
-      ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-      */
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      div.columns{display: flex; gap: min(4vw, 1.5em);}
-      div.column{flex: auto; overflow-x: auto;}
-      div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-      ul.task-list{list-style: none;}
-      ul.task-list li input[type="checkbox"] {
-        width: 0.8em;
-        margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-        vertical-align: middle;
-      }
-      /* CSS for syntax highlighting */
-      html { -webkit-text-size-adjust: 100%; }
-      pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-      pre > code.sourceCode > span:empty { height: 1.2em; }
-      .sourceCode { overflow: visible; }
-      code.sourceCode > span { color: inherit; text-decoration: inherit; }
-      div.sourceCode { margin: 1em 0; }
-      pre.sourceCode { margin: 0; }
-      @media screen {
-      div.sourceCode { overflow: auto; }
-      }
-      @media print {
-      pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-      }
-      pre.numberSource code
-        { counter-reset: source-line 0; }
-      pre.numberSource code > span
-        { position: relative; left: -4em; counter-increment: source-line; }
-      pre.numberSource code > span > a:first-child::before
-        { content: counter(source-line);
-          position: relative; left: -1em; text-align: right; vertical-align: baseline;
-          border: none; display: inline-block;
-          -webkit-touch-callout: none; -webkit-user-select: none;
-          -khtml-user-select: none; -moz-user-select: none;
-          -ms-user-select: none; user-select: none;
-          padding: 0 4px; width: 4em;
-        }
-      pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-      div.sourceCode
-        {   }
-      @media screen {
-      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-      }
-    </style>
+<title>eda – Minería de Datos — FC UNAM</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
 
-    <style>
-      body.hypothesis-enabled #quarto-embed-header {
-        padding-right: 36px;
-      }
 
-      #quarto-embed-header {
-        height: 3em;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: solid 1px;
-      }
-
-      #quarto-embed-header h6 {
-        font-size: 1.1em;
-        padding-top: 0.6em;
-        margin-left: 1em;
-        margin-right: 1em;
-        font-weight: 400;
-      }
-
-      #quarto-embed-header a.quarto-back-link,
-      #quarto-embed-header a.quarto-download-embed {
-        font-size: 0.8em;
-        margin-top: 1em;
-        margin-bottom: 1em;
-        margin-left: 1em;
-        margin-right: 1em;
-      }
-
-      .quarto-back-container {
-        padding-left: 0.5em;
-        display: flex;
-      }
-
-      .headroom {
-          will-change: transform;
-          transition: transform 200ms linear;
-      }
-
-      .headroom--pinned {
-          transform: translateY(0%);
-      }
-
-      .headroom--unpinned {
-          transform: translateY(-100%);
-      }      
-    </style>
-
-    <script>
-    window.document.addEventListener("DOMContentLoaded", function () {
-
-      var header = window.document.querySelector("#quarto-embed-header");
-      const titleBannerEl = window.document.querySelector("body > #title-block-header");
-      if (titleBannerEl) {
-        titleBannerEl.style.paddingTop = header.clientHeight + "px";
-      }
-      const contentEl = window.document.getElementById('quarto-content');
-      for (const child of contentEl.children) {
-        child.style.paddingTop = header.clientHeight + "px";
-        child.style.marginTop = "1em";
-      }
-
-      // Use the article root if the `back` call doesn't work. This isn't perfect
-      // but should typically work
-      window.quartoBackToArticle = () => {
-        var currentUrl = window.location.href;
-        window.history.back();
-        setTimeout(() => {
-            // if location was not changed in 100 ms, then there is no history back
-            if(currentUrl === window.location.href){              
-                // redirect to site root
-                window.location.href = '/';
-            }
-        }, 100);
-      }
-
-      const headroom = new window.Headroom(header, {
-        tolerance: 5,
-        onPin: function () {
-        },
-        onUnpin: function () {
-        },
-      });
-      headroom.init();
-    });
-    </script>
-
-    
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
@@ -166,7 +78,7 @@
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-9cdbd49fb92a4d7f9d8c4f710986121f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-     <script id="quarto-search-options" type="application/json">{
+<script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -192,20 +104,15 @@
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>  
-        <link rel="stylesheet" href="../styles.css">
-      </head>
+}</script>
 
-  <body class="floating nav-fixed quarto-notebook quarto-light">
-    <div id="quarto-embed-header" class="headroom fixed-top bg-primary">
-      
-      <a onclick="window.quartoBackToArticle(); return false;" class="btn btn-primary quarto-back-link"><i class="bi bi-caret-left"></i> Back to Article</a>
-      <h6><i class="bi bi-journal-code"></i> Desactivar advertencias visuales para mantener limpia la consola/salida</h6>
 
-            <a href="../notebooks/01_eda.ipynb" class="btn btn-primary quarto-download-embed" download="01_eda.ipynb">Download Notebook</a>
-          </div>
+<link rel="stylesheet" href="../styles.css">
+</head>
 
-     <div id="quarto-search-results"></div>
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
@@ -257,15 +164,17 @@
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"></h1></header><div class="quarto-title-block"><div class="quarto-title-tools-only"><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>    <div class="cell-container code-fold"><div class="cell-decorator"><pre>In [6]:</pre></div><div id="cfab4896" class="cell" data-execution_count="6">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"></h1></header><div class="quarto-title-block"><div class="quarto-title-tools-only"><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
+
+
+
+
+<div id="cfab4896" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
@@ -335,8 +244,8 @@ Data columns (total 13 columns):
 dtypes: int64(4), str(9)
 memory usage: 41.1 MB</code></pre>
 </div>
-</div></div>
-<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [7]:</pre></div><div id="3bb0df70" class="cell" data-execution_count="7">
+</div>
+<div id="3bb0df70" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 2. CALIDAD DE DATOS ==="</span>)</span>
@@ -369,8 +278,8 @@ memory usage: 41.1 MB</code></pre>
 
 Cantidad de registros duplicados detectados: 0</code></pre>
 </div>
-</div></div>
-<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="ae0f3803" class="cell" data-execution_count="8">
+</div>
+<div id="ae0f3803" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 3. ESTADÍSTICAS DESCRIPTIVAS ==="</span>)</span>
@@ -507,8 +416,8 @@ Abuso de confianza                        4224            1.02
 DaÃ±o a la propiedad                      4224            1.02
 Despojo                                   4224            1.02</code></pre>
 </div>
-</div></div>
-<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [9]:</pre></div><div id="af57b42e" class="cell" data-execution_count="9">
+</div>
+<div id="af57b42e" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Configuración del entorno gráfico institucional</span></span>
@@ -628,8 +537,7 @@ Despojo                                   4224            1.02</code></pre>
 </figure>
 </div>
 </div>
-</div></div>
-<div id="899eb599" class="cell markdown">
+</div>
 <blockquote class="blockquote">
 <h3 id="interpretación-analítica-de-los-diagramas-de-caja-outliers" class="anchored">📝 Interpretación Analítica de los Diagramas de Caja (Outliers)</h3>
 <ul>
@@ -637,8 +545,7 @@ Despojo                                   4224            1.02</code></pre>
 <li><strong>Implicación para el modelado:</strong> La drástica diferencia en las escalas demuestra que una baja incidencia absoluta no significa la ausencia de patrones delictivos, sino que responde a la naturaleza intrínseca del delito (los robos ocurren con magnitudes numéricas masivas, mientras que los secuestros registran conteos bajos pero críticos). Debido a que estos outliers no corresponden a errores de captura, sino a picos reales de criminalidad concentrados en regiones de alta densidad poblacional, la estrategia de limpieza <strong>no debe eliminar estos registros</strong>. Su conservación es fundamental para que el modelo aprenda a identificar escenarios de riesgo extremo.</li>
 </ul>
 </blockquote>
-</div>
-<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [10]:</pre></div><div id="48795429" class="cell" data-execution_count="10">
+<div id="48795429" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 6. RELACIONES ENTRE VARIABLES ==="</span>)</span>
@@ -679,14 +586,13 @@ Despojo                                   4224            1.02</code></pre>
 <pre><code>=== 6. RELACIONES ENTRE VARIABLES ===</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div class="">
+<div>
 <figure class="figure">
-<p class=""><img src="01_eda_files/figure-html/cell-6-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="01_eda_files/figure-html/cell-6-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
-</div></div>
-<div id="e11f31eb" class="cell markdown">
+</div>
 <blockquote class="blockquote">
 <h3 id="interpretación-de-la-relación-entre-variables-mapa-de-calor" class="anchored">📝 Interpretación de la Relación entre Variables (Mapa de Calor)</h3>
 <ul>
@@ -694,8 +600,7 @@ Despojo                                   4224            1.02</code></pre>
 <li><strong>Implicación para el modelado:</strong> La fuerte coexistencia de ciertas tipologías delictivas a nivel geográfico demuestra que las entidades federativas no sufren de criminalidad aislada, sino de perfiles estructurales de inseguridad de carácter regional. Este hallazgo valida por completo la pertinencia de aplicar técnicas de agrupamiento no supervisado (<em>Clustering</em>) en la siguiente fase para clasificar los estados en regiones homogéneas de riesgo.</li>
 </ul>
 </blockquote>
-</div>
-<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [11]:</pre></div><div id="a4374192" class="cell" data-execution_count="11">
+<div id="a4374192" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 7. ANÁLISIS DE VARIABLES CATEGÓRICAS ==="</span>)</span>
@@ -740,14 +645,13 @@ Despojo                                   4224            1.02</code></pre>
 <pre><code>=== 7. ANÁLISIS DE VARIABLES CATEGÓRICAS ===</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div class="">
+<div>
 <figure class="figure">
-<p class=""><img src="01_eda_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="01_eda_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
-</div></div>
-<div id="ceed4a07" class="cell markdown">
+</div>
 <blockquote class="blockquote">
 <h3 id="interpretación-del-análisis-volumétrico-categórico" class="anchored">📝 Interpretación del Análisis Volumétrico Categórico</h3>
 <ul>
@@ -755,8 +659,7 @@ Despojo                                   4224            1.02</code></pre>
 <li><strong>Implicación para el modelado:</strong> La marcada estacionalidad mensual y la evolución anual demuestran que el factor tiempo tiene un peso predictivo real en la fluctuación de la delincuencia. La enorme disparidad entre estados confirma que la geografía es un factor discriminante clave, lo que justifica la inclusión formal de <code>anio</code>, <code>mes_num</code> y <code>clave_ent</code> como variables de entrada (<em>features</em>) para el clasificador.</li>
 </ul>
 </blockquote>
-</div>
-<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [12]:</pre></div><div id="158f63d4" class="cell" data-execution_count="12">
+<div id="158f63d4" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 8. ANÁLISIS DE SERIES DE TIEMPO ==="</span>)</span>
@@ -780,14 +683,13 @@ Despojo                                   4224            1.02</code></pre>
 <pre><code>=== 8. ANÁLISIS DE SERIES DE TIEMPO ===</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div class="">
+<div>
 <figure class="figure">
-<p class=""><img src="01_eda_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="01_eda_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
-</div></div>
-<div id="9cedb87a" class="cell markdown">
+</div>
 <blockquote class="blockquote">
 <h3 id="interpretación-dinámica-de-la-serie-de-tiempo-histórica" class="anchored">📝 Interpretación Dinámica de la Serie de Tiempo Histórica</h3>
 <ul>
@@ -795,10 +697,11 @@ Despojo                                   4224            1.02</code></pre>
 <li><strong>Implicación para el modelado:</strong> Este comportamiento dinámico confirma que el fenómeno delictivo no es estacionario y responde a factores externos del entorno. Para que el modelo supervisado pueda capturar de manera correcta las tendencias macro sin sufrir de <em>data leakage</em> (fuga de datos), se deben omitir las variables de subcategorías directas (como el tipo o subtipo de delito), y permitir que el algoritmo aprenda exclusivamente de los componentes contextuales de la serie histórica.</li>
 </ul>
 </blockquote>
-</div>
 
 
-     </main> <!-- /main -->  <script id="quarto-html-after-body" type="application/javascript">
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -1248,6 +1151,10 @@ Despojo                                   4224            1.02</code></pre>
       }
     }
   });
-  </script>  </div> <!-- /content --> 
-  
+  </script>
+</div> <!-- /content -->
+
+
+
+
 </body></html>

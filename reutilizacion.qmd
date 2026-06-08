@@ -12,7 +12,7 @@ title: "Demostración de Reutilización"
 
 A continuación se presenta el flujo lógico de exportación y carga del modelo matemático. Los resultados se inyectan en tiempo real ejecutando el backend analítico en segundo plano.
 
-{{< embed notebooks/04_demo_reutilizacion.ipynb echo=true >}}
+{{< embed ./notebooks/04_demo_reutilizacion.ipynb echo=true >}}
 
 ---
 

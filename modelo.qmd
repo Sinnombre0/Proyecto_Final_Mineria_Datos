@@ -13,7 +13,7 @@ title: "Modelo Supervisado"
 
 A continuación se presenta el flujo técnico secuencial de la etapa supervisada. Este reporte se genera dinámicamente conectando nuestra infraestructura en programación orientada a objetos (POO) con el cuaderno de entrenamiento oficial, garantizando la reproducibilidad total de los experimentos mediante semillas aleatorias fijas.
 
-{{< embed notebooks/02_modelo_supervisado.ipynb echo=true >}}
+{{< embed ./notebooks/02_modelo_supervisado.ipynb echo=true >}}
 
 ---
 

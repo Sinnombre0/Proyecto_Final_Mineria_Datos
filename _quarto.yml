@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs
+  resources: 
+    - notebooks/
 
 website:
   title: "Minería de Datos — FC UNAM"
