@@ -289,7 +289,7 @@ for i, (clase, color) in enumerate(zip(clases, colores)):
         y_test_bin[:, i],
         y_proba[:, i],
         name=labels_cortos[i],
-        color=color,
+        **{"color": color},
         ax=ax,
         plot_chance_level=(i == 0)
     )
