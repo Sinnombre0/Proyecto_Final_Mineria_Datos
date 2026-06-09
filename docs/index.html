@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Proyecto Final — Almacenes y Minería de Datos – Minería de Datos — FC UNAM</title>
+<title>Minería de Datos — FC UNAM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -74,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-9cdbd49fb92a4d7f9d8c4f710986121f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-531e6fd59a4007effb9bab16814d77d4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -106,6 +106,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -167,33 +196,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Proyecto Final — Almacenes y Minería de Datos</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"></h1></header><div class="quarto-title-block"><div class="quarto-title-tools-only"><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="nombre-del-proyecto" class="level1 hero">
-<h1>📊 Nombre del Proyecto</h1>
+<section id="proyecto-final-almacenes-y-minería-de-datos" class="level1 hero">
+<h1>📊 Proyecto Final — Almacenes y Minería de Datos</h1>
 <div class="subtitle">
 <p>Almacenes y Minería de Datos · Facultad de Ciencias · UNAM · 2025-2</p>
 </div>
-<p>Descripción breve del problema que aborda el proyecto: qué se analiza, con qué datos y qué se busca lograr.</p>
 </section>
 <hr>
 <section id="equipo" class="level2">
@@ -201,23 +213,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="card-grid">
 <section id="integrante-1" class="level4 info-card">
 <h4 class="anchored" data-anchor-id="integrante-1">Integrante 1</h4>
-<p>Nombre Completo<br>
-<code>No. cuenta: XXXXXXXXX</code></p>
+<p>Cano Tenorio Alan Kevin<br>
+<code>No. cuenta: 321259967</code></p>
 </section>
 <section id="integrante-2" class="level4 info-card">
 <h4 class="anchored" data-anchor-id="integrante-2">Integrante 2</h4>
-<p>Nombre Completo<br>
-<code>No. cuenta: XXXXXXXXX</code></p>
+<p>Gomez Calva Carlos Manuel<br>
+<code>No. cuenta: 321281678</code></p>
 </section>
 <section id="integrante-3" class="level4 info-card">
 <h4 class="anchored" data-anchor-id="integrante-3">Integrante 3</h4>
-<p>Nombre Completo<br>
-<code>No. cuenta: XXXXXXXXX</code></p>
+<p>Lechuga Hervert Maximiliano<br>
+<code>No. cuenta: 321311186</code></p>
 </section>
 <section id="integrante-4" class="level4 info-card">
 <h4 class="anchored" data-anchor-id="integrante-4">Integrante 4</h4>
-<p>Nombre Completo<br>
-<code>No. cuenta: XXXXXXXXX</code></p>
+<p>Vazquez Rincon Oscar<br>
+<code>No. cuenta: 321228954</code></p>
 </section>
 </div>
 <section id="docentes" class="level4 info-card">
@@ -231,23 +243,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="descripción-del-problema" class="level2">
 <h2 class="anchored" data-anchor-id="descripción-del-problema">📋 Descripción del Problema</h2>
 <blockquote class="blockquote">
-<p><strong>Área temática:</strong> <!-- ej. Seguridad pública / Salud / Educación / etc. --></p>
+<p><strong>Área temática:</strong> Seguridad pública</p>
 </blockquote>
 <section id="cuál-es-el-problema" class="level3">
 <h3 class="anchored" data-anchor-id="cuál-es-el-problema">¿Cuál es el problema?</h3>
-<p>Descripción concreta y acotada del fenómeno que se analiza.</p>
+<p>La evaluación, caracterización y modelado matemático de la crisis de seguridad pública en México a nivel estatal. El fenómeno delictivo presenta profundas asimetrías regionales, fluctuaciones temporales complejas y rigideces burocráticas en el registro penal. El reto principal radica en la falta de herramientas analíticas integradas que extraigan patrones ocultos en el registro histórico de carpetas de investigación para diagnosticar con precisión la naturaleza del crimen y la consistencia del sistema de justicia en las distintas entidades federativas.</p>
 </section>
 <section id="por-qué-es-relevante" class="level3">
 <h3 class="anchored" data-anchor-id="por-qué-es-relevante">¿Por qué es relevante?</h3>
-<p>Impacto social, económico o ambiental. Evidencia de que el problema existe y es significativo.</p>
+<p>La delincuencia y la violencia estructural constituyen los mayores desafíos sociales y económicos en el México contemporáneo. Su persistencia erosiona el tejido social, vulnera de forma sistemática los derechos fundamentales de la ciudadanía y genera un impacto económico adverso al desincentivar la inversión local y extranjera. Aportar evidencia empírica sustentada en algoritmos de Machine Learning permite transitar de un análisis puramente cualitativo a un diagnóstico científico y reproducible. Esto es crucial para auditar las deficiencias del registro oficial, optimizar el diseño de estrategias preventivas y de asignación de recursos policiales.</p>
 </section>
 <section id="qué-se-busca-lograr" class="level3">
 <h3 class="anchored" data-anchor-id="qué-se-busca-lograr">¿Qué se busca lograr?</h3>
-<p>Objetivo claro y medible del análisis (predecir / segmentar / identificar patrones).</p>
+<p>Ejecutar un ciclo metodológico completo de minería de datos estructurado en tres componentes analíticos medibles:</p>
+<ol type="1">
+<li><p><strong>Descriptivo (EDA):</strong> Identificar la estacionalidad, tendencias históricas y la distribución porcentual de los delitos de mayor impacto sobre los bienes jurídicos tutelados entre 2015 y 2025.</p></li>
+<li><p><strong>No Supervisado (Clustering):</strong> Segmentar matemáticamente a las 32 entidades federativas en perfiles de riesgo homólogos mediante reducción de dimensionalidad (PCA) y el algoritmo K-Means (<span class="math inline">\(k=4\)</span>), evaluando su cohesión con métricas de Silueta y Davies-Bouldin.</p></li>
+<li><p><strong>Supervisado (Clasificación):</strong> Implementar un ensamble de Random Forest Classifier optimizado mediante validación cruzada para predecir el impacto delictivo, formulando un análisis crítico en torno a la presencia de Data Leakage debido al diseño burocrático del sistema judicial.</p></li>
+</ol>
 </section>
 <section id="por-qué-este-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="por-qué-este-dataset">¿Por qué este dataset?</h3>
-<p>Pertinencia de los datos elegidos para responder el objetivo planteado.</p>
+<p>La base de datos de Incidencia Delictiva del Fuero Común Estatal, publicada por el Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (SESNSP), constituye el repositorio oficial más exhaustivo y confiable en el país. Con un volumen de <strong>413,952 registros históricos consolidados</strong> y una estructura final de <strong>13 variables dimensionales</strong> tras la ingeniería de características (que incluye dimensiones geográficas, temporales y tipificaciones penales detalladas), el dataset posee la granularidad y la representatividad estadística necesarias para garantizar la robustez, el entrenamiento eficiente y el desacoplamiento de los modelos de aprendizaje.</p>
 <hr>
 </section>
 </section>
@@ -263,11 +280,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><strong>Nombre</strong></td>
-<td>Nombre del dataset</td>
+<td>Incidencia delictiva estatal</td>
 </tr>
 <tr class="even">
 <td><strong>Fuente</strong></td>
-<td><a href="URL">Nombre de la fuente</a></td>
+<td><a href="ttps://www.datos.gob.mx/dataset/incidencia_delictiva">Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (SESNSP)</a></td>
 </tr>
 <tr class="odd">
 <td><strong>Registros</strong></td>
@@ -283,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td><strong>Última actualización</strong></td>
-<td>AAAA-MM-DD</td>
+<td>2026-03-03</td>
 </tr>
 <tr class="odd">
 <td><strong>Licencia</strong></td>
@@ -305,6 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ├── docs/           # Sitio Quarto (GitHub Pages)
 ├── _quarto.yml
 ├── README.md
+├── Reporte Proyecto Final.pdf
 ├── requirements.txt
 └── .gitignore</code></pre>
 <hr>
@@ -312,10 +330,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="recursos" class="level2">
 <h2 class="anchored" data-anchor-id="recursos">🔗 Recursos</h2>
 <ul>
-<li>📁 <a href="https://github.com/TU_USUARIO/TU_REPO">Repositorio GitHub</a></li>
-<li>📄 <a href="reports/reporte_final.pdf">Reporte Final PDF</a></li>
-<li>🎬 <a href="URL_VIDEO">Video de Exposición</a></li>
-<li>📦 <a href="URL_DATASET">Dataset original</a></li>
+<li>📁 <a href="https://github.com/Sinnombre0/Proyecto_Final_Mineria_Datos.git">Repositorio GitHub</a></li>
+<li>📄 <a href="Reporte Proyecto Final.pdf">Reporte Final PDF</a></li>
+<li>📦 <a href="https://www.datos.gob.mx/dataset/incidencia_delictiva">Dataset original</a></li>
 </ul>
 
 
@@ -776,18 +793,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Proyecto Final — Almacenes y Minería de Datos"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> ""</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: false</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>::: {.hero}</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># 📊 Nombre del Proyecto</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># 📊 Proyecto Final — Almacenes y Minería de Datos</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>::: {.subtitle}</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>Almacenes y Minería de Datos · Facultad de Ciencias · UNAM · 2025-2</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>Descripción breve del problema que aborda el proyecto: qué se analiza, con qué datos y qué se busca lograr.</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>---</span>
@@ -797,23 +814,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>::: {.card-grid}</span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>::: {.info-card}</span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Integrante 1</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>Nombre Completo  </span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="in">`No. cuenta: XXXXXXXXX`</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>Cano Tenorio Alan Kevin   </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="in">`No. cuenta: 321259967`</span></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>::: {.info-card}</span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Integrante 2</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>Nombre Completo  </span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="in">`No. cuenta: XXXXXXXXX`</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>Gomez Calva Carlos Manuel  </span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="in">`No. cuenta: 321281678`</span></span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>::: {.info-card}</span>
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Integrante 3</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>Nombre Completo  </span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="in">`No. cuenta: XXXXXXXXX`</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>Lechuga Hervert Maximiliano  </span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="in">`No. cuenta: 321311186`</span></span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>::: {.info-card}</span>
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Integrante 4</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>Nombre Completo  </span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="in">`No. cuenta: XXXXXXXXX`</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>Vazquez Rincon Oscar  </span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="in">`No. cuenta: 321228954`</span></span>
 <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
@@ -828,65 +845,71 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📋 Descripción del Problema</span></span>
 <span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Área temática:** </span><span class="co">&lt;!-- ej. Seguridad pública / Salud / Educación / etc. --&gt;</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Área temática:** Seguridad pública</span></span>
 <span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### ¿Cuál es el problema?</span></span>
 <span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>Descripción concreta y acotada del fenómeno que se analiza.</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>La evaluación, caracterización y modelado matemático de la crisis de seguridad pública en México a nivel estatal. El fenómeno delictivo presenta profundas asimetrías regionales, fluctuaciones temporales complejas y rigideces burocráticas en el registro penal. El reto principal radica en la falta de herramientas analíticas integradas que extraigan patrones ocultos en el registro histórico de carpetas de investigación para diagnosticar con precisión la naturaleza del crimen y la consistencia del sistema de justicia en las distintas entidades federativas.</span>
 <span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="fu">### ¿Por qué es relevante?</span></span>
 <span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>Impacto social, económico o ambiental. Evidencia de que el problema existe y es significativo.</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>La delincuencia y la violencia estructural constituyen los mayores desafíos sociales y económicos en el México contemporáneo. Su persistencia erosiona el tejido social, vulnera de forma sistemática los derechos fundamentales de la ciudadanía y genera un impacto económico adverso al desincentivar la inversión local y extranjera. Aportar evidencia empírica sustentada en algoritmos de Machine Learning permite transitar de un análisis puramente cualitativo a un diagnóstico científico y reproducible. Esto es crucial para auditar las deficiencias del registro oficial, optimizar el diseño de estrategias preventivas y de asignación de recursos policiales.</span>
 <span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="fu">### ¿Qué se busca lograr?</span></span>
 <span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>Objetivo claro y medible del análisis (predecir / segmentar / identificar patrones).</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>Ejecutar un ciclo metodológico completo de minería de datos estructurado en tres componentes analíticos medibles:</span>
 <span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="fu">### ¿Por qué este dataset?</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Descriptivo (EDA):** Identificar la estacionalidad, tendencias históricas y la distribución porcentual de los delitos de mayor impacto sobre los bienes jurídicos tutelados entre 2015 y 2025.</span>
 <span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>Pertinencia de los datos elegidos para responder el objetivo planteado.</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**No Supervisado (Clustering):** Segmentar matemáticamente a las 32 entidades federativas en perfiles de riesgo homólogos mediante reducción de dimensionalidad (PCA) y el algoritmo K-Means ($k=4$), evaluando su cohesión con métricas de Silueta y Davies-Bouldin.</span>
 <span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Supervisado (Clasificación):** Implementar un ensamble de Random Forest Classifier optimizado mediante validación cruzada para predecir el impacto delictivo, formulando un análisis crítico en torno a la presencia de Data Leakage debido al diseño burocrático del sistema judicial.</span>
 <span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Dataset</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="fu">### ¿Por qué este dataset?</span></span>
 <span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Atributo          <span class="pp">|</span> Valor <span class="pp">|</span></span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="pp">|-------------------|-------|</span></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Nombre**        <span class="pp">|</span> Nombre del dataset <span class="pp">|</span></span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Fuente**        <span class="pp">|</span> <span class="co">[</span><span class="ot">Nombre de la fuente</span><span class="co">](URL)</span> <span class="pp">|</span></span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Registros**     <span class="pp">|</span> ≥ 100 000 filas <span class="pp">|</span></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Variables**     <span class="pp">|</span> ≥ 8 columnas <span class="pp">|</span></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Tipos**         <span class="pp">|</span> Numéricas y categóricas <span class="pp">|</span></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Última actualización** <span class="pp">|</span> AAAA-MM-DD <span class="pp">|</span></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Licencia**      <span class="pp">|</span> Datos abiertos <span class="pp">|</span></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗺️ Estructura del Proyecto</span></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="in">Proyecto_Mineria_Datos/</span></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="in">├── data/           # Datos crudos y procesados</span></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="in">├── notebooks/      # EDA, modelado y clustering</span></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="in">├── src/            # Código fuente Python (clases, módulos)</span></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="in">├── models/         # Modelos serializados (.pkl / .joblib)</span></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="in">├── reports/        # Reporte PDF y slides</span></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="in">├── diagrams/       # Diagrama UML</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="in">├── docs/           # Sitio Quarto (GitHub Pages)</span></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="in">├── _quarto.yml</span></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="in">├── README.md</span></span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="in">├── requirements.txt</span></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="in">└── .gitignore</span></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔗 Recursos</span></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>📁 <span class="co">[</span><span class="ot">Repositorio GitHub</span><span class="co">](https://github.com/TU_USUARIO/TU_REPO)</span></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>📄 <span class="co">[</span><span class="ot">Reporte Final PDF</span><span class="co">](reports/reporte_final.pdf)</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>🎬 <span class="co">[</span><span class="ot">Video de Exposición</span><span class="co">](URL_VIDEO)</span></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>📦 <span class="co">[</span><span class="ot">Dataset original</span><span class="co">](URL_DATASET)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>La base de datos de Incidencia Delictiva del Fuero Común Estatal, publicada por el Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (SESNSP), constituye el repositorio oficial más exhaustivo y confiable en el país. Con un volumen de **413,952 registros históricos consolidados** y una estructura final de **13 variables dimensionales** tras la ingeniería de características (que incluye dimensiones geográficas, temporales y tipificaciones penales detalladas), el dataset posee la granularidad y la representatividad estadística necesarias para garantizar la robustez, el entrenamiento eficiente y el desacoplamiento de los modelos de aprendizaje.</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗂️ Dataset</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Atributo          <span class="pp">|</span> Valor <span class="pp">|</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="pp">|-------------------|-------|</span></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Nombre**        <span class="pp">|</span> Incidencia delictiva estatal <span class="pp">|</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Fuente**        <span class="pp">|</span> <span class="co">[</span><span class="ot">Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (SESNSP)</span><span class="co">](ttps://www.datos.gob.mx/dataset/incidencia_delictiva)</span> <span class="pp">|</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Registros**     <span class="pp">|</span> ≥ 100 000 filas <span class="pp">|</span></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Variables**     <span class="pp">|</span> ≥ 8 columnas <span class="pp">|</span></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Tipos**         <span class="pp">|</span> Numéricas y categóricas <span class="pp">|</span></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Última actualización** <span class="pp">|</span> 2026-03-03 <span class="pp">|</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Licencia**      <span class="pp">|</span> Datos abiertos <span class="pp">|</span></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🗺️ Estructura del Proyecto</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="in">Proyecto_Mineria_Datos/</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="in">├── data/           # Datos crudos y procesados</span></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="in">├── notebooks/      # EDA, modelado y clustering</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="in">├── src/            # Código fuente Python (clases, módulos)</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="in">├── models/         # Modelos serializados (.pkl / .joblib)</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="in">├── reports/        # Reporte PDF y slides</span></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="in">├── diagrams/       # Diagrama UML</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="in">├── docs/           # Sitio Quarto (GitHub Pages)</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="in">├── _quarto.yml</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="in">├── README.md</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="in">├── Reporte Proyecto Final.pdf</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="in">├── requirements.txt</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="in">└── .gitignore</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🔗 Recursos</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>📁 <span class="co">[</span><span class="ot">Repositorio GitHub</span><span class="co">](https://github.com/Sinnombre0/Proyecto_Final_Mineria_Datos.git)</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>📄 <span class="co">[</span><span class="ot">Reporte Final PDF</span><span class="co">](Reporte Proyecto Final.pdf)</span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>📦 <span class="co">[</span><span class="ot">Dataset original</span><span class="co">](https://www.datos.gob.mx/dataset/incidencia_delictiva)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

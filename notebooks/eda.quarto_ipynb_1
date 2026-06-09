@@ -761,24 +761,7 @@
     "#                     title=\"Distribución por Estado\")\n",
     "# fig.show()"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 11,
-   "id": "serie-tiempo",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "#| label: serie-tiempo\n",
-    "# Ejemplo de serie de tiempo (si el dataset tiene fechas)\n",
-    "# ts = df.set_index(\"fecha\")[\"variable\"].resample(\"M\").mean()\n",
-    "# ts.plot(figsize=(10, 4), color=\"#003f8a\", linewidth=2,\n",
-    "#         title=\"Evolución temporal de la variable\")\n",
-    "# plt.tight_layout()\n",
-    "# plt.show()"
-   ]
-  },
-  {
+  },{
    "cell_type": "markdown",
    "id": "0359a280",
    "metadata": {},
@@ -790,10 +773,10 @@
     "::: {.callout-note appearance=\"simple\"}\n",
     "| Hallazgo | Detalle |\n",
     "|----------|---------|\n",
-    "| Dimensiones | `X,XXX filas × Y columnas` |\n",
-    "| Variables numéricas | N |\n",
-    "| Variables categóricas | M |\n",
-    "| % de valores faltantes | < X % |\n",
+    "| Dimensiones | `413,952 filas × 13 columnas` |\n",
+    "| Variables numéricas | 4 |\n",
+    "| Variables categóricas | 9 |\n",
+    "| % de valores faltantes | 0 % |\n",
     "| Duplicados eliminados | K |\n",
     "| Outliers detectados | descripción breve |\n",
     "| Variable objetivo (tentativa) | `nombre_columna` |\n",

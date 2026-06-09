@@ -1,16 +1,16 @@
 ---
-title: "Proyecto Final — Almacenes y Minería de Datos"
+title: ""
 format:
   html:
     toc: false
 ---
 
 ::: {.hero}
-# 📊 Nombre del Proyecto
+# 📊 Proyecto Final — Almacenes y Minería de Datos
 ::: {.subtitle}
 Almacenes y Minería de Datos · Facultad de Ciencias · UNAM · 2025-2
 :::
-Descripción breve del problema que aborda el proyecto: qué se analiza, con qué datos y qué se busca lograr.
+
 :::
 
 ---
@@ -20,23 +20,23 @@ Descripción breve del problema que aborda el proyecto: qué se analiza, con qu�
 ::: {.card-grid}
 ::: {.info-card}
 #### Integrante 1
-Nombre Completo  
-`No. cuenta: XXXXXXXXX`
+Cano Tenorio Alan Kevin   
+`No. cuenta: 321259967`
 :::
 ::: {.info-card}
 #### Integrante 2
-Nombre Completo  
-`No. cuenta: XXXXXXXXX`
+Gomez Calva Carlos Manuel  
+`No. cuenta: 321281678`
 :::
 ::: {.info-card}
 #### Integrante 3
-Nombre Completo  
-`No. cuenta: XXXXXXXXX`
+Lechuga Hervert Maximiliano  
+`No. cuenta: 321311186`
 :::
 ::: {.info-card}
 #### Integrante 4
-Nombre Completo  
-`No. cuenta: XXXXXXXXX`
+Vazquez Rincon Oscar  
+`No. cuenta: 321228954`
 :::
 :::
 
@@ -51,23 +51,29 @@ Nombre Completo
 
 ## 📋 Descripción del Problema
 
-> **Área temática:** <!-- ej. Seguridad pública / Salud / Educación / etc. -->
+> **Área temática:** Seguridad pública
 
 ### ¿Cuál es el problema?
 
-Descripción concreta y acotada del fenómeno que se analiza.
+La evaluación, caracterización y modelado matemático de la crisis de seguridad pública en México a nivel estatal. El fenómeno delictivo presenta profundas asimetrías regionales, fluctuaciones temporales complejas y rigideces burocráticas en el registro penal. El reto principal radica en la falta de herramientas analíticas integradas que extraigan patrones ocultos en el registro histórico de carpetas de investigación para diagnosticar con precisión la naturaleza del crimen y la consistencia del sistema de justicia en las distintas entidades federativas.
 
 ### ¿Por qué es relevante?
 
-Impacto social, económico o ambiental. Evidencia de que el problema existe y es significativo.
+La delincuencia y la violencia estructural constituyen los mayores desafíos sociales y económicos en el México contemporáneo. Su persistencia erosiona el tejido social, vulnera de forma sistemática los derechos fundamentales de la ciudadanía y genera un impacto económico adverso al desincentivar la inversión local y extranjera. Aportar evidencia empírica sustentada en algoritmos de Machine Learning permite transitar de un análisis puramente cualitativo a un diagnóstico científico y reproducible. Esto es crucial para auditar las deficiencias del registro oficial, optimizar el diseño de estrategias preventivas y de asignación de recursos policiales.
 
 ### ¿Qué se busca lograr?
 
-Objetivo claro y medible del análisis (predecir / segmentar / identificar patrones).
+Ejecutar un ciclo metodológico completo de minería de datos estructurado en tres componentes analíticos medibles:
+
+1. **Descriptivo (EDA):** Identificar la estacionalidad, tendencias históricas y la distribución porcentual de los delitos de mayor impacto sobre los bienes jurídicos tutelados entre 2015 y 2025.
+
+2. **No Supervisado (Clustering):** Segmentar matemáticamente a las 32 entidades federativas en perfiles de riesgo homólogos mediante reducción de dimensionalidad (PCA) y el algoritmo K-Means ($k=4$), evaluando su cohesión con métricas de Silueta y Davies-Bouldin.
+
+3. **Supervisado (Clasificación):** Implementar un ensamble de Random Forest Classifier optimizado mediante validación cruzada para predecir el impacto delictivo, formulando un análisis crítico en torno a la presencia de Data Leakage debido al diseño burocrático del sistema judicial.
 
 ### ¿Por qué este dataset?
 
-Pertinencia de los datos elegidos para responder el objetivo planteado.
+La base de datos de Incidencia Delictiva del Fuero Común Estatal, publicada por el Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (SESNSP), constituye el repositorio oficial más exhaustivo y confiable en el país. Con un volumen de **413,952 registros históricos consolidados** y una estructura final de **13 variables dimensionales** tras la ingeniería de características (que incluye dimensiones geográficas, temporales y tipificaciones penales detalladas), el dataset posee la granularidad y la representatividad estadística necesarias para garantizar la robustez, el entrenamiento eficiente y el desacoplamiento de los modelos de aprendizaje.
 
 ---
 
@@ -75,12 +81,12 @@ Pertinencia de los datos elegidos para responder el objetivo planteado.
 
 | Atributo          | Valor |
 |-------------------|-------|
-| **Nombre**        | Nombre del dataset |
-| **Fuente**        | [Nombre de la fuente](URL) |
+| **Nombre**        | Incidencia delictiva estatal |
+| **Fuente**        | [Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (SESNSP)](ttps://www.datos.gob.mx/dataset/incidencia_delictiva) |
 | **Registros**     | ≥ 100 000 filas |
 | **Variables**     | ≥ 8 columnas |
 | **Tipos**         | Numéricas y categóricas |
-| **Última actualización** | AAAA-MM-DD |
+| **Última actualización** | 2026-03-03 |
 | **Licencia**      | Datos abiertos |
 
 ---
@@ -98,6 +104,7 @@ Proyecto_Mineria_Datos/
 ├── docs/           # Sitio Quarto (GitHub Pages)
 ├── _quarto.yml
 ├── README.md
+├── Reporte Proyecto Final.pdf
 ├── requirements.txt
 └── .gitignore
 ```
@@ -106,7 +113,6 @@ Proyecto_Mineria_Datos/
 
 ## 🔗 Recursos
 
-- 📁 [Repositorio GitHub](https://github.com/TU_USUARIO/TU_REPO)
-- 📄 [Reporte Final PDF](reports/reporte_final.pdf)
-- 🎬 [Video de Exposición](URL_VIDEO)
-- 📦 [Dataset original](URL_DATASET)
+- 📁 [Repositorio GitHub](https://github.com/Sinnombre0/Proyecto_Final_Mineria_Datos.git)
+- 📄 [Reporte Final PDF](Reporte Proyecto Final.pdf)
+- 📦 [Dataset original](https://www.datos.gob.mx/dataset/incidencia_delictiva)
