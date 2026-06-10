@@ -10,33 +10,34 @@ format:
 ::: {.subtitle}
 Almacenes y Minería de Datos · Facultad de Ciencias · UNAM · 2025-2
 :::
-Descripción breve del problema que aborda el proyecto: qué se analiza, con qué datos y qué se busca lograr.
+Haciendo uso de todos los conocimientos obtenidos hicimos nuestro proyecto de Mineria de Datos sobre un dataset de incidencia 
+delictiva en nuestro pais para ver realmente un panorama completo sobre lo que esta pasando en nuestro pais 
 :::
 
 ---
 
-## 👥 Equipo
+## 👥 Minando Migajas
 
 ::: {.card-grid}
 ::: {.info-card}
 #### Integrante 1
-Nombre Completo  
-`No. cuenta: XXXXXXXXX`
+Cano Tenorio Alan Kevin  
+`No. cuenta: 321259967`
 :::
 ::: {.info-card}
 #### Integrante 2
-Nombre Completo  
-`No. cuenta: XXXXXXXXX`
+Gomez Calva Carlos Manuel 
+`No. cuenta: 321281678`
 :::
 ::: {.info-card}
 #### Integrante 3
-Nombre Completo  
-`No. cuenta: XXXXXXXXX`
+Lechuga Hervert Maximiliano  
+`No. cuenta: 321311186`
 :::
 ::: {.info-card}
 #### Integrante 4
-Nombre Completo  
-`No. cuenta: XXXXXXXXX`
+Vázquez Rincón Oscar 
+`No. cuenta: 321228954`
 :::
 :::
 
@@ -51,23 +52,23 @@ Nombre Completo
 
 ## 📋 Descripción del Problema
 
-> **Área temática:** <!-- ej. Seguridad pública / Salud / Educación / etc. -->
+> **Seguridad Publica:** <
 
 ### ¿Cuál es el problema?
 
-Descripción concreta y acotada del fenómeno que se analiza.
+Comprender la magnitud sobre la delincuencia en México
 
 ### ¿Por qué es relevante?
 
-Impacto social, económico o ambiental. Evidencia de que el problema existe y es significativo.
+La seguridad en México siempre ha sado de que hablar, lamentablemente esto se ha ido incrementando ultimamente
 
 ### ¿Qué se busca lograr?
 
-Objetivo claro y medible del análisis (predecir / segmentar / identificar patrones).
+Observar lo que realmente pasa a nuestros alrededores que muchas veces pasa desapercibido
 
 ### ¿Por qué este dataset?
 
-Pertinencia de los datos elegidos para responder el objetivo planteado.
+Tiene los datos mas que necesarios para lo que queremos hacer
 
 ---
 
@@ -75,13 +76,14 @@ Pertinencia de los datos elegidos para responder el objetivo planteado.
 
 | Atributo          | Valor |
 |-------------------|-------|
-| **Nombre**        | Nombre del dataset |
-| **Fuente**        | [Nombre de la fuente](URL) |
-| **Registros**     | ≥ 100 000 filas |
-| **Variables**     | ≥ 8 columnas |
+| **Nombre**        | Incidencia delictiva estatal |
+| **Fuente**        | [Base de datos del gobierno](https://www.datos.gob.mx/dataset/incidencia_delictiva/resource/d9b2792a-33a2-4ea8-8527-210d9e99de5e) |
+| **Registros**     | 413,952 filas |
+| **Variables**     | 13 columnas |
 | **Tipos**         | Numéricas y categóricas |
-| **Última actualización** | AAAA-MM-DD |
-| **Licencia**      | Datos abiertos |
+| **Última actualización** | 15 de abril de 2025 |
+| **Licencia**      | CC-BY-4.0 |
+
 
 ---
 
@@ -89,16 +91,19 @@ Pertinencia de los datos elegidos para responder el objetivo planteado.
 
 ```
 Proyecto_Mineria_Datos/
-├── data/           # Datos crudos y procesados
-├── notebooks/      # EDA, modelado y clustering
-├── src/            # Código fuente Python (clases, módulos)
-├── models/         # Modelos serializados (.pkl / .joblib)
-├── reports/        # Reporte PDF y slides
-├── diagrams/       # Diagrama UML
 ├── docs/           # Sitio Quarto (GitHub Pages)
+├── notebooks/      # EDA, modelado y clustering
+├── src/            # Código Python (clases, módulos)
 ├── _quarto.yml
+├── clustering.qmd
+├── eda.qmd
+├── instalacion.qmd
+├── modelo.qmd
 ├── README.md
+├── predict.py
 ├── requirements.txt
+├── reutilizacion.qmd
+├── styles.css
 └── .gitignore
 ```
 
@@ -106,7 +111,4 @@ Proyecto_Mineria_Datos/
 
 ## 🔗 Recursos
 
-- 📁 [Repositorio GitHub](https://github.com/TU_USUARIO/TU_REPO)
-- 📄 [Reporte Final PDF](reports/reporte_final.pdf)
-- 🎬 [Video de Exposición](URL_VIDEO)
-- 📦 [Dataset original](URL_DATASET)
+- 📁 [Repositorio GitHub](https://github.com/Sinnombre0/Proyecto_Final_Mineria_Datos.git)
