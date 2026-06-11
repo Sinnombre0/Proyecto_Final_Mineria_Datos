@@ -58,6 +58,26 @@ Proyecto_Mineria_Datos/
 ##  Reutilización del Modelo
 El modelo entrenado está completamente desacoplado y exportado mediante la librería `joblib`. Es posible cargar los binarios para inferencias instantáneas sobre nuevos vectores numéricos sintéticos sin necesidad de ejecutar las celdas de entrenamiento.
 
+## 🛠️ Guía de Instalación y Ejecución Rápida
+
+Para clonar el proyecto, configurar el entorno virtual y reproducir los experimentos, ejecute los siguientes comandos en su terminal:
+
+```bash
+# 1. Clonación e instalación de dependencias
+git clone [https://github.com/Sinnombre0/Proyecto_Final_Mineria_Datos.git](https://github.com/Sinnombre0/Proyecto_Final_Mineria_Datos.git)
+cd Proyecto_Final_Mineria_Datos
+python -m venv .venv
+source .venv/bin/activate  # En Windows use: .\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+
+# 2. Ejecución de la demostración interactiva en vivo
+python predict.py
+```
+
+## Link al sitio para mayo información y guias
+
+https://sinnombre0.github.io/Proyecto_Final_Mineria_Datos/ 
+
 ## Link de la presentacion
 
 https://canva.link/4w2s93cql13gujp

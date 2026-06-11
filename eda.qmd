@@ -12,7 +12,7 @@ title: "Análisis Exploratorio de Datos (EDA)"
 
 A continuación se presenta el flujo completo de exploración de datos. Este reporte se genera dinámicamente a partir del cuaderno de experimentación oficial, garantizando que el análisis sea 100% reproducible y transparente.
 
-{{< embed ./notebooks/01_eda.ipynb echo=true >}}
+{{< embed notebooks/01_eda.ipynb echo=true >}}
 
 ---
 

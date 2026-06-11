@@ -82,7 +82,7 @@ La base de datos de Incidencia Delictiva del Fuero Común Estatal, publicada por
 | Atributo          | Valor |
 |-------------------|-------|
 | **Nombre**        | Incidencia delictiva estatal |
-| **Fuente**        | [Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (SESNSP)](ttps://www.datos.gob.mx/dataset/incidencia_delictiva) |
+| **Fuente**        | [Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (SESNSP) - Incidencia Delictiva Estatal](https://www.datos.gob.mx/dataset/incidencia_delictiva) |
 | **Registros**     | ≥ 100 000 filas |
 | **Variables**     | ≥ 8 columnas |
 | **Tipos**         | Numéricas y categóricas |

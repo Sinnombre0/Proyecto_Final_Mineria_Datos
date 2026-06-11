@@ -10,14 +10,14 @@ website:
     left:
       - href: index.qmd
         text: Inicio
+      - href: instalacion.qmd
+        text: Instalación
       - href: eda.qmd
         text: EDA
       - href: modelo.qmd
         text: Modelo Supervisado
       - href: clustering.qmd
         text: Clustering
-      - href: instalacion.qmd
-        text: Instalación
     right:
       - icon: github
         href: https://github.com/TU_USUARIO/TU_REPO

@@ -1,172 +1,84 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-    <meta charset="utf-8">
-    <meta name="generator" content="quarto-1.9.36">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-    <title>demo_reutilizacion – Minería de Datos — FC UNAM</title>
-    <style>
-      /* Default styles provided by pandoc.
-      ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-      */
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      div.columns{display: flex; gap: min(4vw, 1.5em);}
-      div.column{flex: auto; overflow-x: auto;}
-      div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-      ul.task-list{list-style: none;}
-      ul.task-list li input[type="checkbox"] {
-        width: 0.8em;
-        margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-        vertical-align: middle;
-      }
-      /* CSS for syntax highlighting */
-      html { -webkit-text-size-adjust: 100%; }
-      pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-      pre > code.sourceCode > span:empty { height: 1.2em; }
-      .sourceCode { overflow: visible; }
-      code.sourceCode > span { color: inherit; text-decoration: inherit; }
-      div.sourceCode { margin: 1em 0; }
-      pre.sourceCode { margin: 0; }
-      @media screen {
-      div.sourceCode { overflow: auto; }
-      }
-      @media print {
-      pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-      }
-      pre.numberSource code
-        { counter-reset: source-line 0; }
-      pre.numberSource code > span
-        { position: relative; left: -4em; counter-increment: source-line; }
-      pre.numberSource code > span > a:first-child::before
-        { content: counter(source-line);
-          position: relative; left: -1em; text-align: right; vertical-align: baseline;
-          border: none; display: inline-block;
-          -webkit-touch-callout: none; -webkit-user-select: none;
-          -khtml-user-select: none; -moz-user-select: none;
-          -ms-user-select: none; user-select: none;
-          padding: 0 4px; width: 4em;
-        }
-      pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-      div.sourceCode
-        {   }
-      @media screen {
-      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-      }
-    </style>
+<title>demo_reutilizacion – Minería de Datos — FC UNAM</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
 
-    <style>
-      body.hypothesis-enabled #quarto-embed-header {
-        padding-right: 36px;
-      }
 
-      #quarto-embed-header {
-        height: 3em;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: solid 1px;
-      }
-
-      #quarto-embed-header h6 {
-        font-size: 1.1em;
-        padding-top: 0.6em;
-        margin-left: 1em;
-        margin-right: 1em;
-        font-weight: 400;
-      }
-
-      #quarto-embed-header a.quarto-back-link,
-      #quarto-embed-header a.quarto-download-embed {
-        font-size: 0.8em;
-        margin-top: 1em;
-        margin-bottom: 1em;
-        margin-left: 1em;
-        margin-right: 1em;
-      }
-
-      .quarto-back-container {
-        padding-left: 0.5em;
-        display: flex;
-      }
-
-      .headroom {
-          will-change: transform;
-          transition: transform 200ms linear;
-      }
-
-      .headroom--pinned {
-          transform: translateY(0%);
-      }
-
-      .headroom--unpinned {
-          transform: translateY(-100%);
-      }      
-    </style>
-
-    <script>
-    window.document.addEventListener("DOMContentLoaded", function () {
-
-      var header = window.document.querySelector("#quarto-embed-header");
-      const titleBannerEl = window.document.querySelector("body > #title-block-header");
-      if (titleBannerEl) {
-        titleBannerEl.style.paddingTop = header.clientHeight + "px";
-      }
-      const contentEl = window.document.getElementById('quarto-content');
-      for (const child of contentEl.children) {
-        child.style.paddingTop = header.clientHeight + "px";
-        child.style.marginTop = "1em";
-      }
-
-      // Use the article root if the `back` call doesn't work. This isn't perfect
-      // but should typically work
-      window.quartoBackToArticle = () => {
-        var currentUrl = window.location.href;
-        window.history.back();
-        setTimeout(() => {
-            // if location was not changed in 100 ms, then there is no history back
-            if(currentUrl === window.location.href){              
-                // redirect to site root
-                window.location.href = '/';
-            }
-        }, 100);
-      }
-
-      const headroom = new window.Headroom(header, {
-        tolerance: 5,
-        onPin: function () {
-        },
-        onUnpin: function () {
-        },
-      });
-      headroom.init();
-    });
-    </script>
-
-    
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9cdbd49fb92a4d7f9d8c4f710986121f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-     <script id="quarto-search-options" type="application/json">{
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-9cdbd49fb92a4d7f9d8c4f710986121f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -192,25 +104,20 @@
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>  
-        <link rel="stylesheet" href="../styles.css">
-      </head>
+}</script>
 
-  <body class="floating nav-fixed quarto-notebook quarto-light">
-    <div id="quarto-embed-header" class="headroom fixed-top bg-primary">
-      
-      <a onclick="window.quartoBackToArticle(); return false;" class="btn btn-primary quarto-back-link"><i class="bi bi-caret-left"></i> Back to Article</a>
-      <h6><i class="bi bi-journal-code"></i> ==============================================================================</h6>
 
-            <a href="../notebooks/04_demo_reutilizacion.ipynb" class="btn btn-primary quarto-download-embed" download="04_demo_reutilizacion.ipynb">Download Notebook</a>
-          </div>
+<link rel="stylesheet" href="../../styles.css">
+</head>
 
-     <div id="quarto-search-results"></div>
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Minería de Datos — FC UNAM</span>
     </a>
   </div>
@@ -221,23 +128,23 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Inicio</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../instalacion.html"> 
+    <a class="nav-link" href="../../instalacion.html"> 
 <span class="menu-text">Instalación</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../eda.html"> 
+    <a class="nav-link" href="../../eda.html"> 
 <span class="menu-text">EDA</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../modelo.html"> 
+    <a class="nav-link" href="../../modelo.html"> 
 <span class="menu-text">Modelo Supervisado</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../clustering.html"> 
+    <a class="nav-link" href="../../clustering.html"> 
 <span class="menu-text">Clustering</span></a>
   </li>  
 </ul>
@@ -257,15 +164,17 @@
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"></h1></header><div class="quarto-title-block"><div class="quarto-title-tools-only"><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>    <div class="cell-container code-fold"><div class="cell-decorator"><pre>In [1]:</pre></div><div id="d80c452a" class="cell" data-execution_count="1">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"></h1></header><div class="quarto-title-block"><div class="quarto-title-tools-only"><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
+
+
+
+
+<div id="d80c452a" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================================================================</span></span>
@@ -305,8 +214,8 @@
 <pre><code>✅ Directorio de trabajo establecido en la raíz: C:\Users\Admin\Downloads\Escuela\mineria\Proyecto_Mineria\Proyecto_Final_Mineria_Datos
 Dataset cargado exitosamente. Dimensiones: 413952 registros.</code></pre>
 </div>
-</div></div>
-<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="253b4f8d" class="cell" data-execution_count="2">
+</div>
+<div id="253b4f8d" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================================================================</span></span>
@@ -351,8 +260,8 @@ Entrenando el clasificador Random Forest de producción...
 ✅ ARTEFACTO GENERADO: models/modelo_final.joblib
 =======================================================</code></pre>
 </div>
-</div></div>
-<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="64da72c3" class="cell" data-execution_count="3">
+</div>
+<div id="64da72c3" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================================================================</span></span>
@@ -395,18 +304,20 @@ Entrenando el clasificador Random Forest de producción...
 🎯 Grado de certidumbre métrica : 47.65%
 -------------------------------------------------------</code></pre>
 </div>
-</div></div>
-<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [1]:</pre></div><div id="ea104101" class="cell">
+</div>
+<div id="ea104101" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="co">### 📝 Interpretación Técnica de la Reutilización de Componentes Estables</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="op">*</span> <span class="op">**</span>Qué se observa:<span class="op">**</span> Se comprueba analíticamente que tras congelar y guardar los pesos matemáticos <span class="kw">del</span> estimador <span class="op">*</span>Random Forest<span class="op">*</span> en un archivo físico `.joblib`, el objeto puede ser cargado instantáneamente en una sesión de Python limpia. Al alimentarlo con un vector numérico sintético de contexto regional (`anio<span class="op">=</span><span class="dv">2025</span>`, `mes_num<span class="op">=</span><span class="dv">12</span>`, `clave_ent<span class="op">=</span><span class="dv">9</span>`, `incidencia_delictiva<span class="op">=</span><span class="dv">450</span>`), el modelo genera la etiqueta de clasificación y su vector de probabilidades sin necesidad de ejecutar ni una sola línea de ajuste (<span class="op">*</span>fit<span class="op">*</span>).</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> <span class="op">*</span> <span class="op">**</span>Implicación para el análisis y despliegue:<span class="op">**</span> Esto demuestra el completo desacoplamiento entre el ciclo de vida de desarrollo de software y la puesta en producción. El componente binario encapsula de forma opaca toda la ingeniería de variables y penalizaciones calculadas. Garantiza una latencia mínima de respuesta frente a nuevas peticiones en el script interactivo `predict.py`, eliminando la sobrecarga computacional de almacenamiento en memoria y permitiendo su portabilidad directa a arquitecturas de API rest o interfaces en vivo.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-</div></div>
+</div>
 
 
-     </main> <!-- /main -->  <script id="quarto-html-after-body" type="application/javascript">
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -856,6 +767,10 @@ Entrenando el clasificador Random Forest de producción...
       }
     }
   });
-  </script>  </div> <!-- /content --> 
-  
+  </script>
+</div> <!-- /content -->
+
+
+
+
 </body></html>

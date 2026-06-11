@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Análisis Exploratorio de Datos (EDA) – Minería de Datos — FC UNAM</title>
+<title>eda – Minería de Datos — FC UNAM</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -61,23 +61,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-9cdbd49fb92a4d7f9d8c4f710986121f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-9cdbd49fb92a4d7f9d8c4f710986121f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Minería de Datos — FC UNAM</span>
     </a>
   </div>
@@ -128,23 +128,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Inicio</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./instalacion.html"> 
+    <a class="nav-link" href="../../instalacion.html"> 
 <span class="menu-text">Instalación</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./eda.html" aria-current="page"> 
+    <a class="nav-link" href="../../eda.html"> 
 <span class="menu-text">EDA</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./modelo.html"> 
+    <a class="nav-link" href="../../modelo.html"> 
 <span class="menu-text">Modelo Supervisado</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./clustering.html"> 
+    <a class="nav-link" href="../../clustering.html"> 
 <span class="menu-text">Clustering</span></a>
   </li>  
 </ul>
@@ -165,59 +165,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contenido</h2>
-   
-  <ul>
-  <li><a href="#desarrollo-del-análisis-exploratorio" id="toc-desarrollo-del-análisis-exploratorio" class="nav-link active" data-scroll-target="#desarrollo-del-análisis-exploratorio">Desarrollo del Análisis Exploratorio</a>
-  <ul class="collapse">
-  <li><a href="#sustentación-de-la-infraestructura-de-software" id="toc-sustentación-de-la-infraestructura-de-software" class="nav-link" data-scroll-target="#sustentación-de-la-infraestructura-de-software">Sustentación de la Infraestructura de Software</a></li>
-  </ul></li>
-  <li><a href="#interpretación-narrativa-y-hallazgos-del-equipo" id="toc-interpretación-narrativa-y-hallazgos-del-equipo" class="nav-link" data-scroll-target="#interpretación-narrativa-y-hallazgos-del-equipo">📑 Interpretación Narrativa y Hallazgos del Equipo</a></li>
-  </ul>
-<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="notebooks\01_eda-preview.html"><i class="bi bi-journal-code"></i>Desactivar advertencias visuales para mantener limpia la consola/salida</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Análisis Exploratorio de Datos (EDA)</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"></h1></header><div class="quarto-title-block"><div class="quarto-title-tools-only"><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Propósito del EDA:</strong> Comprender la estructura, calidad y distribución de los datos antes de cualquier modelado, e informar las decisiones de preprocesamiento posteriores.</p>
-</div>
-</div>
-<hr>
-<section id="desarrollo-del-análisis-exploratorio" class="level2">
-<h2 class="anchored" data-anchor-id="desarrollo-del-análisis-exploratorio">Desarrollo del Análisis Exploratorio</h2>
-<p>A continuación se presenta el flujo completo de exploración de datos. Este reporte se genera dinámicamente a partir del cuaderno de experimentación oficial, garantizando que el análisis sea 100% reproducible y transparente.</p>
-<div class="quarto-embed-nb-cell">
 <div id="cfab4896" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
@@ -542,42 +498,42 @@ Despojo                                   4224            1.02</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="01_eda_files/figure-html/cell-5-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-3.png" class="img-fluid figure-img"></p>
+<p><img src="01_eda_files/figure-html/cell-5-output-3.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-4.png" class="img-fluid figure-img"></p>
+<p><img src="01_eda_files/figure-html/cell-5-output-4.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-5.png" class="img-fluid figure-img"></p>
+<p><img src="01_eda_files/figure-html/cell-5-output-5.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-6.png" class="img-fluid figure-img"></p>
+<p><img src="01_eda_files/figure-html/cell-5-output-6.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-7.png" class="img-fluid figure-img"></p>
+<p><img src="01_eda_files/figure-html/cell-5-output-7.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -632,7 +588,7 @@ Despojo                                   4224            1.02</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-6-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="01_eda_files/figure-html/cell-6-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -691,7 +647,7 @@ Despojo                                   4224            1.02</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-7-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="01_eda_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -729,7 +685,7 @@ Despojo                                   4224            1.02</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-8-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="01_eda_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -741,48 +697,8 @@ Despojo                                   4224            1.02</code></pre>
 <li><strong>Implicación para el modelado:</strong> Este comportamiento dinámico confirma que el fenómeno delictivo no es estacionario y responde a factores externos del entorno. Para que el modelo supervisado pueda capturar de manera correcta las tendencias macro sin sufrir de <em>data leakage</em> (fuga de datos), se deben omitir las variables de subcategorías directas (como el tipo o subtipo de delito), y permitir que el algoritmo aprenda exclusivamente de los componentes contextuales de la serie histórica.</li>
 </ul>
 </blockquote>
-<a class="quarto-notebook-link" id="nblink-1" href="notebooks\01_eda-preview.html#cfab4896">Source: Desactivar advertencias visuales para mantener limpia la consola/salida</a></div>
-<hr>
-<section id="sustentación-de-la-infraestructura-de-software" class="level3">
-<h3 class="anchored" data-anchor-id="sustentación-de-la-infraestructura-de-software">Sustentación de la Infraestructura de Software</h3>
-<p>Para garantizar la reproducibilidad del análisis, el aislamiento de los datos y el intercambio dinámico de estrategias de limpieza, todo el ciclo de vida del proyecto se diseñó bajo el paradigma de Programación Orientada a Objetos (POO). En la imagen se despliega la arquitectura del sistema, la cual desacopla la ingesta de archivos mediante el patrón <em>Repository</em> (<code>data_repository.py</code>) y coordina las etapas secuenciales mediante una estructura de <em>Pipeline</em> apoyada por el patrón <em>Strategy</em> (<code>pipeline.py</code>).</p>
-<div id="fig-uml-arquitectura" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-uml-arquitectura-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="diagrams/diagrama_arquitectura.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-uml-arquitectura-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Diagrama de Clases UML de la Infraestructura
-</figcaption>
-</figure>
-</div>
-<hr>
-</section>
-</section>
-<section id="interpretación-narrativa-y-hallazgos-del-equipo" class="level2">
-<h2 class="anchored" data-anchor-id="interpretación-narrativa-y-hallazgos-del-equipo">📑 Interpretación Narrativa y Hallazgos del Equipo</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Conclusiones Clave del EDA:
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li><strong>Calidad de los Datos:</strong> No se detectaron valores faltantes severos en las variables contextuales críticas. El desbalance moderado en la variable objetivo (<code>bien_juridico_afectado</code>) se gestionará de manera automatizada mediante pesos balanceados en la etapa de modelado supervisado.</li>
-<li><strong>Patrones Temporales y Estacionales:</strong> La incidencia delictiva total muestra picos cíclicos consistentes en determinados meses del año (estacionalidad), lo que justifica plenamente la inclusión de <code>mes_num</code> y <code>anio</code> como características de entrada para los modelos.</li>
-<li><strong>Estructura Correlacional:</strong> La matriz de correlación de Spearman a nivel estatal revela que ciertas tipologías de delitos coexisten de manera orgánica en las mismas regiones geográficas, validando el uso posterior de algoritmos de agrupamiento (<em>Clustering</em>) para segmentar el país en perfiles de seguridad diferenciados.</li>
-</ol>
-</div>
-</div>
 
 
-<!-- -->
-
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1235,42 +1151,7 @@ Figure&nbsp;1: Diagrama de Clases UML de la Infraestructura
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Análisis Exploratorio de Datos (EDA)"</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>**Propósito del EDA:** Comprender la estructura, calidad y distribución de los datos antes de cualquier modelado, e informar las decisiones de preprocesamiento posteriores.</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Desarrollo del Análisis Exploratorio</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>A continuación se presenta el flujo completo de exploración de datos. Este reporte se genera dinámicamente a partir del cuaderno de experimentación oficial, garantizando que el análisis sea 100% reproducible y transparente.</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>{{&lt; embed notebooks/01_eda.ipynb echo=true &gt;}}</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sustentación de la Infraestructura de Software</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>Para garantizar la reproducibilidad del análisis, el aislamiento de los datos y el intercambio dinámico de estrategias de limpieza, todo el ciclo de vida del proyecto se diseñó bajo el paradigma de Programación Orientada a Objetos (POO). En la imagen se despliega la arquitectura del sistema, la cual desacopla la ingesta de archivos mediante el patrón *Repository* (`data_repository.py`) y coordina las etapas secuenciales mediante una estructura de *Pipeline* apoyada por el patrón *Strategy* (<span class="in">`pipeline.py`</span>).</span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="al">![Diagrama de Clases UML de la Infraestructura](diagrams/diagrama_arquitectura.png)</span>{#fig-uml-arquitectura}</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📑 Interpretación Narrativa y Hallazgos del Equipo</span></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### Conclusiones Clave del EDA:</span></span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Calidad de los Datos:** No se detectaron valores faltantes severos en las variables contextuales críticas. El desbalance moderado en la variable objetivo (<span class="in">`bien_juridico_afectado`</span>) se gestionará de manera automatizada mediante pesos balanceados en la etapa de modelado supervisado.</span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Patrones Temporales y Estacionales:** La incidencia delictiva total muestra picos cíclicos consistentes en determinados meses del año (estacionalidad), lo que justifica plenamente la inclusión de <span class="in">`mes_num`</span> y <span class="in">`anio`</span> como características de entrada para los modelos.</span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Estructura Correlacional:** La matriz de correlación de Spearman a nivel estatal revela que ciertas tipologías de delitos coexisten de manera orgánica en las mismas regiones geográficas, validando el uso posterior de algoritmos de agrupamiento (*Clustering*) para segmentar el país en perfiles de seguridad diferenciados.</span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 
 
