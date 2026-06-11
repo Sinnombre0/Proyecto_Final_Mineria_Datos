@@ -74,7 +74,7 @@ pip install -r requirements.txt
 python predict.py
 ```
 
-## Link al sitio para mayo información y guias
+## Link al sitio para mayor información y guias
 
 https://sinnombre0.github.io/Proyecto_Final_Mineria_Datos/ 
 
