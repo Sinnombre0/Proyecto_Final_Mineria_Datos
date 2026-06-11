@@ -1,0 +1,44 @@
+project:
+  type: website
+  output-dir: docs
+  resources: 
+    - notebooks/
+
+website:
+  title: "Minería de Datos — FC UNAM"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Inicio
+      - href: eda.qmd
+        text: EDA
+      - href: modelo.qmd
+        text: Modelo Supervisado
+      - href: clustering.qmd
+        text: Clustering
+      - href: instalacion.qmd
+        text: Instalación
+    right:
+      - icon: github
+        href: https://github.com/TU_USUARIO/TU_REPO
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    toc-title: "Contenido"
+    code-fold: true
+    code-tools: true
+    highlight-style: github
+    fig-align: center
+    fig-width: 9
+    fig-height: 5
+    number-sections: false
+
+execute:
+  freeze: auto
+  echo: true
+  warning: false
+  message: false

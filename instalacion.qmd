@@ -1,0 +1,165 @@
+---
+title: "Instalación y Ejecución"
+---
+
+## Requisitos Previos
+
+- Python ≥ 3.10
+- Git
+- (Opcional) Quarto CLI para regenerar el sitio
+
+---
+
+## 1. Clonar el Repositorio
+
+```bash
+git clone https://github.com/TU_USUARIO/TU_REPO.git
+cd TU_REPO
+```
+
+---
+
+## 2. Crear Entorno Virtual
+
+::: {.panel-tabset}
+### Linux / macOS
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+### Windows (PowerShell)
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+:::
+
+---
+
+## 3. Instalar Dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+::: {.callout-note}
+`requirements.txt` fue generado con `pip freeze` y contiene versiones exactas para reproducibilidad total.
+:::
+
+---
+
+## 4. Obtener el Dataset
+
+> El dataset no se incluye en el repositorio por su tamaño. Descárgalo desde la fuente oficial y colócalo en `data/raw/`.
+1. Visita el sitio oficial del dataset: [Incidencia Delictiva en México](https://www.inegi.org.mx/programas/incidencia-delictiva/)
+2. Descarga el archivo CSV sobre incidencia delictiva estatal.
+
+---
+
+## 5. Ejecutar los Notebooks
+
+```bash
+# En la raíz del repositorio
+jupyter lab
+```
+
+Orden recomendado:
+
+notebooks/01_eda.ipynb
+
+notebooks/02_clustering.ipynb
+
+notebooks/03_modelado.ipynb
+
+
+notebooks/04_reutilizacion.ipynb
+
+---
+
+## 6. Reutilizar el Modelo Guardado
+
+```python
+import joblib
+import pandas as pd
+
+# Cargar modelo entrenado
+model = joblib.load("models/modelo_final.joblib")
+
+# Crear un registro de ejemplo (ajusta las columnas a tu dataset)
+nuevo_registro = pd.DataFrame([{
+    "variable_1": valor_1,
+    "variable_2": valor_2,
+    # ...
+}])
+
+# Predicción
+prediccion = model.predict(nuevo_registro)
+print(f"Predicción: {prediccion[0]}")
+```
+
+---
+
+## 7. Regenerar el Sitio Quarto *(opcional)*
+
+```bash
+# Instalar Quarto CLI desde https://quarto.org/docs/get-started/
+quarto render
+```
+
+El sitio se regenera en `docs/` y puede visualizarse localmente con:
+
+```bash
+quarto preview
+```
+
+---
+
+## Estructura del Repositorio
+
+```
+Proyecto_Mineria_Datos/
+├── data/
+│   ├── raw/            # Datos originales (no versionados)
+│   └── processed/      # Datos limpios
+├── notebooks/
+│   ├── 01_eda.ipynb
+│   ├── 02_modelo_supervisado.ipynb
+│   ├── 03_clustering.ipynb
+│   └── 04_demo_reutilizacion.ipynb
+├── src/
+│   ├── __init__.py
+│   ├── data_repository.py   # Patrón Repository
+│   ├── pipeline.py          # Patrón Pipeline / Strategy
+│   ├── model_factory.py     # Patrón Factory Method
+│   └── evaluator.py
+├── models/
+│   └── modelo_final.joblib
+├── reports/
+│   ├── reporte_final.pdf
+│   └── slides.pdf
+├── diagrams/
+│   └── arquitectura_uml.png
+├── docs/               # Sitio Quarto generado
+├── _quarto.yml
+├── styles.css
+├── index.qmd
+├── eda.qmd
+├── modelo.qmd
+├── clustering.qmd
+├── instalacion.qmd
+├── README.md
+├── requirements.txt
+└── .gitignore
+```
+
+---
+
+## Solución de Problemas
+
+| Error | Causa probable | Solución |
+|-------|---------------|----------|
+| `ModuleNotFoundError` | Dependencia no instalada | `pip install -r requirements.txt` |
+| `FileNotFoundError: datos.csv` | Dataset no descargado | Ver paso 4 |
+| `joblib.load` falla | Versión de sklearn distinta | Usar la versión en `requirements.txt` |
+| Quarto: `execute error` | Kernel sin dataset | Ejecutar notebooks antes de `quarto render` |

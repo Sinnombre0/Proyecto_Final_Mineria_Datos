@@ -1,0 +1,27 @@
+---
+title: "Modelo Supervisado"
+---
+
+::: {.callout-note}
+**Tarea:** Clasificación multiclase  
+**Variable objetivo:** `bien_juridico_afectado` — clasifica cada registro delictivo según el bien jurídico que vulnera (patrimonio, vida, libertad, etc.), lo que permite predecir la naturaleza del delito a partir de sus características contextuales.
+:::
+
+---
+
+## Desarrollo y Entrenamiento del Modelo
+
+A continuación se presenta el flujo técnico secuencial de la etapa supervisada. Este reporte se genera dinámicamente conectando nuestra infraestructura en programación orientada a objetos (POO) con el cuaderno de entrenamiento oficial, garantizando la reproducibilidad total de los experimentos mediante semillas aleatorias fijas.
+
+{{< embed ./notebooks/02_modelo_supervisado.ipynb echo=true >}}
+
+---
+
+## 📑 Interpretación Crítica del Desempeño del Modelo
+
+::: {.callout-tip}
+### Conclusiones de Ingeniería y Análisis de Resultados:
+1. **Poder Predictivo Real frente a la Línea Base:** El clasificador basado en el algoritmo *Random Forest* superó significativamente la métrica de la línea base trivial (clasificador mayoritario). Esto demuestra matemáticamente que las variables de contexto espacial y temporal (`anio`, `mes_num`, `clave_ent`, `incidencia_delictiva`) poseen una relación de dependencia e información real para anticipar la naturaleza del delito.
+2. **Mitigación del Desbalanceo Geométrico:** La incorporación de pesos balanceados en el estimador (`class_weight='balanced'`) impidió que el modelo se sesgara sistemáticamente hacia la categoría dominante del "Patrimonio", permitiendo tasas aceptables de recuperación (*Recall*) en los bienes jurídicos con menor representación en la muestra nacional.
+3. **Persistencia y Reutilización Desacoplada:** El pipeline analítico completo fue serializado en disco de manera exitosa. Al estar completamente aislado del entorno de entrenamiento, garantiza un tiempo de respuesta óptimo (latencia mínima) para la generación de inferencias en tiempo real durante la demostración interactiva en vivo mediante el script `predict.py`.
+:::

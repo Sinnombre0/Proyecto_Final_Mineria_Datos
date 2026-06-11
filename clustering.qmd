@@ -1,0 +1,27 @@
+---
+title: "Agrupamiento (Clustering)"
+---
+
+::: {.callout-note}
+**Propósito:** Identificar perfiles delictivos de las 32 entidades federativas de México, agrupándolas según la distribución de tipos de delito. Esto complementa el modelo supervisado al revelar qué estados comparten patrones estructurales similares de criminalidad.  
+**Algoritmo elegido:** K-Means
+:::
+
+---
+
+## Desarrollo del Agrupamiento No Supervisado
+
+A continuación se presenta el flujo experimental completo de segmentación geográfica. Este reporte se genera dinámicamente extrayendo las celdas de código, las ejecuciones algorítmicas, las visualizaciones interclúster y las métricas de validación interna directamente desde el cuaderno analítico de desarrollo.
+
+{{< embed ./notebooks/03_clustering.ipynb echo=true >}}
+
+---
+
+## 📑 Síntesis Interpretativa de la Segmentación Nacional
+
+::: {.callout-tip}
+### Conclusiones de la Caracterización Geográfica:
+1. **Validación Geométrica Concluyente:** El comportamiento coincidente entre el punto de inflexión del *Método del Codo* (Inercia) y el pico máximo absoluto del *Coeficiente de Silueta* (Score > 0.30) fundamenta con rigor matemático que la estructura delictiva estatal se divide de forma óptima en **4 clústeres** diferenciados.
+2. **Disparidad Estructural de la Seguridad:** Los perfiles descubiertos a través del mapa de calor demuestran que las entidades no sufren el mismo tipo de violencia. Mientras que estados del *Cluster 1* demandan políticas públicas orientadas a mitigar delitos de alto impacto patrimonial (robos/fraudes), las regiones del *Cluster 2* exhiben focos rojos de violencia directa (homicidios/lesiones), exigiendo despliegues tácticos de contención civil.
+3. **Consistencia de los Modelos (Multi-Paradigma):** Al cruzar las etiquetas de los clústeres no supervisados con la moda del bien jurídico del modelo supervisado, se demostró una coherencia del 100%. Esto valida que la variable de geolocalización es un descriptor directo del perfil de criminalidad de una región, justificando el alto desempeño predictivo alcanzado por el clasificador del Rol 2.
+:::

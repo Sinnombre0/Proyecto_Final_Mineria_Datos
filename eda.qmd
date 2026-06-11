@@ -1,0 +1,34 @@
+---
+title: "Análisis Exploratorio de Datos (EDA)"
+---
+
+::: {.callout-note}
+**Propósito del EDA:** Comprender la estructura, calidad y distribución de los datos antes de cualquier modelado, e informar las decisiones de preprocesamiento posteriores.
+:::
+
+---
+
+## Desarrollo del Análisis Exploratorio
+
+A continuación se presenta el flujo completo de exploración de datos. Este reporte se genera dinámicamente a partir del cuaderno de experimentación oficial, garantizando que el análisis sea 100% reproducible y transparente.
+
+{{< embed ./notebooks/01_eda.ipynb echo=true >}}
+
+---
+
+### Sustentación de la Infraestructura de Software
+
+Para garantizar la reproducibilidad del análisis, el aislamiento de los datos y el intercambio dinámico de estrategias de limpieza, todo el ciclo de vida del proyecto se diseñó bajo el paradigma de Programación Orientada a Objetos (POO). En la imagen se despliega la arquitectura del sistema, la cual desacopla la ingesta de archivos mediante el patrón *Repository* (`data_repository.py`) y coordina las etapas secuenciales mediante una estructura de *Pipeline* apoyada por el patrón *Strategy* (`pipeline.py`).
+
+![Diagrama de Clases UML de la Infraestructura](diagrams/diagrama_arquitectura.png){#fig-uml-arquitectura}
+
+---
+
+## 📑 Interpretación Narrativa y Hallazgos del Equipo
+
+::: {.callout-tip}
+### Conclusiones Clave del EDA:
+1. **Calidad de los Datos:** No se detectaron valores faltantes severos en las variables contextuales críticas. El desbalance moderado en la variable objetivo (`bien_juridico_afectado`) se gestionará de manera automatizada mediante pesos balanceados en la etapa de modelado supervisado.
+2. **Patrones Temporales y Estacionales:** La incidencia delictiva total muestra picos cíclicos consistentes en determinados meses del año (estacionalidad), lo que justifica plenamente la inclusión de `mes_num` y `anio` como características de entrada para los modelos.
+3. **Estructura Correlacional:** La matriz de correlación de Spearman a nivel estatal revela que ciertas tipologías de delitos coexisten de manera orgánica en las mismas regiones geográficas, validando el uso posterior de algoritmos de agrupamiento (*Clustering*) para segmentar el país en perfiles de seguridad diferenciados.
+:::

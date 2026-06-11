@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Quarto
+/.quarto/
+*_files/
+
+# Datos grandes (referenciar desde README)
+data/raw/*.csv
+data/raw/*.parquet
+data/raw/*.xlsx
+data/raw/*.zip
+data/processed/*.csv
+data/processed/*.parquet
+
+# Modelos (solo versionar el final si < 100MB)
+# models/*.joblib
+# models/*.pkl
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+**/*.quarto_ipynb
+models/modelo_final.joblib

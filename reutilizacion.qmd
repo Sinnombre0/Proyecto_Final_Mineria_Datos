@@ -1,0 +1,26 @@
+---
+title: "Demostración de Reutilización"
+---
+
+::: {.callout-note}
+**Objetivo de Ingeniería:** Demostrar que el modelo entrenado es completamente agnóstico al entorno de experimentación. Al guardarse en formato binario (`.joblib`), permite la persistencia a largo plazo y la ejecución de inferencias predictivas inmediatas en scripts independientes como `predict.py`.
+:::
+
+---
+
+## Ejecución del Pipeline en Producción
+
+A continuación se presenta el flujo lógico de exportación y carga del modelo matemático. Los resultados se inyectan en tiempo real ejecutando el backend analítico en segundo plano.
+
+{{< embed ./notebooks/04_demo_reutilizacion.ipynb echo=true >}}
+
+---
+
+## 🛠️ Validación de la Demostración Interactiva
+
+::: {.callout-tip}
+### Conclusión del Despliegue (Rol 3):
+El desacoplamiento del modelo garantiza que cualquier analista de políticas públicas o tomador de decisiones de seguridad pueda ejecutar la infraestructura de predicción de forma local mediante el comando de consola:
+
+```bash
+python predict.py
