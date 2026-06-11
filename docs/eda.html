@@ -218,7 +218,7 @@ Note
 <h2 class="anchored" data-anchor-id="desarrollo-del-análisis-exploratorio">Desarrollo del Análisis Exploratorio</h2>
 <p>A continuación se presenta el flujo completo de exploración de datos. Este reporte se genera dinámicamente a partir del cuaderno de experimentación oficial, garantizando que el análisis sea 100% reproducible y transparente.</p>
 <div class="quarto-embed-nb-cell">
-<div id="cfab4896" class="cell" data-execution_count="6">
+<div id="cfab4896" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
@@ -264,12 +264,12 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>=== 1. DESCRIPCIÓN GENERAL DEL DATASET ===
 Dataset cargado con éxito.
-Dimensiones físicas: 413,952 filas × 13 columnas
+Dimensiones físicas: 413,952 filas × 11 columnas
 
 Estructura de tipos de datos por variable:
 &lt;class 'pandas.DataFrame'&gt;
 RangeIndex: 413952 entries, 0 to 413951
-Data columns (total 13 columns):
+Data columns (total 11 columns):
  #   Column                  Non-Null Count   Dtype
 ---  ------                  --------------   -----
  0   anio                    413952 non-null  int64
@@ -283,13 +283,11 @@ Data columns (total 13 columns):
  8   fecha                   413952 non-null  str  
  9   incidencia_delictiva    413952 non-null  int64
  10  entidad_federativa      413952 non-null  str  
- 11  temporal_fecha          413952 non-null  str  
- 12  ..anio_fecha            413952 non-null  int64
-dtypes: int64(4), str(9)
-memory usage: 41.1 MB</code></pre>
+dtypes: int64(3), str(8)
+memory usage: 34.7 MB</code></pre>
 </div>
 </div>
-<div id="3bb0df70" class="cell" data-execution_count="7">
+<div id="3bb0df70" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 2. CALIDAD DE DATOS ==="</span>)</span>
@@ -318,12 +316,12 @@ memory usage: 41.1 MB</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>=== 2. CALIDAD DE DATOS ===
-✅ Calidad de datos validada: No se encontraron valores faltantes.
+Calidad de datos validada: No se encontraron valores faltantes.
 
 Cantidad de registros duplicados detectados: 0</code></pre>
 </div>
 </div>
-<div id="ae0f3803" class="cell" data-execution_count="8">
+<div id="ae0f3803" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 3. ESTADÍSTICAS DESCRIPTIVAS ==="</span>)</span>
@@ -347,240 +345,82 @@ Cantidad de registros duplicados detectados: 0</code></pre>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    tabla_desc <span class="op">=</span> pd.DataFrame({<span class="st">'Frecuencia Absoluta'</span>: freq, <span class="st">'Porcentaje (%)'</span>: freq_rel})</span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(tabla_desc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>=== 3. ESTADÍSTICAS DESCRIPTIVAS ===
-
---- Distribución Cronológica por Año ---
-anio
-2015    37632
-2016    37632
-2017    37632
-2018    37632
-2019    37632
-2020    37632
-2021    37632
-2022    37632
-2023    37632
-2024    37632
-2025    37632
-Name: count, dtype: int64
-
---- Distribución Estacional por Mes ---
-mes
-Enero         34496
-Febrero       34496
-Marzo         34496
-Abril         34496
-Mayo          34496
-Junio         34496
-Julio         34496
-Agosto        34496
-Septiembre    34496
-Octubre       34496
-Noviembre     34496
-Diciembre     34496
-Name: count, dtype: int64
-
---- Análisis de Variables Categóricas (Top 10 y Moda) ---
-
-Variable: entidad | Moda: Aguascalientes
-                      Frecuencia Absoluta  Porcentaje (%)
-entidad                                                  
-Aguascalientes                      12936            3.12
-Baja California                     12936            3.12
-Baja California Sur                 12936            3.12
-Campeche                            12936            3.12
-Coahuila de Zaragoza                12936            3.12
-Colima                              12936            3.12
-Chiapas                             12936            3.12
-Chihuahua                           12936            3.12
-Ciudad de MÃ©xico                   12936            3.12
-Durango                             12936            3.12
-
-Variable: bien_juridico_afectado | Moda: El patrimonio
-                                                    Frecuencia Absoluta  \
-bien_juridico_afectado                                                    
-El patrimonio                                                    177408   
-La vida y la Integridad corporal                                 101376   
-Otros bienes jurÃ­dicos afectados (del fuero co...                42240   
-Libertad personal                                                 33792   
-La libertad y la seguridad sexual                                 29568   
-La familia                                                        16896   
-La sociedad                                                       12672   
-
-                                                    Porcentaje (%)  
-bien_juridico_afectado                                              
-El patrimonio                                                42.86  
-La vida y la Integridad corporal                             24.49  
-Otros bienes jurÃ­dicos afectados (del fuero co...           10.20  
-Libertad personal                                             8.16  
-La libertad y la seguridad sexual                             7.14  
-La familia                                                    4.08  
-La sociedad                                                   3.06  
-
-Variable: tipo_delito | Moda: Robo
-                      Frecuencia Absoluta  Porcentaje (%)
-tipo_delito                                              
-Robo                               152064           36.73
-Homicidio                           38016            9.18
-Lesiones                            38016            9.18
-Secuestro                           21120            5.10
-Feminicidio                         16896            4.08
-Abuso de confianza                   4224            1.02
-DaÃ±o a la propiedad                 4224            1.02
-Despojo                              4224            1.02
-ExtorsiÃ³n                           4224            1.02
-Fraude                               4224            1.02
-
-Variable: subtipo_delito | Moda: Robo de maquinaria
-                             Frecuencia Absoluta  Porcentaje (%)
-subtipo_delito                                                  
-Robo de maquinaria                         25344            6.12
-Robo de vehÃ­culo automotor                25344            6.12
-Homicidio culposo                          21120            5.10
-Lesiones culposas                          21120            5.10
-Secuestro                                  21120            5.10
-Feminicidio                                16896            4.08
-Homicidio doloso                           16896            4.08
-Lesiones dolosas                           16896            4.08
-Otros robos                                 8448            2.04
-Robo a casa habitaciÃ³n                     8448            2.04
-
-Variable: modalidad | Moda: Con violencia
-                           Frecuencia Absoluta  Porcentaje (%)
-modalidad                                                     
-Con violencia                            50688           12.24
-Sin violencia                            50688           12.24
-Con arma blanca                          21120            5.10
-Con arma de fuego                        21120            5.10
-Con otro elemento                        21120            5.10
-No especificado                          21120            5.10
-En accidente de trÃ¡nsito                 8448            2.04
-Abuso de confianza                        4224            1.02
-DaÃ±o a la propiedad                      4224            1.02
-Despojo                                   4224            1.02</code></pre>
 </div>
-</div>
-<div id="af57b42e" class="cell" data-execution_count="9">
+<div id="af57b42e" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Configuración del entorno gráfico institucional</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> (<span class="dv">12</span>, <span class="dv">6</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 4. DETECCIÓN DE VALORES ATÍPICOS ==="</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Distribución de la Incidencia Delictiva por Entidad Federativa</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'entidad_federativa'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribución de la Incidencia Delictiva por Entidad Federativa'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Entidad Federativa'</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Incidencia Delictiva'</span>)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Distribución de Incidencia de los 10 Delitos más Frecuentes</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>delitos_top <span class="op">=</span> df.groupby(<span class="st">'tipo_delito'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>).index</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>df_top_delitos <span class="op">=</span> df[df[<span class="st">'tipo_delito'</span>].isin(delitos_top)]</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df_top_delitos, x<span class="op">=</span><span class="st">'tipo_delito'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>)</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribución de Incidencia de los 10 Delitos más Frecuentes'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Tipo de Delito'</span>)</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Incidencia Delictiva'</span>)</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Distribución de Incidencia por Bien Jurídico Afectado</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'bien_juridico_afectado'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>)</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribución de Incidencia por Bien Jurídico Afectado'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Bien Jurídico Afectado'</span>)</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Incidencia Delictiva'</span>)</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Distribución de Incidencia Delictiva por Mes</span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'mes'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>, order<span class="op">=</span>orden_meses)</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribución de Incidencia Delictiva por Mes'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Mes'</span>)</span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Incidencia Delictiva'</span>)</span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Distribución de Incidencia por Entidad y Tipo de Delito (Top 5 Estados - Robo)</span></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>entidades_top <span class="op">=</span> df.groupby(<span class="st">'entidad_federativa'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">5</span>).index</span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>df_comparacion <span class="op">=</span> df[(df[<span class="st">'entidad_federativa'</span>].isin(entidades_top)) <span class="op">&amp;</span> (df[<span class="st">'tipo_delito'</span>].isin([<span class="st">'Robo'</span>]))]</span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df_comparacion, x<span class="op">=</span><span class="st">'entidad_federativa'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>, hue<span class="op">=</span><span class="st">'tipo_delito'</span>)</span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribución de Incidencia por Entidad y Tipo de Delito (Robo)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Entidad Federativa'</span>)</span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Incidencia Delictiva'</span>)</span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">'Tipo de Delito'</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">1.05</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Distribución de Incidencia Delictiva por Año</span></span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'anio'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>)</span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribución de Incidencia Delictiva por Año'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Año'</span>)</span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Incidencia Delictiva'</span>)</span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Configuración del entorno gráfico institucional</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> (<span class="dv">12</span>, <span class="dv">6</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 4. DETECCIÓN DE VALORES ATÍPICOS ==="</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Distribución de la Incidencia Delictiva por Entidad Federativa</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'entidad_federativa'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribución de la Incidencia Delictiva por Entidad Federativa'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Entidad Federativa'</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Incidencia Delictiva'</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Distribución de Incidencia de los 10 Delitos más Frecuentes</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>delitos_top <span class="op">=</span> df.groupby(<span class="st">'tipo_delito'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>).index</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>df_top_delitos <span class="op">=</span> df[df[<span class="st">'tipo_delito'</span>].isin(delitos_top)]</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df_top_delitos, x<span class="op">=</span><span class="st">'tipo_delito'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribución de Incidencia de los 10 Delitos más Frecuentes'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Tipo de Delito'</span>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Incidencia Delictiva'</span>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Distribución de Incidencia por Bien Jurídico Afectado</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'bien_juridico_afectado'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>)</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribución de Incidencia por Bien Jurídico Afectado'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Bien Jurídico Afectado'</span>)</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Incidencia Delictiva'</span>)</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Distribución de Incidencia Delictiva por Mes</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'mes'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>, order<span class="op">=</span>orden_meses)</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribución de Incidencia Delictiva por Mes'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Mes'</span>)</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Incidencia Delictiva'</span>)</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Distribución de Incidencia por Entidad y Tipo de Delito (Top 5 Estados - Robo)</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>entidades_top <span class="op">=</span> df.groupby(<span class="st">'entidad_federativa'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">5</span>).index</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>df_comparacion <span class="op">=</span> df[(df[<span class="st">'entidad_federativa'</span>].isin(entidades_top)) <span class="op">&amp;</span> (df[<span class="st">'tipo_delito'</span>].isin([<span class="st">'Robo'</span>]))]</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df_comparacion, x<span class="op">=</span><span class="st">'entidad_federativa'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>, hue<span class="op">=</span><span class="st">'tipo_delito'</span>)</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribución de Incidencia por Entidad y Tipo de Delito (Robo)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Entidad Federativa'</span>)</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Incidencia Delictiva'</span>)</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">'Tipo de Delito'</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">1.05</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Distribución de Incidencia Delictiva por Año</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'anio'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>)</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribución de Incidencia Delictiva por Año'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Año'</span>)</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Incidencia Delictiva'</span>)</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>=== 4. DETECCIÓN DE VALORES ATÍPICOS ===</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-3.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-4.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-5.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-6.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-5-output-7.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
 </div>
 <blockquote class="blockquote">
 <h3 id="interpretación-analítica-de-los-diagramas-de-caja-outliers" class="anchored">📝 Interpretación Analítica de los Diagramas de Caja (Outliers)</h3>
@@ -589,53 +429,43 @@ Despojo                                   4224            1.02</code></pre>
 <li><strong>Implicación para el modelado:</strong> La drástica diferencia en las escalas demuestra que una baja incidencia absoluta no significa la ausencia de patrones delictivos, sino que responde a la naturaleza intrínseca del delito (los robos ocurren con magnitudes numéricas masivas, mientras que los secuestros registran conteos bajos pero críticos). Debido a que estos outliers no corresponden a errores de captura, sino a picos reales de criminalidad concentrados en regiones de alta densidad poblacional, la estrategia de limpieza <strong>no debe eliminar estos registros</strong>. Su conservación es fundamental para que el modelo aprenda a identificar escenarios de riesgo extremo.</li>
 </ul>
 </blockquote>
-<div id="48795429" class="cell" data-execution_count="10">
+<div id="48795429" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 6. RELACIONES ENTRE VARIABLES ==="</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>delitos_interes <span class="op">=</span> [</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Robo de maquinaria'</span>, <span class="st">'Robo a negocio'</span>, <span class="st">'Robo de vehículo automotor'</span>, <span class="st">'Homicidio culposo'</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Secuestro'</span>, <span class="st">'Feminicidio'</span>, <span class="st">'Lesiones culposas'</span>, <span class="st">'Violencia familiar'</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Homicidio doloso'</span>, <span class="st">'Abuso sexual'</span>, <span class="st">'Extorsión'</span>, <span class="st">'Daño a la propiedad'</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtrar y pivotar para estructurar la matriz estado × delito</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>df_filtrado <span class="op">=</span> df[df[<span class="st">'subtipo_delito'</span>].isin(delitos_interes)].copy()</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>tabla_incidencia <span class="op">=</span> df_filtrado.groupby([<span class="st">'entidad_federativa'</span>, <span class="st">'tipo_delito'</span>])[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().reset_index()</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>tabla_pivot <span class="op">=</span> tabla_incidencia.pivot(index<span class="op">=</span><span class="st">'entidad_federativa'</span>, columns<span class="op">=</span><span class="st">'tipo_delito'</span>, values<span class="op">=</span><span class="st">'incidencia_delictiva'</span>).fillna(<span class="dv">0</span>)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular matriz usando coeficientes de Spearman</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>matriz_correlacion <span class="op">=</span> tabla_pivot.corr(method<span class="op">=</span><span class="st">'spearman'</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualización mediante Heatmap</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>sns.heatmap(</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    matriz_correlacion, </span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    annot<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'coolwarm'</span>, </span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    center<span class="op">=</span><span class="dv">0</span>, </span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, </span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    square<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    linewidths<span class="op">=</span><span class="fl">0.5</span>, </span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    cbar_kws<span class="op">=</span>{<span class="st">"shrink"</span>: <span class="fl">0.8</span>}</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Matriz de Correlación de Spearman entre Diferentes Tipos de Delito por Estado'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>plt.yticks(rotation<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 6. RELACIONES ENTRE VARIABLES ==="</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>delitos_interes <span class="op">=</span> [</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Robo de maquinaria'</span>, <span class="st">'Robo a negocio'</span>, <span class="st">'Robo de vehículo automotor'</span>, <span class="st">'Homicidio culposo'</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Secuestro'</span>, <span class="st">'Feminicidio'</span>, <span class="st">'Lesiones culposas'</span>, <span class="st">'Violencia familiar'</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Homicidio doloso'</span>, <span class="st">'Abuso sexual'</span>, <span class="st">'Extorsión'</span>, <span class="st">'Daño a la propiedad'</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtrar y pivotar para estructurar la matriz estado × delito</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>df_filtrado <span class="op">=</span> df[df[<span class="st">'subtipo_delito'</span>].isin(delitos_interes)].copy()</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>tabla_incidencia <span class="op">=</span> df_filtrado.groupby([<span class="st">'entidad_federativa'</span>, <span class="st">'tipo_delito'</span>])[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().reset_index()</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>tabla_pivot <span class="op">=</span> tabla_incidencia.pivot(index<span class="op">=</span><span class="st">'entidad_federativa'</span>, columns<span class="op">=</span><span class="st">'tipo_delito'</span>, values<span class="op">=</span><span class="st">'incidencia_delictiva'</span>).fillna(<span class="dv">0</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular matriz usando coeficientes de Spearman</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>matriz_correlacion <span class="op">=</span> tabla_pivot.corr(method<span class="op">=</span><span class="st">'spearman'</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualización mediante Heatmap</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>sns.heatmap(</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    matriz_correlacion, </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    annot<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'coolwarm'</span>, </span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    center<span class="op">=</span><span class="dv">0</span>, </span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, </span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    square<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    linewidths<span class="op">=</span><span class="fl">0.5</span>, </span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    cbar_kws<span class="op">=</span>{<span class="st">"shrink"</span>: <span class="fl">0.8</span>}</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Matriz de Correlación de Spearman entre Diferentes Tipos de Delito por Estado'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>plt.yticks(rotation<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>=== 6. RELACIONES ENTRE VARIABLES ===</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-6-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
 </div>
 <blockquote class="blockquote">
 <h3 id="interpretación-de-la-relación-entre-variables-mapa-de-calor" class="anchored">📝 Interpretación de la Relación entre Variables (Mapa de Calor)</h3>
@@ -644,57 +474,47 @@ Despojo                                   4224            1.02</code></pre>
 <li><strong>Implicación para el modelado:</strong> La fuerte coexistencia de ciertas tipologías delictivas a nivel geográfico demuestra que las entidades federativas no sufren de criminalidad aislada, sino de perfiles estructurales de inseguridad de carácter regional. Este hallazgo valida por completo la pertinencia de aplicar técnicas de agrupamiento no supervisado (<em>Clustering</em>) en la siguiente fase para clasificar los estados en regiones homogéneas de riesgo.</li>
 </ul>
 </blockquote>
-<div id="a4374192" class="cell" data-execution_count="11">
+<div id="a4374192" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 7. ANÁLISIS DE VARIABLES CATEGÓRICAS ==="</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">12</span>))</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Por año</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>por_anio <span class="op">=</span> df.groupby(<span class="st">'anio'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().reset_index()</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'anio'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>, data<span class="op">=</span>por_anio, ax<span class="op">=</span>axes[<span class="dv">0</span>,<span class="dv">0</span>], color<span class="op">=</span><span class="st">"#1a6fd4"</span>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">0</span>].set_title(<span class="st">"Incidencia por Año"</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">0</span>].set_xlabel(<span class="st">"Año"</span>)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">0</span>].set_ylabel(<span class="st">"Total de casos"</span>)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">0</span>].tick_params(axis<span class="op">=</span><span class="st">'x'</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Por mes</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>por_mes <span class="op">=</span> df.groupby(<span class="st">'mes'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().reindex(orden_meses).reset_index()</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'mes'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>, data<span class="op">=</span>por_mes, ax<span class="op">=</span>axes[<span class="dv">0</span>,<span class="dv">1</span>], color<span class="op">=</span><span class="st">"#c8a951"</span>)</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">1</span>].set_title(<span class="st">"Incidencia por Mes"</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">1</span>].set_xlabel(<span class="st">"Mes"</span>)</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">1</span>].set_ylabel(<span class="st">"Total de casos"</span>)</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">1</span>].tick_params(axis<span class="op">=</span><span class="st">'x'</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Por estado (top 15)</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>por_estado <span class="op">=</span> df.groupby(<span class="st">'entidad_federativa'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">15</span>).reset_index()</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'incidencia_delictiva'</span>, y<span class="op">=</span><span class="st">'entidad_federativa'</span>, data<span class="op">=</span>por_estado, ax<span class="op">=</span>axes[<span class="dv">1</span>,<span class="dv">0</span>], color<span class="op">=</span><span class="st">"#2ecc71"</span>)</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">0</span>].set_title(<span class="st">"Top 15 Estados con Mayor Incidencia"</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">0</span>].set_xlabel(<span class="st">"Total de casos"</span>)</span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">0</span>].set_ylabel(<span class="st">"Estado"</span>)</span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Por tipo de delito (top 15)</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>por_delito <span class="op">=</span> df.groupby(<span class="st">'subtipo_delito'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">15</span>).reset_index()</span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'incidencia_delictiva'</span>, y<span class="op">=</span><span class="st">'subtipo_delito'</span>, data<span class="op">=</span>por_delito, ax<span class="op">=</span>axes[<span class="dv">1</span>,<span class="dv">1</span>], color<span class="op">=</span><span class="st">"#e74c3c"</span>)</span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">1</span>].set_title(<span class="st">"Top 15 Tipos de Delito"</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">1</span>].set_xlabel(<span class="st">"Total de casos"</span>)</span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">1</span>].set_ylabel(<span class="st">"Tipo de delito"</span>)</span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Análisis Macroscópico de Incidencia Delictiva"</span>, y<span class="op">=</span><span class="fl">1.02</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 7. ANÁLISIS DE VARIABLES CATEGÓRICAS ==="</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">12</span>))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Por año</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>por_anio <span class="op">=</span> df.groupby(<span class="st">'anio'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().reset_index()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'anio'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>, data<span class="op">=</span>por_anio, ax<span class="op">=</span>axes[<span class="dv">0</span>,<span class="dv">0</span>], color<span class="op">=</span><span class="st">"#1a6fd4"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">0</span>].set_title(<span class="st">"Incidencia por Año"</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">0</span>].set_xlabel(<span class="st">"Año"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">0</span>].set_ylabel(<span class="st">"Total de casos"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">0</span>].tick_params(axis<span class="op">=</span><span class="st">'x'</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Por mes</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>por_mes <span class="op">=</span> df.groupby(<span class="st">'mes'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().reindex(orden_meses).reset_index()</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'mes'</span>, y<span class="op">=</span><span class="st">'incidencia_delictiva'</span>, data<span class="op">=</span>por_mes, ax<span class="op">=</span>axes[<span class="dv">0</span>,<span class="dv">1</span>], color<span class="op">=</span><span class="st">"#c8a951"</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">1</span>].set_title(<span class="st">"Incidencia por Mes"</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">1</span>].set_xlabel(<span class="st">"Mes"</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">1</span>].set_ylabel(<span class="st">"Total de casos"</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>,<span class="dv">1</span>].tick_params(axis<span class="op">=</span><span class="st">'x'</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Por estado (top 15)</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>por_estado <span class="op">=</span> df.groupby(<span class="st">'entidad_federativa'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">15</span>).reset_index()</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'incidencia_delictiva'</span>, y<span class="op">=</span><span class="st">'entidad_federativa'</span>, data<span class="op">=</span>por_estado, ax<span class="op">=</span>axes[<span class="dv">1</span>,<span class="dv">0</span>], color<span class="op">=</span><span class="st">"#2ecc71"</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">0</span>].set_title(<span class="st">"Top 15 Estados con Mayor Incidencia"</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">0</span>].set_xlabel(<span class="st">"Total de casos"</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">0</span>].set_ylabel(<span class="st">"Estado"</span>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Por tipo de delito (top 15)</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>por_delito <span class="op">=</span> df.groupby(<span class="st">'subtipo_delito'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">15</span>).reset_index()</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'incidencia_delictiva'</span>, y<span class="op">=</span><span class="st">'subtipo_delito'</span>, data<span class="op">=</span>por_delito, ax<span class="op">=</span>axes[<span class="dv">1</span>,<span class="dv">1</span>], color<span class="op">=</span><span class="st">"#e74c3c"</span>)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">1</span>].set_title(<span class="st">"Top 15 Tipos de Delito"</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">1</span>].set_xlabel(<span class="st">"Total de casos"</span>)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>,<span class="dv">1</span>].set_ylabel(<span class="st">"Tipo de delito"</span>)</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">"Análisis Macroscópico de Incidencia Delictiva"</span>, y<span class="op">=</span><span class="fl">1.02</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>=== 7. ANÁLISIS DE VARIABLES CATEGÓRICAS ===</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-7-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
 </div>
 <blockquote class="blockquote">
 <h3 id="interpretación-del-análisis-volumétrico-categórico" class="anchored">📝 Interpretación del Análisis Volumétrico Categórico</h3>
@@ -703,36 +523,26 @@ Despojo                                   4224            1.02</code></pre>
 <li><strong>Implicación para el modelado:</strong> La marcada estacionalidad mensual y la evolución anual demuestran que el factor tiempo tiene un peso predictivo real en la fluctuación de la delincuencia. La enorme disparidad entre estados confirma que la geografía es un factor discriminante clave, lo que justifica la inclusión formal de <code>anio</code>, <code>mes_num</code> y <code>clave_ent</code> como variables de entrada (<em>features</em>) para el clasificador.</li>
 </ul>
 </blockquote>
-<div id="158f63d4" class="cell" data-execution_count="12">
+<div id="158f63d4" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 8. ANÁLISIS DE SERIES DE TIEMPO ==="</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Validar y formatear campos de series de tiempo deducidos</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'temporal_fecha'</span> <span class="kw">in</span> df.columns:</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'temporal_fecha'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'temporal_fecha'</span>])</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    df_ts <span class="op">=</span> df.groupby(<span class="st">'temporal_fecha'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().reset_index().sort_values(<span class="st">'temporal_fecha'</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    plt.plot(df_ts[<span class="st">'temporal_fecha'</span>], df_ts[<span class="st">'incidencia_delictiva'</span>], color<span class="op">=</span><span class="st">'#003f8a'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, marker<span class="op">=</span><span class="st">'.'</span>, markersize<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">'Evolución Temporal Macroscópica de la Incidencia Delictiva Total (2015-2025)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Línea de Tiempo Histórica'</span>)</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'Volumen Agregado de Delitos Registrados'</span>)</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    plt.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== 8. ANÁLISIS DE SERIES DE TIEMPO ==="</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Validar y formatear campos de series de tiempo deducidos</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'temporal_fecha'</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'temporal_fecha'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'temporal_fecha'</span>])</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    df_ts <span class="op">=</span> df.groupby(<span class="st">'temporal_fecha'</span>)[<span class="st">'incidencia_delictiva'</span>].<span class="bu">sum</span>().reset_index().sort_values(<span class="st">'temporal_fecha'</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    plt.plot(df_ts[<span class="st">'temporal_fecha'</span>], df_ts[<span class="st">'incidencia_delictiva'</span>], color<span class="op">=</span><span class="st">'#003f8a'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, marker<span class="op">=</span><span class="st">'.'</span>, markersize<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">'Evolución Temporal Macroscópica de la Incidencia Delictiva Total (2015-2025)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Línea de Tiempo Histórica'</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'Volumen Agregado de Delitos Registrados'</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    plt.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>=== 8. ANÁLISIS DE SERIES DE TIEMPO ===</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="eda_files/figure-html/notebooks-01_eda-cell-8-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
 </div>
 <blockquote class="blockquote">
 <h3 id="interpretación-dinámica-de-la-serie-de-tiempo-histórica" class="anchored">📝 Interpretación Dinámica de la Serie de Tiempo Histórica</h3>
@@ -1236,40 +1046,40 @@ Figure&nbsp;1: Diagrama de Clases UML de la Infraestructura
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Análisis Exploratorio de Datos (EDA)"</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>**Propósito del EDA:** Comprender la estructura, calidad y distribución de los datos antes de cualquier modelado, e informar las decisiones de preprocesamiento posteriores.</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Desarrollo del Análisis Exploratorio</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>A continuación se presenta el flujo completo de exploración de datos. Este reporte se genera dinámicamente a partir del cuaderno de experimentación oficial, garantizando que el análisis sea 100% reproducible y transparente.</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>{{&lt; embed notebooks/01_eda.ipynb echo=true &gt;}}</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sustentación de la Infraestructura de Software</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>Para garantizar la reproducibilidad del análisis, el aislamiento de los datos y el intercambio dinámico de estrategias de limpieza, todo el ciclo de vida del proyecto se diseñó bajo el paradigma de Programación Orientada a Objetos (POO). En la imagen se despliega la arquitectura del sistema, la cual desacopla la ingesta de archivos mediante el patrón *Repository* (`data_repository.py`) y coordina las etapas secuenciales mediante una estructura de *Pipeline* apoyada por el patrón *Strategy* (<span class="in">`pipeline.py`</span>).</span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="al">![Diagrama de Clases UML de la Infraestructura](diagrams/diagrama_arquitectura.png)</span>{#fig-uml-arquitectura}</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📑 Interpretación Narrativa y Hallazgos del Equipo</span></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### Conclusiones Clave del EDA:</span></span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Calidad de los Datos:** No se detectaron valores faltantes severos en las variables contextuales críticas. El desbalance moderado en la variable objetivo (<span class="in">`bien_juridico_afectado`</span>) se gestionará de manera automatizada mediante pesos balanceados en la etapa de modelado supervisado.</span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Patrones Temporales y Estacionales:** La incidencia delictiva total muestra picos cíclicos consistentes en determinados meses del año (estacionalidad), lo que justifica plenamente la inclusión de <span class="in">`mes_num`</span> y <span class="in">`anio`</span> como características de entrada para los modelos.</span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Estructura Correlacional:** La matriz de correlación de Spearman a nivel estatal revela que ciertas tipologías de delitos coexisten de manera orgánica en las mismas regiones geográficas, validando el uso posterior de algoritmos de agrupamiento (*Clustering*) para segmentar el país en perfiles de seguridad diferenciados.</span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Análisis Exploratorio de Datos (EDA)"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>**Propósito del EDA:** Comprender la estructura, calidad y distribución de los datos antes de cualquier modelado, e informar las decisiones de preprocesamiento posteriores.</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Desarrollo del Análisis Exploratorio</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>A continuación se presenta el flujo completo de exploración de datos. Este reporte se genera dinámicamente a partir del cuaderno de experimentación oficial, garantizando que el análisis sea 100% reproducible y transparente.</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>{{&lt; embed notebooks/01_eda.ipynb echo=true &gt;}}</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sustentación de la Infraestructura de Software</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>Para garantizar la reproducibilidad del análisis, el aislamiento de los datos y el intercambio dinámico de estrategias de limpieza, todo el ciclo de vida del proyecto se diseñó bajo el paradigma de Programación Orientada a Objetos (POO). En la imagen se despliega la arquitectura del sistema, la cual desacopla la ingesta de archivos mediante el patrón *Repository* (`data_repository.py`) y coordina las etapas secuenciales mediante una estructura de *Pipeline* apoyada por el patrón *Strategy* (<span class="in">`pipeline.py`</span>).</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="al">![Diagrama de Clases UML de la Infraestructura](diagrams/diagrama_arquitectura.png)</span>{#fig-uml-arquitectura}</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📑 Interpretación Narrativa y Hallazgos del Equipo</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### Conclusiones Clave del EDA:</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Calidad de los Datos:** No se detectaron valores faltantes severos en las variables contextuales críticas. El desbalance moderado en la variable objetivo (<span class="in">`bien_juridico_afectado`</span>) se gestionará de manera automatizada mediante pesos balanceados en la etapa de modelado supervisado.</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Patrones Temporales y Estacionales:** La incidencia delictiva total muestra picos cíclicos consistentes en determinados meses del año (estacionalidad), lo que justifica plenamente la inclusión de <span class="in">`mes_num`</span> y <span class="in">`anio`</span> como características de entrada para los modelos.</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Estructura Correlacional:** La matriz de correlación de Spearman a nivel estatal revela que ciertas tipologías de delitos coexisten de manera orgánica en las mismas regiones geográficas, validando el uso posterior de algoritmos de agrupamiento (*Clustering*) para segmentar el país en perfiles de seguridad diferenciados.</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
