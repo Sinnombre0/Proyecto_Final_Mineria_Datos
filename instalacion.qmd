@@ -66,39 +66,14 @@ jupyter lab
 
 Orden recomendado:
 
-::: {.steps}
-::: {.step}
-::: {.step-num}1:::
-::: {.step-body}
-##### `notebooks/01_eda.ipynb`
-Limpieza, exploración y visualización inicial de los datos.
-:::
-:::
+notebooks/01_eda.ipynb
 
-::: {.step}
-::: {.step-num}2:::
-::: {.step-body}
-##### `notebooks/02_modelo_supervisado.ipynb`
-Preprocesamiento, entrenamiento, evaluación y guardado del modelo.
-:::
-:::
+notebooks/02_clustering.ipynb
 
-::: {.step}
-::: {.step-num}3:::
-::: {.step-body}
-##### `notebooks/03_clustering.ipynb`
-Agrupamiento, selección de k, visualización e interpretación.
-:::
-:::
+notebooks/03_modelado.ipynb
 
-::: {.step}
-::: {.step-num}4:::
-::: {.step-body}
-##### `notebooks/04_demo_reutilizacion.ipynb`
-Carga del modelo guardado y predicción nueva sin re-entrenar.
-:::
-:::
-:::
+
+notebooks/04_reutilizacion.ipynb
 
 ---
 

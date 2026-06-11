@@ -170,7 +170,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contenido</h2>
    
   <ul>
-  <li><a href="#desarrollo-del-análisis-exploratorio" id="toc-desarrollo-del-análisis-exploratorio" class="nav-link active" data-scroll-target="#desarrollo-del-análisis-exploratorio">Desarrollo del Análisis Exploratorio</a></li>
+  <li><a href="#desarrollo-del-análisis-exploratorio" id="toc-desarrollo-del-análisis-exploratorio" class="nav-link active" data-scroll-target="#desarrollo-del-análisis-exploratorio">Desarrollo del Análisis Exploratorio</a>
+  <ul class="collapse">
+  <li><a href="#sustentación-de-la-infraestructura-de-software" id="toc-sustentación-de-la-infraestructura-de-software" class="nav-link" data-scroll-target="#sustentación-de-la-infraestructura-de-software">Sustentación de la Infraestructura de Software</a></li>
+  </ul></li>
   <li><a href="#interpretación-narrativa-y-hallazgos-del-equipo" id="toc-interpretación-narrativa-y-hallazgos-del-equipo" class="nav-link" data-scroll-target="#interpretación-narrativa-y-hallazgos-del-equipo">📑 Interpretación Narrativa y Hallazgos del Equipo</a></li>
   </ul>
 <div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="notebooks/01_eda-preview.html"><i class="bi bi-journal-code"></i>Desactivar advertencias visuales para mantener limpia la consola/salida</a></li></ul></div></nav>
@@ -740,6 +743,21 @@ Despojo                                   4224            1.02</code></pre>
 </blockquote>
 <a class="quarto-notebook-link" id="nblink-1" href="notebooks/01_eda-preview.html#cfab4896">Source: Desactivar advertencias visuales para mantener limpia la consola/salida</a></div>
 <hr>
+<section id="sustentación-de-la-infraestructura-de-software" class="level3">
+<h3 class="anchored" data-anchor-id="sustentación-de-la-infraestructura-de-software">Sustentación de la Infraestructura de Software</h3>
+<p>Para garantizar la reproducibilidad del análisis, el aislamiento de los datos y el intercambio dinámico de estrategias de limpieza, todo el ciclo de vida del proyecto se diseñó bajo el paradigma de Programación Orientada a Objetos (POO). En la imagen se despliega la arquitectura del sistema, la cual desacopla la ingesta de archivos mediante el patrón <em>Repository</em> (<code>data_repository.py</code>) y coordina las etapas secuenciales mediante una estructura de <em>Pipeline</em> apoyada por el patrón <em>Strategy</em> (<code>pipeline.py</code>).</p>
+<div id="fig-uml-arquitectura" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-uml-arquitectura-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="diagrams/diagrama_arquitectura.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-uml-arquitectura-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Diagrama de Clases UML de la Infraestructura
+</figcaption>
+</figure>
+</div>
+<hr>
+</section>
 </section>
 <section id="interpretación-narrativa-y-hallazgos-del-equipo" class="level2">
 <h2 class="anchored" data-anchor-id="interpretación-narrativa-y-hallazgos-del-equipo">📑 Interpretación Narrativa y Hallazgos del Equipo</h2>
@@ -1236,14 +1254,22 @@ Despojo                                   4224            1.02</code></pre>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📑 Interpretación Narrativa y Hallazgos del Equipo</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sustentación de la Infraestructura de Software</span></span>
 <span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="fu">### Conclusiones Clave del EDA:</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Calidad de los Datos:** No se detectaron valores faltantes severos en las variables contextuales críticas. El desbalance moderado en la variable objetivo (<span class="in">`bien_juridico_afectado`</span>) se gestionará de manera automatizada mediante pesos balanceados en la etapa de modelado supervisado.</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Patrones Temporales y Estacionales:** La incidencia delictiva total muestra picos cíclicos consistentes en determinados meses del año (estacionalidad), lo que justifica plenamente la inclusión de <span class="in">`mes_num`</span> y <span class="in">`anio`</span> como características de entrada para los modelos.</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Estructura Correlacional:** La matriz de correlación de Spearman a nivel estatal revela que ciertas tipologías de delitos coexisten de manera orgánica en las mismas regiones geográficas, validando el uso posterior de algoritmos de agrupamiento (*Clustering*) para segmentar el país en perfiles de seguridad diferenciados.</span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>Para garantizar la reproducibilidad del análisis, el aislamiento de los datos y el intercambio dinámico de estrategias de limpieza, todo el ciclo de vida del proyecto se diseñó bajo el paradigma de Programación Orientada a Objetos (POO). En la imagen se despliega la arquitectura del sistema, la cual desacopla la ingesta de archivos mediante el patrón *Repository* (`data_repository.py`) y coordina las etapas secuenciales mediante una estructura de *Pipeline* apoyada por el patrón *Strategy* (<span class="in">`pipeline.py`</span>).</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="al">![Diagrama de Clases UML de la Infraestructura](diagrams/diagrama_arquitectura.png)</span>{#fig-uml-arquitectura}</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📑 Interpretación Narrativa y Hallazgos del Equipo</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### Conclusiones Clave del EDA:</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Calidad de los Datos:** No se detectaron valores faltantes severos en las variables contextuales críticas. El desbalance moderado en la variable objetivo (<span class="in">`bien_juridico_afectado`</span>) se gestionará de manera automatizada mediante pesos balanceados en la etapa de modelado supervisado.</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Patrones Temporales y Estacionales:** La incidencia delictiva total muestra picos cíclicos consistentes en determinados meses del año (estacionalidad), lo que justifica plenamente la inclusión de <span class="in">`mes_num`</span> y <span class="in">`anio`</span> como características de entrada para los modelos.</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Estructura Correlacional:** La matriz de correlación de Spearman a nivel estatal revela que ciertas tipologías de delitos coexisten de manera orgánica en las mismas regiones geográficas, validando el uso posterior de algoritmos de agrupamiento (*Clustering*) para segmentar el país en perfiles de seguridad diferenciados.</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

@@ -16,6 +16,14 @@ A continuación se presenta el flujo completo de exploración de datos. Este rep
 
 ---
 
+### Sustentación de la Infraestructura de Software
+
+Para garantizar la reproducibilidad del análisis, el aislamiento de los datos y el intercambio dinámico de estrategias de limpieza, todo el ciclo de vida del proyecto se diseñó bajo el paradigma de Programación Orientada a Objetos (POO). En la imagen se despliega la arquitectura del sistema, la cual desacopla la ingesta de archivos mediante el patrón *Repository* (`data_repository.py`) y coordina las etapas secuenciales mediante una estructura de *Pipeline* apoyada por el patrón *Strategy* (`pipeline.py`).
+
+![Diagrama de Clases UML de la Infraestructura](diagrams/diagrama_arquitectura.png){#fig-uml-arquitectura}
+
+---
+
 ## 📑 Interpretación Narrativa y Hallazgos del Equipo
 
 ::: {.callout-tip}
